@@ -1,0 +1,12 @@
+<h1>Lessons listing</h1>
+<% @lessons.each do |lesson| %>
+	<p>
+	<h3>Lesson <%= lesson.id %>&nbsp<%= lesson.name %>
+    <%= link_to 'Edit', edit_lesson_path(lesson) %></h3>
+	There are <%= lesson.quizzes.count %> quizzes for this lesson
+	<%= link_to 'Show', lesson_quizs_path(lesson) %>
+	 <%= link_to 'Add a quiz', new_lesson_quiz_path(lesson) %>
+	</p>
+	<p>
+  <% end %>
+  </p>

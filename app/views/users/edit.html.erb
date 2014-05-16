@@ -1,0 +1,30 @@
+<%= form_for :user, url: user_path(@user), method: :patch do |f| %>
+  <p>
+    <%= f.label :username %><br>
+    <%= f.text_field :name %>
+  </p>
+ 
+  <p>
+    <%= f.label :password%><br>
+    <%= f.password_field :password %>
+  </p>
+    
+  <p>
+    <%= f.label :password_confirmation%><br>
+    <%= f.password_field :password_confirmation %>
+  </p>
+
+  	<p>
+    <%= f.label :lesson%><br>
+    <%= f.text_field :lesson_id %>
+  </p>  
+
+	<p>
+    <%= f.label :level%><br>
+    <%= f.text_field :level %>
+  </p>  
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Users List', users_path %>

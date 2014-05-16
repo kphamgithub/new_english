@@ -1,0 +1,33 @@
+<h1>Content: <%= @lesson.content %></h1>
+<h1>Level:<%= @lesson.level %></h1>
+<p>
+  <strong>Content:</strong>
+  <%= @lesson.content %>
+  <table>
+<tr>
+<td>
+<%= video_tag @lesson.video, :size => "320x240", :controls => true,:onended => "video_ended()" %>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</table>
+
+<p>There should be a check mark here:</p>
+<div class="ui-icon ui-icon-check"></div>
+<p>Click to open the date picker:</p>
+<p><input type="text" class="datepicker"></p>
+
+
+</p>
+ <%= button_tag(:type => 'button', :id => "quiz_button", :onclick =>  @take_quizzes_link) do %>
+  Quizes
+<% end %>
+<p>
+  <strong>Level:</strong>
+  <%= @lesson.level %>
+  
+</p>
+

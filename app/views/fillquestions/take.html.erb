@@ -1,0 +1,11 @@
+<%= form_for :fillquestion, url: process_question_fillquestion_path(@fillquestion) do |f| %>
+    <p>
+	<%= f.label @fillquestion.question %>
+	</p>
+	<p>
+	<%= f.text_field :answer %>
+ 	</p>
+	<p>
+	<%= f.submit %>
+	</p>
+<% end %>

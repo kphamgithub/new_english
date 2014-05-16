@@ -1,0 +1,31 @@
+<h3> take_quiz </h3>
+<p> 
+<%= @source_question.class.to_s %>
+</p>
+<% if @source_question.class.to_s == "Multichoicequestion" %>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+  <p>
+  <%= radio_button_tag 'choice', @source_question.choice1 %>
+  <%= @source_question.choice1 %>
+  </p>
+  <p>
+  <%= radio_button_tag 'choice', @source_question.choice2 %>
+  <%= @source_question.choice2 %>
+  </p>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>
+<% elsif @source_question.class.to_s == "Fillquestion" %>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+  <p>
+  <%= @source_question.question %>
+  </p>
+  <p>
+  <%= text_field_tag 'answer' %>
+  </p>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   
+<% end %>

@@ -1,0 +1,26 @@
+<h1> EDIT LESSON </h1>
+<%= form_for :lesson, url: lesson_path(@lesson), method: :patch do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, :value => @lesson.name  %>
+  </p>
+
+  <p>
+    <%= f.label :content %><br>
+    <%= f.text_field :content, :value => @lesson.content  %>
+  </p>
+  
+    <p>
+    <%= f.label :video %><br>
+    <%= f.text_field :video, :value => @lesson.video  %>
+  </p>
+  
+    <p>
+    <%= f.label :level%><br>
+    <%= f.text_field :level, :value => @lesson.level  %>
+  </p>  
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Lessons List', lessons_path %>

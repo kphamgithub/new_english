@@ -1,0 +1,16 @@
+<h3> Add questions for this quiz: </h3>
+<p> Select questions: </p>
+<%= form_tag save_questions_lesson_quiz_path :method=>'post' do %>
+<% if @available_questions.count == 0 %>
+   <%= link_to 'new multichoice', new_multichoicequestion_path %>
+<% else %>
+    <% @available_questions.each do |q| %>	
+		<%= check_box_tag q.class.to_s + '_' + q.id.to_s %> <%= q.name %> id = <%= q.id %>
+	<p>
+	<% end %>
+	</p>
+	<p>
+	<%= submit_tag "Save selection" %>
+	</p>
+	<% end %>
+<% end %>

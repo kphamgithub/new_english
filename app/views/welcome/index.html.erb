@@ -1,0 +1,23 @@
+<div class="center hero-unit">
+  <h1>Welcome to TiengAnhTuyHoa.com.</h1> 
+	    <% if current_user %>
+        <% if current_user.name == "kpham" %>
+		   <p><%= link_to "manage users", users_path %></p>
+		   <p><%= link_to "manage lessons", lessons_path %></p>
+		   <p><%= link_to "new multichoice question", new_multichoicequestion_path %></p>
+		   <p><%= link_to "new fill question", new_fillquestion_path %></p>
+		<% else %>
+			<p>Your level: <%= current_user.level %></p>
+			
+			<p>Your Current Lesson:
+			<%= link_to @my_lesson.name, lesson_path(current_user.lesson_id)%>
+			<% quizzes = @my_lesson.quizzes %>
+			</p>
+			<p>Your quizzes for this lesson:</p>
+			<% quizzes.each do |q| %>
+				<p><%= q.name %><%= link_to "see results", user_quiz_quizquestionresults_path(current_user,q) %>
+				</p>
+			<% end %>
+		<% end %>
+        <% end %>
+</div>

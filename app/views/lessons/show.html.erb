@@ -1,0 +1,25 @@
+<h1><%= @lesson.name %></h1>
+<p>Level:<%= @lesson.level %></p>
+<p>
+  <strong>Content:</strong>
+  <%= @lesson.content %>
+  <table>
+<tr>
+<td>
+<%= video_tag @lesson.video, :size => "320x240", :controls => true,:onended => "video_ended()" %>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</table>
+
+</p>
+ <%= button_tag(:type => 'button', :id => "quiz_button", :onclick =>  @take_quizzes_link) do %>
+  Quizes
+<% end %>
+<p>
+  <strong>Level:</strong>
+  <%= @lesson.level %>  
+</p>

@@ -1,0 +1,13 @@
+<% provide(:title, @user.name) %>
+<h3>User ID = <%= @user.id %></h3>
+<h3>Name = <%= @user.name %></h3>
+<h3>Level = <%= @user.level %></h3>
+<h3>Lesson = <%= @lesson.name %></h3>
+<% quizzes = @lesson.quizzes %>
+<% quizzes.each do |q| %>
+	<p><%= q.name %> quiz id= <%= q.id %>
+<%= link_to 'See results', list_questionresults_user_quiz_path(@user, q) %>
+	</p>
+<% end %>
+
+

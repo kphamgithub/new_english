@@ -1,0 +1,16 @@
+    <h2> Fillquestions. For Admin only</h2>
+	<% @fillquestions.each do |q| %>
+	<p> Question id:
+	<%= q.id %>
+	</p>
+    <p> Name: 
+	<%= q.name %>
+	</p>
+    <p>
+	<%= q.question %>
+	</p>
+	<p> ************ </p>
+	<% end %>
+
+
+

@@ -1,0 +1,11 @@
+<h3> Quiz results </h3>
+<% if @quizquestionresults.count == 0 %>
+<p><%= @user.name %> did not take this quiz yet </p>
+<% else %>
+<p> <%= @user.name %> </p>
+<p> Quiz: <%= @quiz.name %>, quiz id=<%= @quiz.id %> </p>
+<p> Results count: <%= @results.count %> </p>
+<% @results.each do |r| %>
+	<p>question: <%= r[:question] %>Your answer: <%= r[:user_answer] %>Correct answer: <%= r[:correct_answer] %><%= r[:status] %></p>
+<% end %>
+<% end %>

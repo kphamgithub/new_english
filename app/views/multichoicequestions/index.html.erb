@@ -1,0 +1,19 @@
+    <h2> For Admin only</h2>
+	<% @multichoicequestions.each do |q| %>
+	<p> Question id:
+	<%= q.id %>
+	</p>
+    <p> Name: 
+	<%= q.name %>
+	</p>
+    <p>
+	<%= q.question %>
+	</p>
+	<%= q.choice1 %>
+	<%= q.choice2 %>
+	<%= q.choice3 %>
+	<p> ************ </p>
+	<% end %>
+
+
+

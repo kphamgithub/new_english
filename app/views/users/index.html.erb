@@ -1,0 +1,27 @@
+<h1>Users Listing (for Admin only) </h1>
+ 
+<table>
+  <tr>
+    <th>User id</th>
+    <th> Name</th> 
+    <th> Lesson ID</th>
+	<th> Quizzes </th>
+    <th> Level</th>
+    <th> Function</th>  
+	<th> </th>  
+  </tr>
+ 
+  <% @users.each do |user| %>
+  <% lesson = Lesson.find(user.lesson_id) %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.name %></td>
+	  <td><%= lesson.name %></td>
+	  <td><%= lesson.quizzes.count %></td>
+	  <td><%= user.level %></td>
+	  <td><%= link_to "Show", user_path(user.id) %></td>
+	  <td><%= link_to "Edit", edit_user_path(user.id) %></td>
+	  </td>
+    </tr>
+  <% end %>
+</table>

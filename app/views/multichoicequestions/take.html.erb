@@ -1,0 +1,23 @@
+<%= form_for :multichoicequestion, url: process_question_multichoicequestion_path(@multichoicequestion) do |f| %>
+    <p>
+	<%= f.label @multichoicequestion.question %>
+	</p>
+	<p>
+    <%= f.radio_button  :choice, @multichoicequestion.choice1 %> 
+	<%= @multichoicequestion.choice1 %>
+	</p>
+	<p>
+    <%= f.radio_button :choice, @multichoicequestion.choice2 %>
+	<%= @multichoicequestion.choice2 %>
+	</p>	
+	<p>
+    <%= f.radio_button :choice, @multichoicequestion.choice3 %>
+	<%= @multichoicequestion.choice3 %>
+	</p>	
+    <p>
+	</p>
+	<br>
+	<p>
+	<%= f.submit "Next" %>
+	</p>
+<% end %>

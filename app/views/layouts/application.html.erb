@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>English Exercise</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+	  <div id = "user_nav">
+	  <% if current_user %>
+	  Logged in as <%= current_user.name %>
+	  <%= link_to "Log out", log_out_path %>
+	  <% else %>
+	  <%= link_to "Log in", log_in_path %>
+	  <% end %>
+	  </div>
+      <div class="navbar-inner">
+        <div class="container">
+          <nav>
+            <ul class="nav pull-right">
+              <li><%= link_to "Home",    'http://localhost:3000/welcome/index' %></li>
+			  <li><%= link_to "About",    '#' %></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+	    <div class="container">
+		    <% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %>"><%= value %></div>
+			<% end %>
+			<%= yield %>
+		</div>
+</body>
+</html>

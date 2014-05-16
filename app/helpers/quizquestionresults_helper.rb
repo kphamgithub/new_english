@@ -1,0 +1,2 @@
+module QuizquestionresultsHelper
+end

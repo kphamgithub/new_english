@@ -1,0 +1,12 @@
+<h3> List quiz questions results for user: <%= @user.name %></h3>
+<p> Select questions: </p>
+<%= form_tag delete_questionresults_user_quiz_path method: :delete do %>  
+    <% @quizquestionresults.each do |q| %>	
+		<%= check_box_tag 'delete'+'_'+q.id.to_s %> <%= q.answer %>
+	<p>
+	<% end %>
+	</p>
+	<p>
+	<%= submit_tag "Delete selection" %>
+	</p>
+<% end %>
