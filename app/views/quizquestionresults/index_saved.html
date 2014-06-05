@@ -1,15 +1,13 @@
 <h3> Quiz results </h3>
 <% if @quizquestionresults.count == 0 %>
-<p><%= @user.name %> did not take this quiz yet</p>
+<p><%= @user.name %> did not take this quiz yet </p>
 <% else %>
 <p> <%= @user.name %> </p>
 <p> Quiz: <%= @quiz.name %>, quiz id=<%= @quiz.id %> </p>
-<p> Number of questions: <%= @results_arr.count %> </p>
-<p> Results: <%= @test %></p>
+<p> Results array count: <%= @results_arr.count %> </p>
 <% @results_arr.each do |r| %>
-    <%= r["qtype"] %>
-    <% if r["qtype"] == "Matchquestion" %>
-			<table width = "350">	    
+    <% if r["qtype"] == "Matchquestion" %>	
+	<table width = "350">	    
 	   <tr>
 	      <td>
 		  <table>
@@ -36,7 +34,7 @@
 	   </tr>
 	</table>	
 	<% elsif r["qtype"] == "Fillquestion" %>
-		<p>user answer: <%= r[:user_answer] %></p>
+	   <p>user answer: <%= r[:user_answer] %></p>
 	   <p>key: <%= r[:key] %></p>
 	   <p>status: <%= r[:status] %></p>
 	<% end %>

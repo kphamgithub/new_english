@@ -12,12 +12,12 @@ class QuizquestionresultsController < ApplicationController
 	 @results_arr = Array.new
 	 results_hash = Hash.new
 	 @quizquestionresults = Quizquestionresult.where("user_id = ? and quiz_id = ?", params[:user_id], params[:quiz_id] )
-	@quizquestionresults.each do |qqr|
+	 @quizquestionresults.each do |qqr|
 		quizquestion = qqr.quizquestion
 		origin_id = quizquestion.origin_id
 		question_type = quizquestion.qtype
 		question = nil
-		results_hash = Hash.new
+		myresult = Hash.new
 		if question_type == "Multichoicequestion"
 		elsif question_type == "Fillquestion"
 			results_hash["qtype"] = "Fillquestion"
@@ -29,7 +29,6 @@ class QuizquestionresultsController < ApplicationController
 			else
 			   results_hash[:status] = "incorrect"
 			end
-			#@results_arr.push(results_hash)
 		elsif question_type == "Matchquestion"
 			results_hash["qtype"] = "Matchquestion"
 		    user_answer_hash = eval(qqr.answer)
@@ -55,10 +54,9 @@ class QuizquestionresultsController < ApplicationController
 			end
 			results_hash["user_answers"] = user_answers
 			results_hash["answer_keys"] = answer_keys
-			#@results_arr.push(results_hash)
 		end		
 		@results_arr.push(results_hash)
-	end	
+	 end	
   end
   
   def destroy

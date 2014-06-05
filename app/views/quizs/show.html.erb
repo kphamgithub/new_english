@@ -10,7 +10,6 @@
 		<%= q.match_id %>
 	<% end %>
 			<%= button_to "Delete ", { controller: "quizquestions", action: "destroy", quiz_id: @quiz.id, id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
-
 	</p>
 	<p>
   <% end %>  
