@@ -1,0 +1,10 @@
+<%= form_tag (process_question_matchquestion_path) do %>
+	<%=select_tag "people", options_from_collection_for_select([ { :id => 1, :name => 'Foo' }, { :id => 2, :name => 'Bar' } ], 'id', 'name') %>
+    <p>
+  <%= text_field_tag 'answer' %>
+  </p>
+
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   

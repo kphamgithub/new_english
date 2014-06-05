@@ -22,13 +22,13 @@ class MultichoicequestionsController < ApplicationController
 	  redirect_to multichoicequestion_path
   end
 
-  def remove_from_quiz
+  #def remove_from_quiz
 	  #render text: params[:id].inspect
-      @multichoicequestion = Multichoicequestion.find(params[:id])	  
-	  @multichoicequestion.quiz_id = 0
-	  @multichoicequestion.save
-	  redirect_to multichoicequestion_path
-  end
+   #   @multichoicequestion = Multichoicequestion.find(params[:id])	  
+	#  @multichoicequestion.quiz_id = 0
+	 # @multichoicequestion.save
+	 # redirect_to multichoicequestion_path
+  #end
 	
   def create
 	  #render text: params[:multichoicequestion].inspect    

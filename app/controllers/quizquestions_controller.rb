@@ -11,10 +11,11 @@ class QuizquestionsController < ApplicationController
 		#render text: "MULTI"
 	elsif @quizquestion.qtype == "Fillquestion"
 	    #render text: "FILL"
-		@source_question = Fillquestion.find(@quizquestion.origin_id)		
+		@source_question = Fillquestion.find(@quizquestion.origin_id)
+    elsif @quizquestion.qtype == "Matchquestion"
+	    @source_question = Matchquestion.where("match_id = 1" )
+		#render text: @source_question.count		
 	end
-	
-	
 	#render text: @next_question.id
   end
   
@@ -22,18 +23,22 @@ class QuizquestionsController < ApplicationController
     @quizquestion = Quizquestion.find(params[:id])
 	@quiz = Quiz.find(params[:quiz_id])
     #render text: params.inspect
+	#render text: params[:matchquestion]
 	#render text: params[:answer] # for fillquestion only
 	#render text: @next_question.id
+			
 	if @quizquestion.qtype == "Multichoicequestion"
 		uanswer = params[:choice]
 	elsif @quizquestion.qtype == "Fillquestion"
 		uanswer = params[:answer]
+	elsif @quizquestion.qtype == "Matchquestion"
+	    #uanswer = params[:matchquestion].to_s
+		uanswer =  params[:matchquestion].to_s		
+		#"matchquestion"=>{"left_0"=>"green", "right_0"=>"tree", "left_1"=>"blue", "right2"=>"sky"}
 	end
-	
 	@user = current_user
 	uid = @user.id
 	   #@quizquestionresults = Quizquestionresult.where("user_id = ? and quiz_id = ?  and quizquestion_id = ?", uid, @quiz.id, params[:id] )
-
 		qqr = Quizquestionresult.find_by(user_id: uid, quiz_id: @quiz.id, quizquestion_id: params[:id])
 		if qqr == nil
 			qqr = Quizquestionresult.new(user_id: uid, quiz_id: @quiz.id, quizquestion_id: @quizquestion.id,answer: uanswer)
@@ -51,6 +56,9 @@ class QuizquestionsController < ApplicationController
   end
   
   def destroy
+    #render text: params.inspect
+	# "action"=>"destroy", "controller"=>"quizquestions", "lesson_id"=>"1", "quiz_id"=>"9", "id"=>"27"}
+
 	@quizquestion = Quizquestion.find(params[:id])
 	my_quiz = Quiz.find(@quizquestion.quiz_id)
 	@quizquestion.destroy
@@ -58,3 +66,5 @@ class QuizquestionsController < ApplicationController
 	redirect_to lesson_quiz_path(my_quiz.lesson,my_quiz)
   end
 end
+
+

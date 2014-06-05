@@ -9,28 +9,45 @@ class QuizquestionresultsController < ApplicationController
 	 #quizquestions.each do |qq|
 		#origin_id = qq.origin_id
 	 #end
-	 @results = Array.new
+	 @results_arr = Array.new
+	 @results_hash = Hash.new
 	 @quizquestionresults = Quizquestionresult.where("user_id = ? and quiz_id = ?", params[:user_id], params[:quiz_id] )
 	 @quizquestionresults.each do |qqr|
 		quizquestion = qqr.quizquestion
 		origin_id = quizquestion.origin_id
-		qtype = quizquestion.qtype
+		question_type = quizquestion.qtype
 		question = nil
-		correct_answer = nil
 		myresult = Hash.new
-		question = Fillquestion.find(origin_id)
-		correct_answer = question.answer
-
-		myresult[:question] = question.question
-		myresult[:user_answer] = qqr.answer
-		myresult[:correct_answer] = correct_answer
-		if qqr.answer == correct_answer
-			myresult[:status] = "right"
-		else
-			myresult[:status] = "wrong"
-		end
-		@results.push(myresult)
-	 end	 
+		if question_type == "Multichoicequestion"
+		elsif question_type == "Fillquestion"
+		elsif question_type == "Matchquestion"
+			@results_hash["qtype"] = "Matchquestion"
+		    user_answer_hash = eval(qqr.answer)
+			questions = Matchquestion.where("match_id = ?",quizquestion.match_id)
+			answer_keys = []
+			questions.each_with_index do |question,index|
+			   #save all answer keys in an array
+			   key = question.left + ' ' + question.right 
+			   answer_keys.push(key)
+			end
+			user_answers = []
+			s = ' '
+			user_answer_hash.each_with_index do |(key, val),index|
+			   remainder = index%2
+			   if remainder == 0
+			       s = val
+				   s << ' '
+			   else
+			       s << val
+				   user_answers.push(s)
+				   s = ' '
+			   end 
+			end
+			@results_hash["user_answers"] = user_answers
+			@results_hash["answer_keys"] = answer_keys
+		end		
+		@results_arr.push(@results_hash)
+	 end	
   end
   
   def destroy

@@ -4,8 +4,35 @@
 <% else %>
 <p> <%= @user.name %> </p>
 <p> Quiz: <%= @quiz.name %>, quiz id=<%= @quiz.id %> </p>
-<p> Results count: <%= @results.count %> </p>
-<% @results.each do |r| %>
-	<p>question: <%= r[:question] %>Your answer: <%= r[:user_answer] %>Correct answer: <%= r[:correct_answer] %><%= r[:status] %></p>
+<p> Results array count: <%= @results_arr.count %> </p>
+<% @results_arr.each do |r| %>
+    <% if r["qtype"] == "Matchquestion" %>	
+	<table width = "350">	    
+	   <tr>
+	      <td>
+		  <table>
+		    <% r["user_answers"].each do |user_answer| %>
+		    <tr>			 
+			  <td>
+			    <%= user_answer %>
+			  </td>
+			</tr>
+			<% end %>
+		  </table>
+		  </td>	
+		 <td>
+		  <table>
+		    <% r["answer_keys"].each do |key| %>
+		    <tr>			 
+			  <td>
+			    <%= key %>
+			  </td>
+			</tr>
+			<% end %>
+		  <table>
+		  </td>	
+	   </tr>
+	</table>	
+	<% end %>
 <% end %>
 <% end %>

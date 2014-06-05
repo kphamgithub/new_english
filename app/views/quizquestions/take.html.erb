@@ -1,8 +1,9 @@
-<h3> take_quiz </h3>
+<h3> Take_quiz </h3>
 <p> 
-<%= @source_question.class.to_s %>
+for admin only <%= @source_question.class.to_s %>
 </p>
-<% if @source_question.class.to_s == "Multichoicequestion" %>
+
+<% if @quizquestion.qtype == "Multichoicequestion" %>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
   <p>
   <%= radio_button_tag 'choice', @source_question.choice1 %>
@@ -16,13 +17,44 @@
   <%= submit_tag "Submit"%>
   </p>
 <% end %>
-<% elsif @source_question.class.to_s == "Fillquestion" %>
+
+<% elsif @quizquestion.qtype == "Fillquestion" %>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
   <p>
   <%= @source_question.question %>
   </p>
   <p>
   <%= text_field_tag 'answer' %>
+  </p>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   
+<% elsif @quizquestion.qtype == "Matchquestion" %>
+<p> HERE </p>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+  <p>
+  match id: <%= @quizquestion.match_id %>
+  </p>
+  <p>
+  <table>
+  <tr>
+  <td>
+  <%= collection_select :matchquestion, :left_0, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :left, :left %>
+  </td>
+  <td>
+  <%= collection_select :matchquestion, :right_0, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :right, :right %>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <%= collection_select :matchquestion, :left_1, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :left, :left %>
+  </td>
+  <td>
+  <%= collection_select :matchquestion, :right_1, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :right, :right %>
+  </td>
+  </tr>
+  </table>
   </p>
   <p>
   <%= submit_tag "Submit"%>

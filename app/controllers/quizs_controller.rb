@@ -101,8 +101,7 @@ class QuizsController < ApplicationController
 		 end
 	  end
 	  @fillquestions = Fillquestion.all
-	  
-	  	  @fillquestions.each do |question|
+	  	 @fillquestions.each do |question|
 	     #find this question in quizquestions table FOR THIS QUIZ
 		 found = false
 		 @quiz.quizquestions.each do |quizquestion|
@@ -120,6 +119,25 @@ class QuizsController < ApplicationController
 	  end
       #render text: @available_questions.count
 	  #render text: @quiz.id
+	  @matchquestions = Matchquestion.all
+	  	 @matchquestions.each do |question|
+	     #find this question in quizquestions table FOR THIS QUIZ
+		 found = false
+		 @quiz.quizquestions.each do |quizquestion|
+			if (question.id == quizquestion.origin_id and quizquestion.qtype == "Matchquestion" )
+			   found = true
+			   break
+			    #testarr.push(question.name)
+				#break
+			end			
+		 end
+		 if !found
+			#testarr.push(question.name)
+			@available_questions.push(question)
+		 end
+	  end
+
+	  
   end
     
     def add_questions_error
@@ -135,7 +153,7 @@ class QuizsController < ApplicationController
 	  # 		        Fillquestion_1 => 1
 		 
 	  mykeys.each do |k|
-	   if (k.include? "Multichoicequestion") or (k.include? "Fillquestion")
+	   if (k.include? "Multichoicequestion") or (k.include? "Fillquestion") or (k.include? "Matchquestion")
 	    arr = k.split('_')		
 		#render text: arr[0]    #type 
 		#render text: arr[1]    #id

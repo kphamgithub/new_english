@@ -1,4 +1,5 @@
 NewEnglish::Application.routes.draw do
+  get "matchquestions/index"
   get "lessons/index"
   get "sessions/new"
   get "welcome/index"
@@ -61,6 +62,16 @@ NewEnglish::Application.routes.draw do
 	 end
 
 	 resources :fillquestions do
+		member do
+			get 'take'
+		end
+		member do
+		    post 'process_question'
+			post 'remove_from_quiz'
+		end
+	 end
+
+	 resources :matchquestions do
 		member do
 			get 'take'
 		end

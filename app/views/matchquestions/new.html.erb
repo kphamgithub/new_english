@@ -1,0 +1,22 @@
+<%= form_for :matchquestion, url: matchquestions_path do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </p>
+  <p>
+    <%= f.label :matchid%><br>
+    <%= f.text_field :match_id %>
+  </p>  
+      <p>
+    <%= f.label :m1%><br>
+    <%= f.text_field :m1 %>
+  </p>  
+    <p>
+    <%= f.label :m2%><br>
+    <%= f.text_field :m2 %>
+  </p>  
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Lessons List', matchquestions_path %>

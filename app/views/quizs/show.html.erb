@@ -1,10 +1,16 @@
 <h1>Quiz</h1>
-<h2><%= @quiz.name %></h2>
+<h3>Name:<%= @quiz.name %></h3>
+<h3>id = <%= @quiz.id%> This quiz belongs to lesson: <%= @quiz.lesson.name %></h3>
 <p>Number of questions: <%= @quiz.quizquestions.count %></p>
 <% @quiz.quizquestions.each do |q| %>
 	<p>
     <%= q.qtype %> 
 	id = <%= q.origin_id %>
+	<% if q.qtype == "Matchquestion" %>match id:
+		<%= q.match_id %>
+	<% end %>
+			<%= button_to "Delete ", { controller: "quizquestions", action: "destroy", quiz_id: @quiz.id, id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
+
 	</p>
 	<p>
   <% end %>  

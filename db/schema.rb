@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514115626) do
+ActiveRecord::Schema.define(version: 20140603234109) do
 
   create_table "fillquestions", force: true do |t|
     t.string   "name"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20140514115626) do
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "audio"
+    t.string   "image"
   end
 
   create_table "lessons", force: true do |t|
@@ -30,18 +32,29 @@ ActiveRecord::Schema.define(version: 20140514115626) do
     t.integer  "level"
   end
 
+  create_table "matchquestions", force: true do |t|
+    t.integer  "quizquestion_id"
+    t.string   "name"
+    t.string   "question"
+    t.string   "match_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "left"
+    t.string   "right"
+  end
+
   create_table "multichoicequestions", force: true do |t|
     t.string   "name"
     t.string   "question"
     t.string   "audio"
     t.string   "video"
-    t.string   "image"
     t.string   "choice1"
     t.string   "choice2"
     t.string   "choice3"
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image"
   end
 
   create_table "quizquestionresults", force: true do |t|
@@ -60,6 +73,7 @@ ActiveRecord::Schema.define(version: 20140514115626) do
     t.datetime "updated_at"
     t.integer  "origin_id"
     t.string   "qtype"
+    t.string   "match_id"
   end
 
   create_table "quizzes", force: true do |t|

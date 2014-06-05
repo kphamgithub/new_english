@@ -1,3 +1,22 @@
+<% unless @multichoicequestion.image.nil? %>
+<div>
+<%= image_tag @multichoicequestion.image %>
+    <p>
+	<br>
+	</p>
+</div>
+<% end %>
+
+<% unless @multichoicequestion.audio.nil? %>
+<div>
+<%= audio_tag @multichoicequestion.audio, class: "audio_volume_only", id: "myAudio", controls: true %>
+<p>
+<br>
+</p>
+</div>
+<% end %>
+
+
 <%= form_for :multichoicequestion, url: process_question_multichoicequestion_path(@multichoicequestion) do |f| %>
     <p>
 	<%= f.label @multichoicequestion.question %>
