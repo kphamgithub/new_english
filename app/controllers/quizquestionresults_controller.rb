@@ -19,6 +19,15 @@ class QuizquestionresultsController < ApplicationController
 		question = nil
 		results_hash = Hash.new
 		if question_type == "Multichoicequestion"
+		    results_hash["qtype"] = "Multichoicequestion"
+		    question = Multichoicequestion.find(origin_id)
+			results_hash[:key] = question.answer
+			results_hash[:user_answer] = qqr.answer
+			if question.answer == qqr.answer
+			   results_hash[:status] = "correct"
+			else
+			   results_hash[:status] = "incorrect"
+			end
 		elsif question_type == "Fillquestion"
 			results_hash["qtype"] = "Fillquestion"
 		    question = Fillquestion.find(origin_id)

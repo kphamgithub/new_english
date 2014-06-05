@@ -5,14 +5,22 @@
 <p> <%= @user.name %> </p>
 <p> Quiz: <%= @quiz.name %>, quiz id=<%= @quiz.id %> </p>
 <p> Number of questions: <%= @results_arr.count %> </p>
-<p> Results: <%= @test %></p>
-<% @results_arr.each do |r| %>
-    <%= r["qtype"] %>
-    <% if r["qtype"] == "Matchquestion" %>
-			<table width = "350">	    
+<% @results_arr.each_with_index do |r, index| %>
+    <p>Question <%= index + 1 %>:<%= r["qtype"] %></p>
+	<% if r["qtype"] == "Multichoicequestion" %>
+	  <div>
+	   <p>
+	   <p>user answer: <%= r[:user_answer] %></p>
+	   <p>key: <%= r[:key] %></p>
+	   <p>status: <%= r[:status] %></p>
+	  </div>
+    <% elsif r["qtype"] == "Matchquestion" %>
+	   <div>
+		<table width = "350">	    
 	   <tr>
 	      <td>
 		  <table>
+		   <th>User answer</th>
 		    <% r["user_answers"].each do |user_answer| %>
 		    <tr>			 
 			  <td>
@@ -24,6 +32,7 @@
 		  </td>	
 		 <td>
 		  <table>
+		   <th>Correct answers</th>
 		    <% r["answer_keys"].each do |key| %>
 		    <tr>			 
 			  <td>
@@ -31,14 +40,17 @@
 			  </td>
 			</tr>
 			<% end %>
-		  <table>
+		  </table>
 		  </td>	
 	   </tr>
 	</table>	
+	</div>
 	<% elsif r["qtype"] == "Fillquestion" %>
+	   <div>
 		<p>user answer: <%= r[:user_answer] %></p>
 	   <p>key: <%= r[:key] %></p>
 	   <p>status: <%= r[:status] %></p>
+	   </div>
 	<% end %>
 <% end %>
 <% end %>
