@@ -4,7 +4,9 @@ class QuizquestionsController < ApplicationController
   end
   
   def take
-    @quizquestion = Quizquestion.find(params[:id])
+    #render text: params.inspect
+	#{"action"=>"take", "controller"=>"quizquestions", "lesson_id"=>"1", "quiz_id"=>"9", "id"=>"32"}
+	@quizquestion = Quizquestion.find(params[:id])
 	@source_question = nil
 	if @quizquestion.qtype == "Multichoicequestion"
 		@source_question = Multichoicequestion.find(@quizquestion.origin_id)
@@ -13,20 +15,16 @@ class QuizquestionsController < ApplicationController
 	    #render text: "FILL"
 		@source_question = Fillquestion.find(@quizquestion.origin_id)
     elsif @quizquestion.qtype == "Matchquestion"
-	    @source_question = Matchquestion.where("match_id = 1" )
-		#render text: @source_question.count		
-	end
-	#render text: @next_question.id
+	    @source_question = Matchquestion.where(@quizquestion.match_id)
+		#render text: params.inspect	
+	end	
   end
   
   def processquestion
     @quizquestion = Quizquestion.find(params[:id])
 	@quiz = Quiz.find(params[:quiz_id])
     #render text: params.inspect
-	#render text: params[:matchquestion]
-	#render text: params[:answer] # for fillquestion only
-	#render text: @next_question.id
-			
+	
 	if @quizquestion.qtype == "Multichoicequestion"
 		uanswer = params[:choice]
 	elsif @quizquestion.qtype == "Fillquestion"
@@ -34,7 +32,7 @@ class QuizquestionsController < ApplicationController
 	elsif @quizquestion.qtype == "Matchquestion"
 	    #uanswer = params[:matchquestion].to_s
 		uanswer =  params[:matchquestion].to_s		
-		#"matchquestion"=>{"left_0"=>"green", "right_0"=>"tree", "left_1"=>"blue", "right2"=>"sky"}
+		#"matchquestion"=>{"answer0"=>"sky", "answer1"=>"tree"},
 	end
 	@user = current_user
 	uid = @user.id
@@ -52,7 +50,8 @@ class QuizquestionsController < ApplicationController
 	redirect_to take_lesson_quiz_quizquestion_path(@quiz.lesson,@quiz,@quizquestion.next.id)
 	else
 	  redirect_to user_quiz_quizquestionresults_path(@user,@quiz)
-	end
+	end	
+	
   end
   
   def destroy

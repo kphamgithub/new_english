@@ -56,7 +56,7 @@ NewEnglish::Application.routes.draw do
 			get 'take'
 		end
 		member do
-		    post 'process_question'
+		    #post 'process_question'
 			post 'remove_from_quiz'
 		end
 	 end
@@ -66,7 +66,7 @@ NewEnglish::Application.routes.draw do
 			get 'take'
 		end
 		member do
-		    post 'process_question'
+		    #post 'process_question'
 			post 'remove_from_quiz'
 		end
 	 end
@@ -76,7 +76,16 @@ NewEnglish::Application.routes.draw do
 			get 'take'
 		end
 		member do
-		    post 'process_question'
+		    #post 'process_question'
+			post 'remove_from_quiz'
+		end
+	 end
+
+	 resources :clozequestions do
+		member do
+			get 'take'
+		end
+		member do
 			post 'remove_from_quiz'
 		end
 	 end

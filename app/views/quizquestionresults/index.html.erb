@@ -16,23 +16,24 @@
 	  </div>
     <% elsif r["qtype"] == "Matchquestion" %>
 	   <div>
-		<table width = "350">	    
+		<table width = "450">	    
 	   <tr>
-	      <td>
+	   	  <td>
 		  <table>
-		   <th>User answer</th>
-		    <% r["user_answers"].each do |user_answer| %>
+		    <th>Match</th>
+		    <% r["matches"].each do |match| %>
 		    <tr>			 
 			  <td>
-			    <%= user_answer %>
+			    <%= match %>
 			  </td>
 			</tr>
 			<% end %>
 		  </table>
 		  </td>	
-		 <td>
+   
+	      <td>
 		  <table>
-		   <th>Correct answers</th>
+		    <th>Correct answers</th>
 		    <% r["answer_keys"].each do |key| %>
 		    <tr>			 
 			  <td>
@@ -42,6 +43,35 @@
 			<% end %>
 		  </table>
 		  </td>	
+
+		  <td>
+		  <table>
+		  	<th>User answer</th>
+		    <% r["user_answers"].each do |user_answer| %>
+		    <tr>			 
+			  <td>
+			    <%= user_answer %>
+			  </td>
+			</tr>
+			<% end %>
+		  </table>
+		  </td>	
+
+		  
+		  <td>
+		  <table>
+		  	<th>Valuation</th>
+		    <% r["my_results"].each do |result| %>
+		    <tr>			 
+			  <td>
+			    <%= result %>
+			  </td>
+			</tr>
+			<% end %>
+		  </table>
+		  </td>	
+		  
+		  
 	   </tr>
 	</table>	
 	</div>
@@ -54,3 +84,4 @@
 	<% end %>
 <% end %>
 <% end %>
+

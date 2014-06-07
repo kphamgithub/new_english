@@ -40,31 +40,42 @@ class QuizquestionresultsController < ApplicationController
 			end
 			#@results_arr.push(results_hash)
 		elsif question_type == "Matchquestion"
+		    #render text: params.inspect
 			results_hash["qtype"] = "Matchquestion"
 		    user_answer_hash = eval(qqr.answer)
 			questions = Matchquestion.where("match_id = ?",quizquestion.match_id)
+			
+			matches = []
+			questions.each_with_index do |question,index|
+			   #save all answer keys in an array
+			   #key = question.left + ' ' + question.right 
+			   matches.push(question.left)   #left = match,  #right = answer
+			end
+			
 			answer_keys = []
 			questions.each_with_index do |question,index|
 			   #save all answer keys in an array
-			   key = question.left + ' ' + question.right 
-			   answer_keys.push(key)
+			   #key = question.left + ' ' + question.right 
+			   answer_keys.push(question.right)   #left = match,  #right = answer
 			end
 			user_answers = []
 			s = ' '
 			user_answer_hash.each_with_index do |(key, val),index|
-			   remainder = index%2
-			   if remainder == 0
-			       s = val
-				   s << ' '
-			   else
-			       s << val
-				   user_answers.push(s)
-				   s = ' '
-			   end 
+				user_answers.push(val)
 			end
-			results_hash["user_answers"] = user_answers
+			
+			myresults = []
+			user_answers.each_with_index do |ans,index|			    
+				if ans == answer_keys[index]
+					myresults.push("correct")
+				else
+				    myresults.push("incorrect")
+				end
+			end
+			results_hash["matches"] =  matches
+			results_hash["user_answers"] =  user_answers
 			results_hash["answer_keys"] = answer_keys
-			#@results_arr.push(results_hash)
+			results_hash["my_results"] =  myresults
 		end		
 		@results_arr.push(results_hash)
 	end	

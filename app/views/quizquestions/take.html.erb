@@ -36,24 +36,17 @@ for admin only <%= @source_question.class.to_s %>
   <p>
   match id: <%= @quizquestion.match_id %>
   </p>
-  <p>
   <table>
+  <% @source_question.each_with_index do |mquestion,index| %>
   <tr>
   <td>
-  <%= collection_select :matchquestion, :left_0, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :left, :left %>
+   <%= mquestion.left %>
   </td>
   <td>
-  <%= collection_select :matchquestion, :right_0, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :right, :right %>
+  <%= collection_select :matchquestion, "answer"+index.to_s, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :right, :right %>
   </td>
   </tr>
-  <tr>
-  <td>
-  <%= collection_select :matchquestion, :left_1, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :left, :left %>
-  </td>
-  <td>
-  <%= collection_select :matchquestion, :right_1, Matchquestion.where("match_id = ?", @quizquestion.match_id ).shuffle, :right, :right %>
-  </td>
-  </tr>
+  <% end %>
   </table>
   </p>
   <p>
