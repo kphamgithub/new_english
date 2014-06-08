@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603234109) do
+ActiveRecord::Schema.define(version: 20140607231138) do
 
   create_table "fillquestions", force: true do |t|
     t.string   "name"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20140603234109) do
     t.string   "video"
     t.string   "content"
     t.integer  "level"
+  end
+
+  create_table "matches", force: true do |t|
+    t.string   "name"
+    t.string   "left"
+    t.string   "right"
+    t.string   "match_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "matchquestions", force: true do |t|

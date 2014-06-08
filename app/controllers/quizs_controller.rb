@@ -79,66 +79,24 @@ class QuizsController < ApplicationController
 
   
   def add_questions
-      testarr = []
-      #render text: params[:id].inspect  
-      @quiz = Quiz.find(params[:id])
-      @multichoicequestions = Multichoicequestion.all	  
-	  @available_questions = []
-	  @multichoicequestions.each do |question|
-	     #find this question in quizquestions table FOR THIS QUIZ
-		 found = false
-		 @quiz.quizquestions.each do |quizquestion|
-			if (question.id == quizquestion.origin_id and quizquestion.qtype == "Multichoicequestion" )
-			   found = true
-			   break
-			    #testarr.push(question.name)
-				#break
-			end			
-		 end
-		 if !found
-			#testarr.push(question.name)
-			@available_questions.push(question)
-		 end
-	  end
-	  @fillquestions = Fillquestion.all
-	  	 @fillquestions.each do |question|
-	     #find this question in quizquestions table FOR THIS QUIZ
-		 found = false
-		 @quiz.quizquestions.each do |quizquestion|
-			if (question.id == quizquestion.origin_id and quizquestion.qtype == "Fillquestion" )
-			   found = true
-			   break
-			    #testarr.push(question.name)
-				#break
-			end			
-		 end
-		 if !found
-			#testarr.push(question.name)
-			@available_questions.push(question)
-		 end
-	  end
+        testarr = []
+        #render text: params[:id].inspect  
+        @quiz = Quiz.find(params[:id])
+        @multichoicequestions = Multichoicequestion.all	  
+	    @available_questions = []
       #render text: @available_questions.count
 	  #render text: @quiz.id
-	  @matchquestions = Matchquestion.all
-	  	 @matchquestions.each do |question|
-	     #find this question in quizquestions table FOR THIS QUIZ
-		 found = false
-		 @quiz.quizquestions.each do |quizquestion|
-			if (question.id == quizquestion.origin_id and quizquestion.qtype == "Matchquestion" )
-			   found = true
-			   break
-			    #testarr.push(question.name)
-				#break
-			end			
-		 end
-		 if !found
-			#testarr.push(question.name)
-			@available_questions.push(question)
-		 end
-	  end
-
-	  
-  end
+	  (1..5).each do |i|
+		  match_items = Matchquestion.where("match_id = ?", i)
+		  match_items.each do |item|
+		     @available_questions.push(item)
+		  end
+		  if match_items == nil
+		      break
+		  end
+	   end
+	   
+	end
     
     def add_questions_error
     end

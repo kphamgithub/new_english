@@ -8,10 +8,30 @@ class MatchquestionsController < ApplicationController
   end
 
   def create
-	  #render text: params[:multichoicequestion].inspect    
-	  @matchquestion = Matchquestion.new(matchquestion_params)
-	  @matchquestion.save
-	  redirect_to @matchquestion
+      rows = []
+	  row = nil
+      params.each do |key,value|
+		if key.include? "left"
+		   row = Hash.new
+		   row["match_id"] = params["match_id"]
+		   row["left"] = value
+		elsif key.include? "right"
+		   row["right"] = value
+		   rows.push(row)
+		   row = nil
+		end
+	  end
+	  #render text: params.inspect
+	  #render text: rows.inspect
+	  rows.each_with_index do |r|
+		 match = Match.new(r)
+		 match.save
+	  end
+	  render text: rows.inspect
+	  
+	  #@matchquestion = Matchquestion.new(matchquestion_params)
+	  #@matchquestion.save
+	  #redirect_to @matchquestion
   end
   def take
       @matchquestion = Matchquestion.find(params[:id])
