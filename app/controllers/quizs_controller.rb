@@ -84,18 +84,23 @@ class QuizsController < ApplicationController
         @quiz = Quiz.find(params[:id])
         @multichoicequestions = Multichoicequestion.all	  
 	    @available_questions = []
+		
       #render text: @available_questions.count
 	  #render text: @quiz.id
-	  (1..5).each do |i|
-		  match_items = Matchquestion.where("match_id = ?", i)
-		  match_items.each do |item|
-		     @available_questions.push(item)
-		  end
-		  if match_items == nil
-		      break
-		  end
-	   end
-	   
+		match_questions = Matchquestion.all
+		match_questions.each do |mq|
+		    #search quiz questions
+			found = false
+			@quiz.quizquestions.each do |qq|
+				if qq.qtype == "Matchquestion" and qq.origin_id == mq.id
+				found = true
+				break
+				end
+			end
+			if found == false
+				@available_questions.push(mq)
+			end
+	    end	   
 	end
     
     def add_questions_error

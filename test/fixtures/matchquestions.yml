@@ -3,13 +3,7 @@
 one:
   name: MyString
   question: MyString
-  match_id: MyString
-  m1: MyString
-  m2: MyString
 
 two:
   name: MyString
   question: MyString
-  match_id: MyString
-  m1: MyString
-  m2: MyString

@@ -15,7 +15,7 @@ class QuizquestionsController < ApplicationController
 	    #render text: "FILL"
 		@source_question = Fillquestion.find(@quizquestion.origin_id)
     elsif @quizquestion.qtype == "Matchquestion"
-	    @source_question = Matchquestion.where(@quizquestion.match_id)
+	    @source_question = Matchquestion.find(@quizquestion.origin_id)
 		#render text: params.inspect	
 	end	
   end
@@ -24,15 +24,15 @@ class QuizquestionsController < ApplicationController
     @quizquestion = Quizquestion.find(params[:id])
 	@quiz = Quiz.find(params[:quiz_id])
     #render text: params.inspect
-	
+	#"matches"=>{"answer0"=>"b", "answer1"=>"d"}, 
 	if @quizquestion.qtype == "Multichoicequestion"
 		uanswer = params[:choice]
 	elsif @quizquestion.qtype == "Fillquestion"
 		uanswer = params[:answer]
 	elsif @quizquestion.qtype == "Matchquestion"
 	    #uanswer = params[:matchquestion].to_s
-		uanswer =  params[:matchquestion].to_s		
-		#"matchquestion"=>{"answer0"=>"sky", "answer1"=>"tree"},
+		uanswer =  params[:matches].to_s		
+		#"matches"=>{"answer0"=>"sky", "answer1"=>"tree"},
 	end
 	@user = current_user
 	uid = @user.id
@@ -45,13 +45,11 @@ class QuizquestionsController < ApplicationController
 		  qqr.update(quizquestion_id: @quizquestion.id, user_id: uid, quiz_id: @quiz.id, answer: uanswer)
 		  qqr.save
 	    end
-	   
 	if @quizquestion.next
 	redirect_to take_lesson_quiz_quizquestion_path(@quiz.lesson,@quiz,@quizquestion.next.id)
 	else
 	  redirect_to user_quiz_quizquestionresults_path(@user,@quiz)
-	end	
-	
+	end		 
   end
   
   def destroy

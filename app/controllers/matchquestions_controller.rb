@@ -8,12 +8,12 @@ class MatchquestionsController < ApplicationController
   end
 
   def create
+      @matchquestion = Matchquestion.create({"name" => params["name"]})
       rows = []
 	  row = nil
       params.each do |key,value|
 		if key.include? "left"
 		   row = Hash.new
-		   row["match_id"] = params["match_id"]
 		   row["left"] = value
 		elsif key.include? "right"
 		   row["right"] = value
@@ -23,10 +23,13 @@ class MatchquestionsController < ApplicationController
 	  end
 	  #render text: params.inspect
 	  #render text: rows.inspect
-	  rows.each_with_index do |r|
-		 match = Match.new(r)
-		 match.save
+	  #@match = @matchquestion.matches.create()
+	  rows.each do |r|
+	     @matchquestion.matches.create(r)
+		 #match = Match.new(r)
+		 #match.save
 	  end
+	  #@matchquestion.save
 	  render text: rows.inspect
 	  
 	  #@matchquestion = Matchquestion.new(matchquestion_params)

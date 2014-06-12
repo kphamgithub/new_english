@@ -43,25 +43,25 @@ class QuizquestionresultsController < ApplicationController
 		    #render text: params.inspect
 			results_hash["qtype"] = "Matchquestion"
 		    user_answer_hash = eval(qqr.answer)
-			questions = Matchquestion.where("match_id = ?",quizquestion.match_id)
+			question = Matchquestion.find(quizquestion.origin_id)
 			
 			matches = []
-			questions.each_with_index do |question,index|
+			question.matches.each do |match,index|
 			   #save all answer keys in an array
 			   #key = question.left + ' ' + question.right 
-			   matches.push(question.left)   #left = match,  #right = answer
+			   matches.push(match.left)   #left = match,  #right = answer
+			end
+			
+			user_answers = []
+			user_answer_hash.each_with_index do |(key, val),index|
+				user_answers.push(val)
 			end
 			
 			answer_keys = []
-			questions.each_with_index do |question,index|
+			question.matches.each do |match,index|
 			   #save all answer keys in an array
 			   #key = question.left + ' ' + question.right 
-			   answer_keys.push(question.right)   #left = match,  #right = answer
-			end
-			user_answers = []
-			s = ' '
-			user_answer_hash.each_with_index do |(key, val),index|
-				user_answers.push(val)
+			   answer_keys.push(match.right)   #left = match,  #right = answer
 			end
 			
 			myresults = []
@@ -72,6 +72,8 @@ class QuizquestionresultsController < ApplicationController
 				    myresults.push("incorrect")
 				end
 			end
+
+			
 			results_hash["matches"] =  matches
 			results_hash["user_answers"] =  user_answers
 			results_hash["answer_keys"] = answer_keys
