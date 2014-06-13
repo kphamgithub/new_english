@@ -49,7 +49,7 @@ class QuizquestionresultsController < ApplicationController
 			question.matches.each do |match,index|
 			   #save all answer keys in an array
 			   #key = question.left + ' ' + question.right 
-			   matches.push(match.left)   #left = match,  #right = answer
+			   matches.push(match.match)   #left = match,  #right = answer
 			end
 			
 			user_answers = []
@@ -61,7 +61,7 @@ class QuizquestionresultsController < ApplicationController
 			question.matches.each do |match,index|
 			   #save all answer keys in an array
 			   #key = question.left + ' ' + question.right 
-			   answer_keys.push(match.right)   #left = match,  #right = answer
+			   answer_keys.push(match.answer)   #left = match,  #right = answer
 			end
 			
 			myresults = []

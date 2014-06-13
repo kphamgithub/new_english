@@ -12,11 +12,11 @@ class MatchquestionsController < ApplicationController
       rows = []
 	  row = nil
       params.each do |key,value|
-		if key.include? "left"
+		if key.include? "match"
 		   row = Hash.new
-		   row["left"] = value
-		elsif key.include? "right"
-		   row["right"] = value
+		   row["match"] = value
+		elsif key.include? "answer"
+		   row["answer"] = value
 		   rows.push(row)
 		   row = nil
 		end

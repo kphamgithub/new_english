@@ -79,11 +79,39 @@ class QuizsController < ApplicationController
 
   
   def add_questions
-        testarr = []
         #render text: params[:id].inspect  
         @quiz = Quiz.find(params[:id])
-        @multichoicequestions = Multichoicequestion.all	  
-	    @available_questions = []
+		@available_questions = []
+		
+        multichoicequestions = Multichoicequestion.all
+		multichoicequestions.each do |mcq|
+		    #search quiz questions
+			found = false
+			@quiz.quizquestions.each do |qq|
+				if qq.qtype == "Matchquestion" and qq.origin_id == 	  mcq.id
+					found = true
+					break
+				end
+			end
+			if found == false
+				@available_questions.push(mcq)
+			end
+	    end	   
+
+        fillquestions = Fillquestion.all
+		fillquestions.each do |fq|
+		    #search quiz questions
+			found = false
+			@quiz.quizquestions.each do |qq|
+				if qq.qtype == "Matchquestion" and qq.origin_id == 	  fq.id
+					found = true
+					break
+				end
+			end
+			if found == false
+				@available_questions.push(fq)
+			end
+	    end	   
 		
       #render text: @available_questions.count
 	  #render text: @quiz.id

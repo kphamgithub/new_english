@@ -34,19 +34,19 @@ for admin only <%= @source_question.class.to_s %>
 <p> HERE </p>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
   <p>
-  match id: <%= @quizquestion.match_id %>
+  match id: <%= @quizquestion.origin_id %>
   </p>
   <table>
-  <% @source_question.matches.each_with_index do |match,index| %>
+  <% @source_question.matches.each_with_index do |my_match,index| %>
   <tr>
   <td>
-  <%= match.left %>
+  <%= my_match.match%>
   </td>
   <td>
    &nbsp; &nbsp; &nbsp; &nbsp;    
   </td>
   <td>
-  <%= collection_select :matches, "answer"+index.to_s, Match.where("matchquestion_id = ?", @quizquestion.origin_id ).shuffle, :right, :right %>
+  <%= collection_select :matches, "answer"+index.to_s, Match.where("matchquestion_id = ?", @quizquestion.origin_id ).shuffle, :answer, :answer %>
   </td>
   </tr>
   <% end %>

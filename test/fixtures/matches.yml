@@ -2,12 +2,12 @@
 
 one:
   name: MyString
-  match_id: MyString
-  left: MyString
-  right: MyString
+  question: MyString
+  match: MyString
+  answer: MyString
 
 two:
   name: MyString
-  match_id: MyString
-  left: MyString
-  right: MyString
+  question: MyString
+  match: MyString
+  answer: MyString
