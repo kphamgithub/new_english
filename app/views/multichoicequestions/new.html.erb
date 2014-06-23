@@ -1,4 +1,4 @@
-<%= form_for :multichoicequestion, url: multichoicequestions_path do |f| %>
+<%= form_for :multichoicequestion, url: vocabulary_multichoicequestions_path do |f| %>
   <p>
     <%= f.label :name %><br>
     <%= f.text_area :name %>
@@ -7,6 +7,14 @@
     <%= f.label :question %><br>
     <%= f.text_area :question %>
   </p>
+  <p>
+    <%= f.label :audio%><br>
+    <%= f.text_field :answer, :value => @voca_audio %>
+    </p>    
+  <p>
+    <%= f.label :image%><br>
+    <%= f.text_field :image, :value => @voca_image %>
+    </p>    
     <p>
     <%= f.label :choice1%><br>
     <%= f.text_area :choice1 %>
@@ -21,11 +29,10 @@
   </p>  
     <p>
     <%= f.label :answer%><br>
-    <%= f.text_area :answer %>
+    <%= f.text_field :answer, :value => @voca_name %>
   </p>  
-
   <p>
     <%= f.submit %>
   </p>
 <% end %>
-<%= link_to 'Back to Lessons List', multichoicequestions_path %>
+<%= link_to 'Back to Lessons List', vocabulary_multichoicequestions_path %>

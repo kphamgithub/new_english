@@ -1,0 +1,22 @@
+<%= form_for :vocabulary, url: vocabularies_path do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :definition %><br>
+    <%= f.text_field :definition %>
+  </p>
+    <p>
+    <%= f.label :audio%><br>
+    <%= f.text_field :answer%>
+    </p>    
+  <p>
+    <%= f.label :image%><br>
+    <%= f.text_field :image %>
+    </p>    
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Lessons List', lessons_path %>

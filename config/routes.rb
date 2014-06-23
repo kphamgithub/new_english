@@ -1,4 +1,8 @@
 NewEnglish::Application.routes.draw do
+  resources :lessonvocas
+
+  get "vocabularies/index"
+  get "vocabularies/new"
   get "matchquestions/index"
   get "lessons/index"
   get "sessions/new"
@@ -18,6 +22,12 @@ NewEnglish::Application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   	 resources :lessons do
+	 
+	    member do
+			get 'add_vocabulary'
+			post 'save_vocabulary'
+			post 'remove_vocabulary'
+		end
 		resources :quizs do
 			member do
 				get 'add_questions'
@@ -38,8 +48,23 @@ NewEnglish::Application.routes.draw do
 		end
 	 end
 
+		 resources :vocabularies do
+			resources :multichoicequestions do
+				member do
+					get 'take'
+				end
+				member do
+					#post 'process_question'
+					post 'remove_from_quiz'
+				end
+			end
+		 end
+
 	 
 	 resources :users do
+		member do
+			get 'add_lesson'
+		end	 
 	    resources :quizs do
 			member do
 				get 'list_questionresults'
@@ -51,15 +76,6 @@ NewEnglish::Application.routes.draw do
 	   
 	 resources :sessions
 	 
-	 resources :multichoicequestions do
-		member do
-			get 'take'
-		end
-		member do
-		    #post 'process_question'
-			post 'remove_from_quiz'
-		end
-	 end
 
 	 resources :fillquestions do
 		member do

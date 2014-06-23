@@ -1,6 +1,10 @@
 class MultichoicequestionsController < ApplicationController
   def new
-	 
+	  #render text: params.inspect
+	  voca = Vocabulary.find(params[:vocabulary_id])
+	  @voca_name = voca.name
+	  @voca_audio = voca.audio
+	  @voca_image = voca.image
   end
 
   def index
@@ -19,25 +23,18 @@ class MultichoicequestionsController < ApplicationController
 	  #render text: params[:id].inspect
       @multichoicequestion = Multichoicequestion.find(params[:id])
 	  @multichoicequestion.destroy
-	  redirect_to multichoicequestion_path
+	  redirect_to multichoicequestions_path
   end
-
-  #def remove_from_quiz
-	  #render text: params[:id].inspect
-   #   @multichoicequestion = Multichoicequestion.find(params[:id])	  
-	#  @multichoicequestion.quiz_id = 0
-	 # @multichoicequestion.save
-	 # redirect_to multichoicequestion_path
-  #end
 	
   def create
-	  #render text: params[:multichoicequestion].inspect    
+	  #render text: params.inspect    
 	  @multichoicequestion = Multichoicequestion.new(multichoicequestion_params)
+	  @multichoicequestion.vocabulary_id = params[:vocabulary_id]
 	  @multichoicequestion.save
-	  redirect_to @multichoicequestion
+	  redirect_to vocabulary_multichoicequestions_path
   end
   private
   def multichoicequestion_params
-	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :choice1, :choice2, :choice3, :answer)
+	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :audio, :image, :choice1, :choice2, :choice3, :answer)
   end
 end

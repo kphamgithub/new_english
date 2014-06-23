@@ -1,0 +1,8 @@
+<h3> Add vocabulary for this lesson: </h3>
+<%= form_tag save_vocabulary_lesson_path :method=>'post' do %>
+	   <%= text_field_tag :name %>
+	   <%= @lesson.name %>
+	     <p>
+        <%= submit_tag "Submit"%>
+  </p>
+<% end %>

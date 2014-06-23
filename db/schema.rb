@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613011433) do
+ActiveRecord::Schema.define(version: 20140621001824) do
 
   create_table "fillquestions", force: true do |t|
     t.string   "name"
@@ -25,11 +25,19 @@ ActiveRecord::Schema.define(version: 20140613011433) do
 
   create_table "lessons", force: true do |t|
     t.string   "name"
+    t.string   "content"
+    t.string   "level"
+    t.string   "video"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "video"
-    t.string   "content"
-    t.integer  "level"
+  end
+
+  create_table "lessonvocas", force: true do |t|
+    t.integer  "lesson_id"
+    t.integer  "vocabulary_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "matches", force: true do |t|
@@ -40,6 +48,7 @@ ActiveRecord::Schema.define(version: 20140613011433) do
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "audio"
   end
 
   create_table "matchquestions", force: true do |t|
@@ -47,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140613011433) do
     t.string   "question"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "audio"
   end
 
   create_table "multichoicequestions", force: true do |t|
@@ -61,6 +71,7 @@ ActiveRecord::Schema.define(version: 20140613011433) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image"
+    t.integer  "vocabulary_id"
   end
 
   create_table "quizquestionresults", force: true do |t|
@@ -90,11 +101,20 @@ ActiveRecord::Schema.define(version: 20140613011433) do
   end
 
   create_table "users", force: true do |t|
-    t.integer  "lesson_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "level"
+    t.integer  "lesson_id"
+  end
+
+  create_table "vocabularies", force: true do |t|
+    t.string   "name"
+    t.string   "definition"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "audio"
+    t.string   "image"
   end
 
 end

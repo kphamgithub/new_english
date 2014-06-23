@@ -1,0 +1,29 @@
+<%= form_for(@lessonvoca) do |f| %>
+  <% if @lessonvoca.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lessonvoca.errors.count, "error") %> prohibited this lessonvoca from being saved:</h2>
+
+      <ul>
+      <% @lessonvoca.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :lesson_id %><br>
+    <%= f.number_field :lesson_id %>
+  </div>
+  <div class="field">
+    <%= f.label :vocabulary_id %><br>
+    <%= f.number_field :vocabulary_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

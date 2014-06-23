@@ -3,21 +3,42 @@
 for admin only <%= @source_question.class.to_s %>
 </p>
 
+<p> 
+<%= @source_question.question %>
+</p>
+
+<% unless @source_question.audio.nil? %>
+<div>
+<%= audio_tag @source_question.audio, class: "audio_volume_only", id: "iconaudio", controls: false %>
+</div>
+
+		<a href="javascript:playPause();">
+			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
+		</a>
+
+<% end %>
 <% if @quizquestion.qtype == "Multichoicequestion" %>
+<div>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
   <p>
   <%= radio_button_tag 'choice', @source_question.choice1 %>
-  <%= @source_question.choice1 %>
+  		<a href="javascript:playPause();">
+			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
+		</a>
   </p>
   <p>
   <%= radio_button_tag 'choice', @source_question.choice2 %>
   <%= @source_question.choice2 %>
   </p>
   <p>
+  <%= radio_button_tag 'choice', @source_question.choice3 %>
+  <%= @source_question.choice3 %>
+  </p>
+  <p>
   <%= submit_tag "Submit"%>
   </p>
 <% end %>
-
+</div>
 <% elsif @quizquestion.qtype == "Fillquestion" %>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
   <p>
@@ -31,7 +52,6 @@ for admin only <%= @source_question.class.to_s %>
   </p>
 <% end %>   
 <% elsif @quizquestion.qtype == "Matchquestion" %>
-<p> HERE </p>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
   <p>
   match id: <%= @quizquestion.origin_id %>
@@ -57,3 +77,4 @@ for admin only <%= @source_question.class.to_s %>
   </p>
 <% end %>   
 <% end %>
+

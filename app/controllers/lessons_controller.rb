@@ -8,8 +8,36 @@ class LessonsController < ApplicationController
 
   def edit
 	@lesson = Lesson.find(params[:id])
+	@matches = Match.where("matchquestion_id = ?",5)
   end
 
+  def add_vocabulary
+	@lesson = Lesson.find(params[:id])
+  end
+
+  def save_vocabulary
+	@lesson = Lesson.find(params[:id])
+	#render text: params[:name]
+	entry = Vocabulary.find_by name: params[:name]
+	#render text: entry.definition
+	if entry != nil
+	  @lesson.vocabularies << entry
+	  redirect_to @lesson
+	else
+	  redirect_to new_vocabulary_path
+	end
+  end
+  
+  def remove_vocabulary
+     #render text: params.inspect 
+	 lesson = Lesson.find(params[:id])
+	 voca = lesson.vocabularies.find(params[:voca_id])
+	 #render text: voca.name
+	 lesson.vocabularies.delete(voca)
+	 #voca.destroy
+	 redirect_to lesson_path(params[:id])
+  end
+  
   def update
      @lesson = Lesson.find(params[:id])
 	 if @lesson.update(params[:lesson].permit(:name,:content,:video,:level))
@@ -50,9 +78,17 @@ class LessonsController < ApplicationController
 	  #redirect_to lesson_quizs_path(@lesson)
   end
   
+  def destroy
+	  #render text: params[:id].inspect
+      @lesson = Lesson.find(params[:id])
+	  @lesson.destroy
+	  redirect_to lessons_path
+  end
+
+  
   private
   def lesson_params
-	params.require(:lesson).permit(:content, :level)
+	params.require(:lesson).permit(:name, :content, :level)
   end
 
 end

@@ -1,5 +1,6 @@
 class MatchquestionsController < ApplicationController
   def index
+    @matchquestions = Matchquestion.all
   end
   def new
   end
@@ -36,11 +37,15 @@ class MatchquestionsController < ApplicationController
 	  #@matchquestion.save
 	  #redirect_to @matchquestion
   end
-  def take
-      @matchquestion = Matchquestion.find(params[:id])
-	  @people = {"id"=> "1", "name" => "kevin"}
-	  
+  
+  def destroy
+	  #render text: params[:id].inspect
+      matchquestion = Matchquestion.find(params[:id])
+	  matchquestion.destroy
+	  redirect_to matchquestions_path
   end
+
+  
   def process_question
       #render text: "proceess"
 	  render text: params.inspect

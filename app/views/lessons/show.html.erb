@@ -1,5 +1,6 @@
 <h1><%= @lesson.name %></h1>
 <p>Level:<%= @lesson.level %></p>
+
 <p>
   <strong>Content:</strong>
   <%= @lesson.content %>
@@ -16,8 +17,26 @@
 </table>
 
 </p>
- <%= button_tag(:type => 'button', :id => "quiz_button", :onclick =>  @take_quizzes_link) do %>
-  Quizes
+ <% if current_user.name == "kpham" %>
+   Vocabularies:
+    <!-- %= collection_select :names, :name, @lesson.vocabularies, :name, :name % -->
+	<table>
+	<% @lesson.vocabularies.each do |voca| %>
+    <tr>
+	  <td><%= voca.name %></td>
+	  <td><%= voca.definition %></td>
+	  <td><%= link_to "Edit", edit_vocabulary_path(voca.id) %></td>
+	  <td>
+	  			<%= button_to "Delete ", { controller: "lessons", action: "remove_vocabulary", id: @lesson.id, voca_id: voca.id}, method: :post, data: { confirm: "Are you sure?" } %>
+	  </td>
+	  <td><%= link_to "create questions", new_vocabulary_multichoicequestion_path(voca.id) %></td>
+    </tr>	<% end %>
+	</table>
+	<%= link_to "Add vocabulary", add_vocabulary_lesson_path(@lesson.id) %>
+ <% else %>
+   <%= button_tag(:type => 'button', :id => "quiz_button", :onclick =>  @take_quizzes_link) do %>
+   Take Quizes
+   <% end %>
 <% end %>
 <p>
   <strong>Level:</strong>

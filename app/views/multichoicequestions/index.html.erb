@@ -6,13 +6,7 @@
     <p> Name: 
 	<%= q.name %>
 	</p>
-    <p>
-	<%= q.question %>
-	</p>
-	<%= q.choice1 %>
-	<%= q.choice2 %>
-	<%= q.choice3 %>
-	<p> ************ </p>
+	<%= button_to "Delete ", { controller: "multichoicequestions", action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
 	<% end %>
 
 

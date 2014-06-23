@@ -2,6 +2,12 @@
 
 one:
   name: MyString
+  content: MyString
+  level: MyString
+  video: MyString
 
 two:
   name: MyString
+  content: MyString
+  level: MyString
+  video: MyString

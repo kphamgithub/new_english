@@ -5,6 +5,10 @@ class UsersController < ApplicationController
   def new
   end
 
+  def add_lesson
+      @user = User.find(params[:id])
+  end
+  
   def edit
   @user = User.find(params[:id])
   end
@@ -20,7 +24,7 @@ class UsersController < ApplicationController
   end
   def show
 	  @user = User.find(params[:id])
-	  @lesson = Lesson.find(@user.lesson_id)
+	  @lesson = @user.lesson #Lesson.find(@user.lesson_id)
   end
   
   def update
