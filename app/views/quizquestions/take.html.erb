@@ -6,10 +6,9 @@ for admin only <%= @source_question.class.to_s %>
 <p> 
 <%= @source_question.question %>
 </p>
-
 		<% if @source_question.media.include? "mp3" %>
-			<div>
-			<%= audio_tag 'voca/'+@source_question.media, class: "audio_volume_only", id: "iconaudio", controls: false %>
+			<div>			
+			<%= audio_tag @media_path, class: "audio_volume_only", id: "iconaudio", controls: false %>
 			<a href="javascript:playPause();">
 				<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 			</a>
@@ -18,22 +17,22 @@ for admin only <%= @source_question.class.to_s %>
 			<br>
 			</div>		
         <% elsif @source_question.media.include? "jpg" %>
-			<%= image_tag 'voca/'+ @source_question.media %>		
+			<%= image_tag @media_path %>		
 		elsif @source_question.media.include? "mp4"
 		<% end %>
 
 <% if @quizquestion.qtype == "Multichoicequestion" %>
 <div>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
-  <p>
+  <p>  
   <%= radio_button_tag 'choice', @source_question.choice1 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag "/audios/voca/"+ @source_question.choice1+'.mp3' , class: "audio_volume_only", id: "iconaudio1", controls: false %>
+		<%= audio_tag @choice1_media_dir + @source_question.choice1+'.mp3' , class: "audio_volume_only", id: "iconaudio1", controls: false %>
   		<a href="javascript:playPause1();">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>
    <% elsif @source_question.choice_label_display_mode == 'image' %>
-        <%= image_tag "/images/voca/"+ @source_question.choice1+'.jpg' %>
+        <%= image_tag @choice1_media_dir + @source_question.choice1+'.jpg' %>
    <% else %>
         <%= @source_question.choice1 %>
    <% end %>
@@ -41,12 +40,12 @@ for admin only <%= @source_question.class.to_s %>
   <p>
   <%= radio_button_tag 'choice', @source_question.choice2 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag "/audios/voca/"+ @source_question.choice2+'.mp3' , class: "audio_volume_only", id: "iconaudio2", controls: false %>
+		<%= audio_tag "/audios/voca/"+ @source_question.choice2[0] + '/' + @source_question.choice2+'.mp3' , class: "audio_volume_only", id: "iconaudio2", controls: false %>
   		<a href="javascript:playPause2();">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>
    <% elsif @source_question.choice_label_display_mode == 'image' %>
-        <%= image_tag "/images/voca/"+ @source_question.choice2+'.jpg' %>
+        <%= image_tag "/images/voca/"+ @source_question.choice2[0] + '/' + @source_question.choice2+'.jpg' %>
    <% else %>
         <%= @source_question.choice2 %>
    <% end %>
@@ -55,16 +54,15 @@ for admin only <%= @source_question.class.to_s %>
   <p>
   <%= radio_button_tag 'choice', @source_question.choice3 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag "/audios/voca/"+ @source_question.choice3+'.mp3' , class: "audio_volume_only", id: "iconaudio3", controls: false %>
+		<%= audio_tag "/audios/voca/"+ @source_question.choice3[0] + '/' + @source_question.choice3+'.mp3' , class: "audio_volume_only", id: "iconaudio3", controls: false %>
   		<a href="javascript:playPause3();">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>
    <% elsif @source_question.choice_label_display_mode == 'image' %>
-        <%= image_tag "/images/voca/"+ @source_question.choice3+'.jpg' %>
+        <%= image_tag "/images/voca/"+ @source_question.choice3[0] + '/' + @source_question.choice3+'.jpg' %>
    <% else %>
         <%= @source_question.choice3 %>
    <% end %>
-
   </p>
   <p>
   <%= submit_tag "Submit"%>

@@ -11,6 +11,9 @@ class QuizquestionsController < ApplicationController
 	if @quizquestion.qtype == "Multichoicequestion"
 		@source_question = Multichoicequestion.find(@quizquestion.origin_id)
 		#render text: "MULTI"
+		@choice1_media_dir = "voca/"+ @source_question.choice1[0] + '/'
+		@choice2_media_dir = "voca/"+ @source_question.choice2[0] + '/'
+		@choice3_media_dir = "voca/"+ @source_question.choice3[0] + '/'
 	elsif @quizquestion.qtype == "Fillquestion"
 	    #render text: "FILL"
 		@source_question = Fillquestion.find(@quizquestion.origin_id)
@@ -18,6 +21,7 @@ class QuizquestionsController < ApplicationController
 	    @source_question = Matchquestion.find(@quizquestion.origin_id)
 		#render text: params.inspect	
 	end	
+	@media_path = 'voca/' + @source_question.media[0] + '/' + @source_question.media
   end
   
   def processquestion
