@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140621001824) do
+ActiveRecord::Schema.define(version: 20140625004132) do
 
   create_table "fillquestions", force: true do |t|
     t.string   "name"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 20140621001824) do
     t.datetime "updated_at"
     t.string   "image"
     t.integer  "vocabulary_id"
+    t.string   "choice_label_display_mode"
+    t.string   "media"
   end
 
   create_table "quizquestionresults", force: true do |t|
@@ -115,6 +117,8 @@ ActiveRecord::Schema.define(version: 20140621001824) do
     t.datetime "updated_at"
     t.string   "audio"
     t.string   "image"
+    t.string   "group"
+    t.string   "supergroup"
   end
 
 end

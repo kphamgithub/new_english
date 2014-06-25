@@ -23,7 +23,7 @@ class VocabulariesController < ApplicationController
 
   def update
       @vocabulary = Vocabulary.find(params[:id])
-	  if @vocabulary.update(params[:vocabulary].permit(:name, :definition, :audio))
+	  if @vocabulary.update(params[:vocabulary].permit(:name, :definition, :group, :supergroup, :audio,:image))
 	  	redirect_to vocabularies_path
 	  else
 	    render 'edit'
@@ -32,6 +32,6 @@ class VocabulariesController < ApplicationController
 
   private
   def vocabulary_params
-	params.require(:vocabulary).permit(:name, :definition, :audio)
+	params.require(:vocabulary).permit(:name, :definition,:group, :supergroup, :audio, :image)
   end
 end

@@ -12,8 +12,24 @@ class MultichoicequestionsController < ApplicationController
   end
     
   def edit
+     #render text: params.inspect
      @multichoicequestion = Multichoicequestion.find(params[:id])
   end
+  
+    def update
+	  #render text: params.inspect
+      @multichoicequestion = Multichoicequestion.find(params[:id])
+	  #if @multichoicequestion.update(params[:multichoicequestion].permit(:name, :quiz_id, :question,:media, :audio, :image, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer))
+	  
+	  #Multichoicequestion.new(multichoicequestion_params)
+	  
+	  if @multichoicequestion.update(multichoicequestion_params)
+	  	redirect_to vocabulary_multichoicequestion_path
+	  else
+	    render 'edit'
+	  end 
+  end
+
 	
   def show
 	 @multichoicequestion = Multichoicequestion.find(params[:id])
@@ -35,6 +51,6 @@ class MultichoicequestionsController < ApplicationController
   end
   private
   def multichoicequestion_params
-	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :audio, :image, :choice1, :choice2, :choice3, :answer)
+	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :media, :audio, :image, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer)
   end
 end

@@ -1,24 +1,46 @@
-<%= form_for :multichoicequestion, url: multichoicequestion_path(@multichoicequestion), method: :patch do |f| %>
+<%= form_for :multichoicequestion, url: vocabulary_multichoicequestion_path, method: :patch do |f| %>
   <p>
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_area :name %>
   </p>
- 
   <p>
+    <%= f.label :question %><br>
+    <%= f.text_area :question %>
+  </p>
+    <p>
+    <%= f.label :media%><br>
+    <%= f.text_field :media %>
+    </p>    
+  <p>
+  <p>
+    <%= f.label :audio%><br>
+    <%= f.text_field :audio %>
+    </p>    
+  <p>
+    <%= f.label :image%><br>
+    <%= f.text_field :image %>
+    </p>    
+  <p>
+    <%= f.label :choice_label_display_mode %><br>
+    <%= f.text_field :choice_label_display_mode %>
+    </p>    
+	
+    <p>
     <%= f.label :choice1%><br>
-    <%= f.text_field :choice1 %>
-  </p>
-
-  <p>
+    <%= f.text_area :choice1 %>
+  </p>  
+      <p>
     <%= f.label :choice2%><br>
-    <%= f.text_field :choice2 %>
-  </p>
-  
-  <p>
+    <%= f.text_area :choice2 %>
+  </p>  
+    <p>
     <%= f.label :choice3%><br>
-    <%= f.text_field :choice3 %>
+    <%= f.text_area :choice3 %>
+  </p>  
+    <p>
+    <%= f.label :answer%><br>
+    <%= f.text_field :answer %>
   </p>
-
   <p>
     <%= f.submit %>
   </p>

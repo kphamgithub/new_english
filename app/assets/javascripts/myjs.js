@@ -17,7 +17,7 @@ if(!!document.createElement('audio').canPlayType) {
 
 }
 
-function playPause() {
+		function playPause() {
        var song = document.getElementById('iconaudio');
 	   //alert("jere");
        if (song.paused)
@@ -26,7 +26,34 @@ function playPause() {
            song.pause();
        }
 
+	   function playPause1() {
+       var song = document.getElementById('iconaudio1');
+	   //alert("jere");
+       if (song.paused)
+           song.play();
+       else
+           song.pause();
+       }
 
+	   function playPause2() {
+       var song = document.getElementById('iconaudio2');
+	   //alert("jere");
+       if (song.paused)
+           song.play();
+       else
+           song.pause();
+       }
+
+	   function playPause3() {
+       var song = document.getElementById('iconaudio3');
+	   //alert("jere");
+       if (song.paused)
+           song.play();
+       else
+           song.pause();
+       }
+
+	   
 function play_audio() {
 	new_audio.play(); 
 }

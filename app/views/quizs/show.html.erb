@@ -2,16 +2,28 @@
 <h3>Name:<%= @quiz.name %></h3>
 <h3>id = <%= @quiz.id%> This quiz belongs to lesson: <%= @quiz.lesson.name %></h3>
 <p>Number of questions: <%= @quiz.quizquestions.count %></p>
+<table>
 <% @quiz.quizquestions.each do |q| %>
-	<p>
+	<tr>
+	<td>
     <%= q.qtype %> 
-	id = <%= q.origin_id %>
-			<%= button_to "Delete ", { controller: "quizquestions", action: "destroy", quiz_id: @quiz.id, id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
-	</p>
-	<p>
+	id = <%= q.origin_id %> name = <%= q.name %>
+	</td>
+	<td>
+	<% if q.qtype == "Multichoicequestion" %>
+	    <% multichoicequestion = Multichoicequestion.find(q.origin_id) %>
+	    <%= link_to "Edit", edit_vocabulary_multichoicequestion_path(multichoicequestion.vocabulary_id,multichoicequestion.id) %>
+	<% end %>
+	</td>
+	<td>
+	<%= button_to "Delete ", { controller: "quizquestions", action: "destroy", quiz_id: @quiz.id, id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
+	</td>
+	<td>
+	
+	</td>
+	</tr>
   <% end %>  
-  </p>  
-  
+  </table>
 <%= link_to 'Add question', add_questions_lesson_quiz_path(@quiz.lesson, @quiz) %>
 
 <% if @quiz.quizquestions.count > 0 %>

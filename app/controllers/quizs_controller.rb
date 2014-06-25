@@ -146,9 +146,17 @@ class QuizsController < ApplicationController
 	  mykeys.each do |k|
 	   if (k.include? "Multichoicequestion") or (k.include? "Fillquestion") or (k.include? "Matchquestion")
 	    arr = k.split('_')		
+		origin_id = arr[1].to_i
+		if k.include? "Multichoicequestion"
+		    question_name = Multichoicequestion.find(origin_id)
+		elsif  k.include? "Fillquestion"
+			question_name = Multichoicequestion.find(origin_id)
+		elsif k.include? "Matchquestion"
+		    question_name = Multichoicequestion.find(origin_id)
+		end
 		#render text: arr[0]    #type 
 		#render text: arr[1]    #id
-	   row = {quiz_id: params[:id],origin_id: arr[1],qtype: arr[0] }
+	   row = {quiz_id: params[:id],name: question_name.name, origin_id: arr[1],qtype: arr[0] }
 	    @quizquestion = Quizquestion.new(row)
 		@quizquestion.save
 		end
