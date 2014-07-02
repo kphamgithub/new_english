@@ -77,10 +77,11 @@ class QuizsController < ApplicationController
 	 #render text: @quizquestionresults.count
   end
 
-  
   def add_questions
-        #render text: params[:id].inspect  
-        @quiz = Quiz.find(params[:id])
+        #render text: params.inspect  
+		# "lesson_id"=>"16", "id"=>"14"
+		@lesson = Lesson.find(params[:lesson_id])
+		@quiz = Quiz.find(params[:id])
 		@available_questions = []
 		
         multichoicequestions = Multichoicequestion.all
@@ -112,7 +113,6 @@ class QuizsController < ApplicationController
 				@available_questions.push(fq)
 			end
 	    end	   
-		
       #render text: @available_questions.count
 	  #render text: @quiz.id
 		match_questions = Matchquestion.all

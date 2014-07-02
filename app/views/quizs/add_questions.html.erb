@@ -1,4 +1,12 @@
 <h3> Add questions for this quiz: </h3>
+<h4> Vocabularies for parent lesson:</h4>
+
+<p>
+<% @lesson.vocabularies.each do |voca|%>
+    <%= voca.name %>
+ <% end %>
+</p>
+
 <p> Select questions: </p>
 <%= form_tag save_questions_lesson_quiz_path :method=>'post' do %>
 <% if @available_questions.count == 0 %>

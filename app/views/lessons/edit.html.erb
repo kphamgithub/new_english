@@ -2,22 +2,22 @@
 <%= form_for :lesson, url: lesson_path(@lesson), method: :patch do |f| %>
   <p>
     <%= f.label :name %><br>
-    <%= f.text_field :name, :value => @lesson.name  %>
+    <%= f.text_field :name %>
   </p>
 
   <p>
     <%= f.label :content %><br>
-    <%= f.text_field :content, :value => @lesson.content  %>
+    <%= f.cktext_area :content  %>
   </p>
   
     <p>
     <%= f.label :video %><br>
-    <%= f.text_field :video, :value => @lesson.video  %>
+    <%= f.text_field :video %>
   </p>
   
     <p>
     <%= f.label :level%><br>
-    <%= f.text_field :level, :value => @lesson.level  %>
+    <%= f.text_field :level  %>
   </p>  
   <p>
     <%= f.submit %>

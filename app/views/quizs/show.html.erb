@@ -1,6 +1,6 @@
 <h1>Quiz</h1>
 <h3>Name:<%= @quiz.name %></h3>
-<h3>id = <%= @quiz.id%> This quiz belongs to lesson: <%= @quiz.lesson.name %></h3>
+<h4>id = <%= @quiz.id%> This quiz belongs to lesson: <%= link_to @quiz.lesson.name, lesson_path(@quiz.lesson.id)  %></h4>
 <p>Number of questions: <%= @quiz.quizquestions.count %></p>
 <table>
 <% @quiz.quizquestions.each do |q| %>
@@ -12,7 +12,7 @@
 	<td>
 	<% if q.qtype == "Multichoicequestion" %>
 	    <% multichoicequestion = Multichoicequestion.find(q.origin_id) %>
-	    <%= link_to "Edit", edit_vocabulary_multichoicequestion_path(multichoicequestion.vocabulary_id,multichoicequestion.id) %>
+	    <%= link_to "Edit", edit_multichoicequestion_path(multichoicequestion.id) %>
 	<% end %>
 	</td>
 	<td>
@@ -25,9 +25,11 @@
   <% end %>  
   </table>
 <%= link_to 'Add question', add_questions_lesson_quiz_path(@quiz.lesson, @quiz) %>
+<%= link_to 'New  question', new_lesson_quiz_quizquestion_path(@quiz.lesson, @quiz) %>
 
 <% if @quiz.quizquestions.count > 0 %>
 <%=  link_to 'Take', take_quiz_lesson_quiz_path(@quiz.lesson,@quiz) %>
 <% end %>
 <%= link_to 'Quizzes for this lesson', lesson_quizs_path %>
 <%= link_to 'Home', welcome_index_path %>
+

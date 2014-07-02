@@ -3,11 +3,13 @@
 
 <p>
   <strong>Content:</strong>
-  <%= @lesson.content %>
+  <%= raw@lesson.content %>
   <table>
 <tr>
 <td>
+<% unless @lesson.video == 'none' %>
 <%= video_tag @lesson.video, :size => "320x240", :controls => true,:onended => "video_ended()" %>
+<% end %>
 </td>
 </tr>
 <tr>
@@ -17,28 +19,23 @@
 </table>
 
 </p>
- <% if current_user.name == "kpham" %>
    Vocabularies:
-    <!-- %= collection_select :names, :name, @lesson.vocabularies, :name, :name % -->
+   <%= link_to 'Show vocabularies', show_vocabulary_lesson_path %>
+
+ <% if current_user.name == "kpham" %>
+    Quizs:
+	<p>There are <%= @lesson.quizzes.count %> quizzes for this lesson</p>
 	<table>
-	<% @lesson.vocabularies.each do |voca| %>
+	<% @lesson.quizzes.each do |quiz| %>
     <tr>
-	  <td><%= voca.name %></td>
-	  <td><%= voca.definition %></td>
-	  <td><%= link_to "Edit", edit_vocabulary_path(voca.id) %></td>
-	  <td>
-	  			<%= button_to "Delete ", { controller: "lessons", action: "remove_vocabulary", id: @lesson.id, voca_id: voca.id}, method: :post, data: { confirm: "Are you sure?" } %>
-	  </td>
-	  <td><%= link_to "create questions", new_vocabulary_multichoicequestion_path(voca.id) %></td>
-    </tr>	<% end %>
-	</table>
-	<%= link_to "Add vocabulary", add_vocabulary_lesson_path(@lesson.id) %>
+	  <td><%= link_to quiz.name, lesson_quiz_path(@lesson,quiz.id) %></td>
+	</tr>
+	<% end %>
+    </table>
+ <p><%= link_to 'Edit Lesson', edit_lesson_path(@lesson) %></p>
+ <p><%= link_to 'Add a quiz', new_lesson_quiz_path(@lesson) %></p>
  <% else %>
    <%= button_tag(:type => 'button', :id => "quiz_button", :onclick =>  @take_quizzes_link) do %>
    Take Quizes
    <% end %>
 <% end %>
-<p>
-  <strong>Level:</strong>
-  <%= @lesson.level %>  
-</p>

@@ -2,7 +2,10 @@
 @import "font-awesome";
 /* universal */
 
-
+#vocabulary_definition {
+  width: 350px;
+  height: 200px;
+}
 
 a.hover {
 text-decoration: none; 
@@ -33,8 +36,8 @@ textarea {
   margin-bottom: 10px;
 }
 
-li {
-   float: left
+.list-group-item {
+   background-color: yellow;
 }
 
 user_nav {

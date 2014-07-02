@@ -24,22 +24,31 @@ class UsersController < ApplicationController
   end
   def show
 	  @user = User.find(params[:id])
-	  @lesson = @user.lesson #Lesson.find(@user.lesson_id)
+	  #@lesson = @user.lesson #Lesson.find(@user.lesson_id)
+  end
+  def update_lesson
+     #render text: params[].inspect
+	 lesson = Lesson.find(params[:lesson][:lesson_id])
+	 user = User.find(params[:id])
+	 user.lessons << lesson
+	 redirect_to users_path  
   end
   
   def update
-      @user = User.find(params[:id])
-	  if @user.update(params[:user].permit(:lesson_id, :level))
+       #render text: params.inspect
+       @user = User.find(params[:id])
+	   if @user.update(user_params)
 	  	redirect_to @user
-	  else
+	   else
 	    render 'edit'
-	  end 
+	   end 
+
   end
     
   private
   def user_params
 	#params.require(:user).permit(:name, :password, :password_confirmation, :level)
-	params.require(:user).permit(:name,:lesson_id, :level)
+	params.require(:user).permit(:name,:password)
   end
   #ANY METHOD ADDED HEREAFTER will become private, BEWARE!!! kpham
 end

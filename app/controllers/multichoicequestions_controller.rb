@@ -1,18 +1,24 @@
 class MultichoicequestionsController < ApplicationController
   def new
 	  #render text: params.inspect
-	  voca = Vocabulary.find(params[:vocabulary_id])
-	  @voca_name = voca.name
-	  @voca_audio = voca.audio
-	  @voca_image = voca.image
-  end
+	  if params[:voca_id] != nil
+	     @vocabulary = Vocabulary.find(params[:voca_id])
+	  end
+	  #@voca_name = voca.name
+	  #@voca_media = voca.media
+         # if params[:quiz_id] != nil
+          #  render text: params[:quiz_id]
+          #end 
+ end
 
   def index
+     #render text: params.inspect
      @multichoicequestions = Multichoicequestion.all
   end
     
   def edit
      #render text: params.inspect
+	 
      @multichoicequestion = Multichoicequestion.find(params[:id])
   end
   
@@ -24,7 +30,7 @@ class MultichoicequestionsController < ApplicationController
 	  #Multichoicequestion.new(multichoicequestion_params)
 	  
 	  if @multichoicequestion.update(multichoicequestion_params)
-	  	redirect_to vocabulary_multichoicequestion_path
+	  	redirect_to multichoicequestion_path
 	  else
 	    render 'edit'
 	  end 
@@ -44,13 +50,19 @@ class MultichoicequestionsController < ApplicationController
 	
   def create
 	  #render text: params.inspect    
-	  @multichoicequestion = Multichoicequestion.new(multichoicequestion_params)
-	  @multichoicequestion.vocabulary_id = params[:vocabulary_id]
-	  @multichoicequestion.save
-	  redirect_to vocabulary_multichoicequestions_path
+	  multichoicequestion = Multichoicequestion.new(multichoicequestion_params)
+	  multichoicequestion.save
+          if params['create_quizquestion'] != nil
+            	   qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], origin_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
+	    quizquestion = Quizquestion.new(qqrow)
+		quizquestion.save 
+	  end
+	  redirect_to multichoicequestions_path
   end
+
   private
   def multichoicequestion_params
-	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :media, :audio, :image, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer)
+	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :media, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer, :vocabulary_id)
   end
 end
+

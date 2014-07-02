@@ -2,12 +2,15 @@
 <h3>User ID = <%= @user.id %></h3>
 <h3>Name = <%= @user.name %></h3>
 <h3>Level = <%= @user.level %></h3>
-<h3>Lesson = <%= @lesson.name %></h3>
-<% quizzes = @lesson.quizzes %>
-<% quizzes.each do |q| %>
-	<p><%= q.name %> quiz id= <%= q.id %>
-<%= link_to 'See results', list_questionresults_user_quiz_path(@user, q) %>
+<% if @user.lesson == nil %>
+   <%= link_to "Add lesson", add_lesson_user_path(@user.id) %>
+<% else %>
+<h3>Lesson = <%= @user.lesson.name %></h3>
+<% quizzes = @user.lesson.quizzes %>
+<% quizzes.each do |quiz| %>
+	<p><%= quiz.name %> quiz id= <%= quiz.id %>
+	<%= link_to 'See results', user_quiz_quizquestionresults_path(@user, quiz.id) %>
 	</p>
+	<% end %>
 <% end %>
-
 

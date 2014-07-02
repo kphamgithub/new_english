@@ -1,0 +1,29 @@
+<h1>Lesson: <%= @lesson.name %></h1>
+<p>Level:<%= @lesson.level %></p>
+<p>Vocabularies for this lesson: </p>
+	<table>
+	<% @lesson.vocabularies.each do |voca| %>
+    <tr>
+	  <td><strong><%= voca.name %></strong></td>
+	  <% @definition_hash = eval(voca.definition) %>	  
+	  <% @definition_hash.each do |key, value| %>
+	      <td><%= key %></td>
+		  <td>:</td>
+		  <td><%= value %></td>
+	  <% end %>
+	  <td><%= link_to "Vocabulary drills", edit_vocabulary_path(voca.id) %></td>
+	  <% if current_user.name == "kpham" %>
+	  <td><%= link_to "Edit", edit_vocabulary_path(voca.id) %></td>
+	  <td>
+	  	  <%= button_to "Delete ", { controller: "lessons", action: "remove_vocabulary", id: @lesson.id, voca_id: voca.id}, method: :post, data: { confirm: "Are you sure?" } %>
+	  </td>
+	  <% end %>
+    </tr>
+	<% end %>
+	</table>
+	<% if current_user.name == "kpham" %>
+	<%= link_to "Add vocabulary", add_vocabulary_lesson_path(@lesson.id) %>
+	<% end %>
+    <%= link_to 'Back to lesson', lesson_path(@lesson) %>
+	<%= link_to 'Home', welcome_index_path %>
+	<%= link_to 'Vocabulary exercises', welcome_index_path %>

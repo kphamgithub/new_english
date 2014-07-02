@@ -11,6 +11,31 @@ class LessonsController < ApplicationController
 	@matches = Match.where("matchquestion_id = ?",5)
   end
 
+  def add_user
+     #render text: params.inspect
+	 @lesson = Lesson.find(params[:id])
+  end
+  
+  def save_user
+	 #render text: params.inspect
+	 @lesson = Lesson.find(params[:id])
+	 found = false
+	 @lesson.users.each do |usr| 
+		if usr.id == params[:user][:id].to_i
+		  found = true
+		  break
+		end
+	 end
+	 if found
+	    render text: "user already exists for this lesson"
+	 else
+		user = User.find(params[:user][:id])
+		@lesson.users << user
+		redirect_to lessons_path
+	 end
+
+  end
+  
   def add_vocabulary
 	@lesson = Lesson.find(params[:id])
   end
@@ -28,6 +53,10 @@ class LessonsController < ApplicationController
 	end
   end
   
+  def show_vocabulary
+	@lesson = Lesson.find(params[:id])
+  end
+  
   def remove_vocabulary
      #render text: params.inspect 
 	 lesson = Lesson.find(params[:id])
@@ -35,12 +64,12 @@ class LessonsController < ApplicationController
 	 #render text: voca.name
 	 lesson.vocabularies.delete(voca)
 	 #voca.destroy
-	 redirect_to lesson_path(params[:id])
+	 redirect_to show_vocabulary_lesson_path(params[:id])
   end
   
   def update
      @lesson = Lesson.find(params[:id])
-	 if @lesson.update(params[:lesson].permit(:name,:content,:video,:level))
+	 if @lesson.update(lesson_params)
 	  	redirect_to @lesson
 	 else
 	    render 'edit'
@@ -49,8 +78,7 @@ class LessonsController < ApplicationController
   
   def create
 	  #render text: params[:lesson].inspect    
-	  @lesson = Lesson.new(lesson_params)
-	  @lesson.save
+	  @lesson = Lesson.create(lesson_params)
 	  redirect_to @lesson
   end
 
@@ -69,7 +97,7 @@ class LessonsController < ApplicationController
   end
 
   def show
-      @lesson = Lesson.find(params[:id])
+      @lesson = Lesson.find(params[:id])	  
 	  #@quiz = Quiz.find(@lesson.quiz_id)
 	  #@quiz = @lesson.quiz
 	  #@take_quiz_link = "location.href=" + "'" + take_quiz_lesson_path + "'"
@@ -81,6 +109,10 @@ class LessonsController < ApplicationController
   def destroy
 	  #render text: params[:id].inspect
       @lesson = Lesson.find(params[:id])
+	  users_for_this_lesson = @lesson.users
+	  users_for_this_lesson.each do |user|
+		 user.lesson = nil
+	  end
 	  @lesson.destroy
 	  redirect_to lessons_path
   end
@@ -88,7 +120,7 @@ class LessonsController < ApplicationController
   
   private
   def lesson_params
-	params.require(:lesson).permit(:name, :content, :level)
+	params.require(:lesson).permit(:name, :content, :video, :level)
   end
 
 end

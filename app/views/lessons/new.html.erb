@@ -6,8 +6,13 @@
 
   <p>
     <%= f.label :content %><br>
-    <%= f.text_field :content %>
+    <%= f.cktext_area :content, :value => '', :id => 'mycontent' %>
   </p>
+
+  <p>
+    <%= f.label :video%><br>
+    <%= f.text_field :video, :value => 'none' %>
+  </p>  
   
     <p>
     <%= f.label :level%><br>

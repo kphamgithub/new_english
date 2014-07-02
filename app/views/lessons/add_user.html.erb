@@ -1,0 +1,7 @@
+<h3> Add vocabulary for this lesson: </h3>
+<%= form_tag save_user_lesson_path :method=>'post' do %>
+  <%= collection_select :user, "id", User.all, :id, :name %>
+	<p>
+        <%= submit_tag "Submit"%>
+  </p>
+<% end %>

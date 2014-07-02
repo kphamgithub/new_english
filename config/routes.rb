@@ -1,4 +1,7 @@
 NewEnglish::Application.routes.draw do
+  get "vocadrills/index"
+  get "vocadrills/new"
+  mount Ckeditor::Engine => '/ckeditor'
   resources :lessonvocas
 
   get "vocabularies/index"
@@ -12,6 +15,7 @@ NewEnglish::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
@@ -22,11 +26,14 @@ NewEnglish::Application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   	 resources :lessons do
-	 
 	    member do
+		    get 'show_vocabulary'
 			get 'add_vocabulary'
 			post 'save_vocabulary'
 			post 'remove_vocabulary'
+			
+			get 'add_user'
+			post 'save_user'
 		end
 		resources :quizs do
 			member do
@@ -49,6 +56,12 @@ NewEnglish::Application.routes.draw do
 	 end
 
 		 resources :vocabularies do
+		    member do
+				get 'drills'
+				get 'questions'
+			end
+		 end
+		 
 			resources :multichoicequestions do
 				member do
 					get 'take'
@@ -58,12 +71,11 @@ NewEnglish::Application.routes.draw do
 					post 'remove_from_quiz'
 				end
 			end
-		 end
-
-	 
+		 
 	 resources :users do
 		member do
 			get 'add_lesson'
+			post 'update_lesson'
 		end	 
 	    resources :quizs do
 			member do

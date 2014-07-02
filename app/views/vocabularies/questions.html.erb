@@ -1,0 +1,27 @@
+<h3> Questions for "<%= @vocabulary.name %>"<h3>
+<% @questions = @vocabulary.multichoicequestions %>
+<% @questions.each do |question| %>
+	  
+	<h4> Question 
+	<%= question.id %>
+	</h4>
+
+    <p> Name: 
+	<%= question.name %>
+	</p>
+    <p>
+	<%= question.question %>
+	</p>
+    <p>
+	<%= question.choice1 %>
+	</p>
+    <p>
+	<%= question.choice2 %>
+	</p>
+    <p>
+	<%= question.choice3 %>
+	</p>
+    <p>
+	<strong>Answer:</strong> <%= question.answer %>
+	</p>	
+    <% end %>

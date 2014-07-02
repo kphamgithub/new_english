@@ -3,11 +3,25 @@
 	<p> Question id:
 	<%= q.id %>
 	</p>
-    <p> Name: 
-	<%= q.name %>
+    <p>Name: 
+	<%= q.name %><%= q.question %>
 	</p>
+    <p>Choice1: 
+	<%= q.choice1 %>
+	</p>
+    <p>Choice2: 
+	<%= q.choice2 %>
+	</p>
+    <p>Choice3: 
+	<%= q.choice3 %>
+	</p>
+	
+      <td><%= link_to "Edit", edit_multichoicequestion_path(q.id) %></td>
+	
 	<%= button_to "Delete ", { controller: "multichoicequestions", action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
 	<% end %>
+	  <%= link_to "create questions", new_multichoicequestion_path() %>
+
 
 
 

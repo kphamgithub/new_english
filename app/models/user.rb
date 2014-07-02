@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
-	belongs_to :lesson
-	#has_many :vocabulary, :through => :lessons
+    has_many :uservocas
+	has_many :vocabularies, :through => :uservocas
+	
+	has_many :userlessons
+	has_many :lessons, :through => :userlessons
+	
 	has_many :quizquestionresults, dependent: :destroy
+	
 end

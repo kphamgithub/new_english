@@ -1,15 +1,27 @@
 <h1>Lessons listing</h1>
 <% @lessons.each do |lesson| %>
 	<p>
-	<h3>Lesson <%= lesson.id %>&nbsp<%= lesson.name %>
-	<%= link_to 'Show',lesson_path(lesson) %></h3>
-    <%= link_to 'Edit', edit_lesson_path(lesson) %></h3>
-	<%= button_to "Delete ", { action: "destroy", id: lesson.id }, method: :delete, data: { confirm: "Are you sure?" } %>
+	<h4>Lesson <%= lesson.id %>&nbsp<%= lesson.name %></h4>
+	<table>
+	<tr>
+	<td><strong><%= link_to 'Show',lesson_path(lesson) %></strong></td>
+	<td>&nbsp</td>
+    <td><strong><%= link_to 'Edit', edit_lesson_path(lesson) %></strong></td>
+	<td><strong><%= button_to "Delete ", { action: "destroy", id: lesson.id }, method: :delete, data: { confirm: "Are you sure?" } %></strong></td>
+	</tr>
+	</table>
 	There are <%= lesson.quizzes.count %> quizzes for this lesson
 	<%= link_to 'Show', lesson_quizs_path(lesson) %>
 	 <%= link_to 'Add a quiz', new_lesson_quiz_path(lesson) %>
 	</p>
 	<p>
+	    There are <%= lesson.users.count %> users for this lesson (the lessons for these users will be deleted upon lesson's deletion) :
+	</p>
+		<% lesson.users.each do |user| %>
+			 <%= user.name %>
+		<% end %>
+	<p>
+	<strong><%= link_to 'Add user', add_user_lesson_path(lesson) %></strong>
   <% end %>
   </p>
   <p><%= link_to 'New Lesson', new_lesson_path %></p>

@@ -4,24 +4,23 @@
   <tr>
     <th>User id</th>
     <th> Name</th> 
-    <th> Lesson ID</th>
-	<th> Quizzes </th>
-    <th> Level</th>
-    <th> Function</th>  
-	<th> </th>  
+	<th> Lessons</th>
   </tr>
  
   <% @users.each do |user| %>
     <tr>	
       <td><%= user.id %></td>
       <td><%= user.name %></td>
- 	   <% lesson = user.lesson %>
-       <% if lesson == nil %>
-       <td><%= link_to "Add lesson", add_lesson_user_path(user.id) %></td>
-	   <% else %>
-	  <td><%= lesson.name %></td>
-	  <td><%= lesson.quizzes.count %></td>
+	  <td>
+	  <table>
+       <% user.lessons.each do |lesson| %>
+			<tr>
+			<td><%= link_to lesson.name, lesson_path(lesson.id) %></td>
+			</tr>
 	  <% end %>
+	  </table>
+	  </td>
+	  <td><%= link_to "Add lesson", add_lesson_user_path(user.id) %></td>
 	  <td><%= user.level %></td>
 	  <td><%= link_to "Show", user_path(user.id) %></td>
 	  <td><%= link_to "Edit", edit_user_path(user.id) %></td>

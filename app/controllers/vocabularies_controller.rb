@@ -30,6 +30,12 @@ class VocabulariesController < ApplicationController
 	  end
   end
 
+  def questions
+      #render text: params.inspect
+      @vocabulary = Vocabulary.find(params[:id])
+      @multichoicequestions = @vocabulary.multichoicequestions
+  end
+  
   private
   def vocabulary_params
 	params.require(:vocabulary).permit(:name, :definition,:group, :supergroup, :audio, :image)

@@ -8,17 +8,16 @@
 		   <p><%= link_to "new fill question", new_fillquestion_path %></p>
 		   	<p><%= link_to "new match question", new_matchquestion_path %></p>
 		<% else %>
-			<p>Your level: <%= current_user.level %></p>
-			
-			<p>Your Current Lesson:
-			<%= link_to @my_lesson.name, lesson_path(current_user.lesson_id)%>
-			<% quizzes = @my_lesson.quizzes %>
-			</p>
-			<p>Your quizzes for this lesson:</p>
-			<% quizzes.each do |q| %>
-				<p><%= q.name %><%= link_to "see results", user_quiz_quizquestionresults_path(current_user,q) %>
-				</p>
-			<% end %>
+		    <ol class="list-unstyled">
+			<li>Your level: <%= current_user.level %></li>
+			<li><strong>Your Lessons:</strong></li>
+			</ol>
+			    <ul class="list-group">
+					<% current_user.lessons.each do |lesson| %>
+					<li class="list-group-item"><i class="fa-book"></i><%= link_to lesson.name, lesson_path(lesson.id) %></li>
+					<% end %>
+				</ul>				
 		<% end %>
         <% end %>
 </div>
+
