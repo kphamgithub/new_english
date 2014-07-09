@@ -1,0 +1,17 @@
+<h1> EDIT CLASS NOTE </h1>
+<%= form_for :classnote, url: classnote_path(@classnote), method: :patch do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :content %><br>
+    <%= f.cktext_area :content  %>
+  </p>
+  
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Classnotes List', classnotes_path %>

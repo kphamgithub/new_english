@@ -7,16 +7,17 @@
     <%= f.label :question %><br>
     <%= f.text_area :question %>
   </p>
+  
   <% if @vocabulary != nil %>
-    <p> Voca name = <%= @vocabulary.name %>
+    <p> Voca name = <%= @vocabulary.name %></p>
     <p>
     <%= f.label :vocabulary%><br>
-    <%= f.text_field :vocabulary_id, :value => @vocabulary.id %>
+    <%= f.text_field :vocabulary, :value => @vocabulary.name %>
     </p>
    <% else %>
     <p>
     <%= f.label :vocabulary%><br>
-    <%= f.text_field :vocabulary_id %>
+    <%= f.text_field :vocabulary %>
     </p>    
    <% end %>
   <p>

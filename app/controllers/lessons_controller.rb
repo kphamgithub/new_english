@@ -14,26 +14,52 @@ class LessonsController < ApplicationController
   def add_user
      #render text: params.inspect
 	 @lesson = Lesson.find(params[:id])
+	 @all_users = User.order(:name)
   end
   
   def save_user
-	 #render text: params.inspect
-	 @lesson = Lesson.find(params[:id])
-	 found = false
-	 @lesson.users.each do |usr| 
-		if usr.id == params[:user][:id].to_i
-		  found = true
-		  break
+	  #render text: params.inspect
+	  @lesson = Lesson.find(params[:id])
+	  mykeys = params.keys  
+	  #params format:   user_ID => 1 (selected)
+	  #examples         user_1 => 1
+	  #         		user_9 => 1
+		 
+	  mykeys.each do |k|
+	   if (k.include? "user")
+	    arr = k.split('_')		
+		user_id = arr[1].to_i
+		    @user = User.find(user_id)
+			@lesson.users << @user
 		end
-	 end
-	 if found
-	    render text: "user already exists for this lesson"
-	 else
-		user = User.find(params[:user][:id])
-		@lesson.users << user
-		redirect_to lessons_path
-	 end
+	  end
+	  redirect_to lessons_path
+  end
 
+  def delete_user
+     #render text: params.inspect
+	 @lesson = Lesson.find(params[:id])
+  end
+
+  def remove_user
+     #render text: params.inspect
+	 @lesson = Lesson.find(params[:id])
+	 mykeys = params.keys  
+	  #params format:   user_ID => 1 (selected)
+	  #examples         user_1 => 1
+	  #         		user_9 => 1
+		 
+	  mykeys.each do |k|
+	   if (k.include? "user")
+	    arr = k.split('_')		
+		user_id = arr[1].to_i
+		    @user = User.find(user_id)
+			if @lesson.users.include?(@user)
+			   @lesson.users.delete(@user)
+			end
+		end
+	  end
+	  redirect_to lessons_path
   end
   
   def add_vocabulary
@@ -98,6 +124,10 @@ class LessonsController < ApplicationController
 
   def show
       @lesson = Lesson.find(params[:id])	  
+	  @voca_quiz = Quiz.find_by quiz_type: 'vocabulary'
+	  @grammar_quiz = Quiz.find_by quiz_type: 'grammar'
+	  @phonics_quiz = Quiz.find_by quiz_type: 'phonics'
+	  @general_quiz = Quiz.find_by quiz_type: 'general'
 	  #@quiz = Quiz.find(@lesson.quiz_id)
 	  #@quiz = @lesson.quiz
 	  #@take_quiz_link = "location.href=" + "'" + take_quiz_lesson_path + "'"
@@ -111,7 +141,7 @@ class LessonsController < ApplicationController
       @lesson = Lesson.find(params[:id])
 	  users_for_this_lesson = @lesson.users
 	  users_for_this_lesson.each do |user|
-		 user.lesson = nil
+		 user.lessons.delete(@lesson)
 	  end
 	  @lesson.destroy
 	  redirect_to lessons_path
@@ -120,7 +150,7 @@ class LessonsController < ApplicationController
   
   private
   def lesson_params
-	params.require(:lesson).permit(:name, :content, :video, :level)
+	params.require(:lesson).permit(:name, :reading_content, :vocabulary_content, :grammar_content, :phonics_content, :video, :level)
   end
 
 end

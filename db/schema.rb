@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140701121056) do
+ActiveRecord::Schema.define(version: 20140706184011) do
 
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 20140701121056) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type"
 
+  create_table "classnotes", force: true do |t|
+    t.string   "name"
+    t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "fillquestions", force: true do |t|
     t.string   "name"
     t.string   "question"
@@ -41,11 +48,14 @@ ActiveRecord::Schema.define(version: 20140701121056) do
 
   create_table "lessons", force: true do |t|
     t.string   "name"
-    t.string   "content"
     t.string   "level"
     t.string   "video"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "vocabulary_content"
+    t.string   "grammar_content"
+    t.string   "phonics_content"
+    t.string   "reading_content"
   end
 
   create_table "lessonvocas", force: true do |t|
@@ -87,6 +97,7 @@ ActiveRecord::Schema.define(version: 20140701121056) do
     t.string   "choice_label_display_mode"
     t.string   "media"
     t.integer  "vocabulary_id"
+    t.string   "question_type"
   end
 
   create_table "quizquestionresults", force: true do |t|
@@ -113,6 +124,7 @@ ActiveRecord::Schema.define(version: 20140701121056) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "testid"
+    t.string   "quiz_type"
   end
 
   create_table "userlessons", force: true do |t|
@@ -127,7 +139,6 @@ ActiveRecord::Schema.define(version: 20140701121056) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "level"
-    t.integer  "lesson_id"
   end
 
   create_table "uservocas", force: true do |t|

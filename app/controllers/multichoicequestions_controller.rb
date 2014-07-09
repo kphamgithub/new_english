@@ -1,14 +1,8 @@
 class MultichoicequestionsController < ApplicationController
   def new
-	  #render text: params.inspect
-	  if params[:voca_id] != nil
+	  if params[:voca_id] != nil   # new question link from vocabulary path
 	     @vocabulary = Vocabulary.find(params[:voca_id])
 	  end
-	  #@voca_name = voca.name
-	  #@voca_media = voca.media
-         # if params[:quiz_id] != nil
-          #  render text: params[:quiz_id]
-          #end 
  end
 
   def index
@@ -49,10 +43,12 @@ class MultichoicequestionsController < ApplicationController
   end
 	
   def create
-	  #render text: params.inspect    
+      #render text: params.inspect
+	  vocabulary = Vocabulary.find_by name: params[:multichoicequestion][:vocabulary]
 	  multichoicequestion = Multichoicequestion.new(multichoicequestion_params)
+	  multichoicequestion.vocabulary_id = vocabulary.id
 	  multichoicequestion.save
-          if params['create_quizquestion'] != nil
+        if params['create_quizquestion'] != nil
             	   qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], origin_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
 	    quizquestion = Quizquestion.new(qqrow)
 		quizquestion.save 
@@ -62,7 +58,7 @@ class MultichoicequestionsController < ApplicationController
 
   private
   def multichoicequestion_params
-	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :media, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer, :vocabulary_id)
+	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :media, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer)
   end
 end
 

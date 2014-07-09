@@ -1,5 +1,7 @@
 <h1>Quiz</h1>
 <h3>Name:<%= @quiz.name %></h3>
+<h4>Type: <strong><%= @quiz.quiz_type%></h4></strong>
+
 <h4>id = <%= @quiz.id%> This quiz belongs to lesson: <%= link_to @quiz.lesson.name, lesson_path(@quiz.lesson.id)  %></h4>
 <p>Number of questions: <%= @quiz.quizquestions.count %></p>
 <table>

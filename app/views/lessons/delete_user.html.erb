@@ -1,0 +1,11 @@
+<h3> Delete users for lesson: <%= @lesson.name %> Level: <%= @lesson.level %> </h3>
+<%= form_tag remove_user_lesson_path :method=>'post' do %>
+    <% @lesson.users.each do |user| %>	
+		<%= check_box_tag 'user_'+user.id.to_s %> <%= user.name %> level = <%= user.level %>
+	<p>
+	<% end %>
+	</p>
+	<p>
+	<%= submit_tag "Delecte selected users" %>
+	</p>
+<% end %>

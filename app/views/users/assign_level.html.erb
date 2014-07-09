@@ -1,0 +1,10 @@
+<%= form_for :user, url: update_level_user_path do |f| %>
+  	<p>
+    <%= f.label :level%><br>
+    <%= f.text_field :level %>
+  </p>  
+  <p>
+    <%= f.submit 'Update level' %>
+  </p>
+<% end %>
+<%= link_to 'Back to Users List', users_path %>

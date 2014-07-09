@@ -1,4 +1,6 @@
 NewEnglish::Application.routes.draw do
+  get "classnotes/index"
+  get "classnotes/new"
   get "vocadrills/index"
   get "vocadrills/new"
   mount Ckeditor::Engine => '/ckeditor'
@@ -25,6 +27,8 @@ NewEnglish::Application.routes.draw do
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
+	 resources :classnotes
+	 
   	 resources :lessons do
 	    member do
 		    get 'show_vocabulary'
@@ -34,6 +38,10 @@ NewEnglish::Application.routes.draw do
 			
 			get 'add_user'
 			post 'save_user'
+
+			get 'delete_user'
+			post 'remove_user'
+			
 		end
 		resources :quizs do
 			member do
@@ -76,6 +84,8 @@ NewEnglish::Application.routes.draw do
 		member do
 			get 'add_lesson'
 			post 'update_lesson'
+			get 'assign_level'
+			post 'update_level'
 		end	 
 	    resources :quizs do
 			member do

@@ -1,7 +1,13 @@
-<h3> Add vocabulary for this lesson: </h3>
+<h3> Add users for lesson: <%= @lesson.name %> Level: <strong><%= @lesson.level %></strong></h3>
 <%= form_tag save_user_lesson_path :method=>'post' do %>
-  <%= collection_select :user, "id", User.all, :id, :name %>
+    <% @all_users.each do |user| %>
+	    <% if @lesson.users.include?(user) == false %>
+		<%= check_box_tag 'user_'+user.id.to_s %> <%= user.name %> ( <strong><%= user.level %>)</strong>
+		<% end %>
 	<p>
-        <%= submit_tag "Submit"%>
-  </p>
+	<% end %>
+	</p>
+	<p>
+	<%= submit_tag "Save users" %>
+	</p>
 <% end %>

@@ -4,6 +4,10 @@ class FillquestionsController < ApplicationController
   end
 
   def new
+     if params[:voca_id] != nil   # new question link from vocabulary path
+	     @vocabulary = Vocabulary.find(params[:voca_id])
+	  end
+
   end
   
   def show

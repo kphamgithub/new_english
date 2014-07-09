@@ -7,7 +7,8 @@ class QuizsController < ApplicationController
   end
   def new 
 	 @lesson = Lesson.find(params[:lesson_id])
-	 #@quiz = Quiz.new(:lesson=>@lesson)
+	 qs = @lesson.quizzes
+	 @quiz_number = (qs.count + 1).to_s
 	 @quiz = Quiz.new
   end
   def show
@@ -82,6 +83,13 @@ class QuizsController < ApplicationController
 		# "lesson_id"=>"16", "id"=>"14"
 		@lesson = Lesson.find(params[:lesson_id])
 		@quiz = Quiz.find(params[:id])
+		if @quiz.quiz_type == 'vocabulary'
+		   voca_quiz = true
+		elsif @quiz.quiz_type == 'grammar'
+		   grammar_quiz = true
+		elsif @quiz.quiz_type == 'general'
+		   general_quiz = true 
+		end
 		@available_questions = []
 		
         multichoicequestions = Multichoicequestion.all
@@ -95,7 +103,9 @@ class QuizsController < ApplicationController
 				end
 			end
 			if found == false
-				@available_questions.push(mcq)
+			    if voca_quiz and mcq.vocabulary_id != nil
+					@available_questions.push(mcq)
+				end
 			end
 	    end	   
 
@@ -167,6 +177,6 @@ class QuizsController < ApplicationController
   
   private
   def quiz_params
-	params.require(:quiz).permit(:name, :lesson_id)
+	params.require(:quiz).permit(:name, :quiz_type, :lesson_id)
   end
 end

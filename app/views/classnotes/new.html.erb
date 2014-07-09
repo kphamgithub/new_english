@@ -1,0 +1,16 @@
+<%= form_for :classnote, url: classnotes_path do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :content %><br>
+    <%= f.cktext_area :content, :value => '', :id => 'mynotes' %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Class Notes List', classnotes_path %>

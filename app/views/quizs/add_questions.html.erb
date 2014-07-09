@@ -3,14 +3,14 @@
 
 <p>
 <% @lesson.vocabularies.each do |voca|%>
-    <%= voca.name %>
+    <strong><%= voca.name %></strong>
  <% end %>
 </p>
 
 <p> Select questions: </p>
 <%= form_tag save_questions_lesson_quiz_path :method=>'post' do %>
 <% if @available_questions.count == 0 %>
-   <%= link_to 'new multichoice', new_multichoicequestion_path %>
+   <%= link_to 'new question', new_multichoicequestion_path %>
 <% else %>
     <% @available_questions.each do |q| %>	
 		<%= check_box_tag q.class.to_s + '_' + q.id.to_s %> <%= q.name %> id = <%= q.id %>

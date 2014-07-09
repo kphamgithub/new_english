@@ -1,20 +1,25 @@
 <div class="center hero-unit">
-  <h1>Welcome to TiengAnhTuyHoa.com.</h1> 
+  <% if current_user %>
+  <h2 style="color:red">Welcome <strong><%= current_user.name %></strong> to TiengAnhTuyHoa.com.</h2> 
+  <% else %>
+  
+  <h2>Welcome to TiengAnhTuyHoa.com.</h2> 
+  <% end %>
 	    <% if current_user %>
         <% if current_user.name == "kpham" %>
+		
 		   <p><%= link_to "manage users", users_path %></p>
 		   <p><%= link_to "manage lessons", lessons_path %></p>
            <p><%= link_to "manage vocabularies", vocabularies_path %></p>
-		   <p><%= link_to "new fill question", new_fillquestion_path %></p>
-		   	<p><%= link_to "new match question", new_matchquestion_path %></p>
+		   <p><%= link_to "manage classnotes", classnotes_path %></p>
 		<% else %>
 		    <ol class="list-unstyled">
-			<li>Your level: <%= current_user.level %></li>
+			<li>Your level: <%= current_user.level %>&nbsp<i class="fa fa-star"></i></li>
 			<li><strong>Your Lessons:</strong></li>
 			</ol>
 			    <ul class="list-group">
 					<% current_user.lessons.each do |lesson| %>
-					<li class="list-group-item"><i class="fa-book"></i><%= link_to lesson.name, lesson_path(lesson.id) %></li>
+					<li class="list-group-item"><%= link_to lesson.name, lesson_path(lesson.id) %></li>
 					<% end %>
 				</ul>				
 		<% end %>

@@ -12,12 +12,7 @@ class UsersController < ApplicationController
   def edit
   @user = User.find(params[:id])
   end
-  def create
-      #@user = User.new(name: "bee",
-       # password: "n", password_confirmation: "n")
-      #render text: params["user"].inspect
-	  #render text: params[:user][:name]
-	  
+  def create	  
 	  @user = User.new(user_params)
 	  @user.save
 	  redirect_to @user 	  
@@ -33,23 +28,33 @@ class UsersController < ApplicationController
 	 user.lessons << lesson
 	 redirect_to users_path  
   end
+  def update_level
+	@user = User.find(params[:id])
+	if @user.update(user_level_params)
+	 	redirect_to users_path
+	else
+	    render 'edit'
+	end
+  end
   
   def update
-       #render text: params.inspect
        @user = User.find(params[:id])
 	   if @user.update(user_params)
 	  	redirect_to @user
 	   else
 	    render 'edit'
-	   end 
-
+	   end
   end
     
   private
   def user_params
-	#params.require(:user).permit(:name, :password, :password_confirmation, :level)
 	params.require(:user).permit(:name,:password)
   end
+  
+  def user_level_params
+	params.require(:user).permit(:level)
+  end
+
   #ANY METHOD ADDED HEREAFTER will become private, BEWARE!!! kpham
 end
               

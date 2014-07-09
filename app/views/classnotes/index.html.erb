@@ -1,0 +1,16 @@
+<h1>Class notes listing</h1>
+<% @classnotes.each do |note| %>
+	<p>
+	<h4>Class note: <%= note.id %>&nbsp<%= note.name %></h4>
+	<table>
+	<tr>
+	<td><strong><%= link_to 'Show',classnote_path(note) %></strong></td>
+	<td>&nbsp</td>
+    <td><strong><%= link_to 'Edit', edit_classnote_path(note) %></strong></td>
+	<td><strong><%= button_to "Delete ", { action: "destroy", id: note.id }, method: :delete, data: { confirm: "Are you sure?" } %></strong></td>
+	</tr>
+	</table>
+	<p>
+  <% end %>
+  </p>
+  <p><%= link_to 'New Class note', new_classnote_path %></p>

@@ -1,4 +1,4 @@
-<h1> EDIT LESSON </h1>
+<h2> EDIT LESSON </h2>
 <%= form_for :lesson, url: lesson_path(@lesson), method: :patch do |f| %>
   <p>
     <%= f.label :name %><br>
@@ -6,9 +6,25 @@
   </p>
 
   <p>
-    <%= f.label :content %><br>
-    <%= f.cktext_area :content  %>
+    <%= f.label :reading %><br>
+    <%= f.cktext_area :reading_content  %>
   </p>
+
+  <p>
+    <%= f.label :vocabulary %><br>
+    <%= f.cktext_area :vocabulary_content  %>
+  </p>
+
+  <p>
+    <%= f.label :grammar %><br>
+    <%= f.cktext_area :grammar_content  %>
+  </p>
+
+  <p>
+    <%= f.label :phonics %><br>
+    <%= f.cktext_area :phonics_content  %>
+  </p>
+
   
     <p>
     <%= f.label :video %><br>
