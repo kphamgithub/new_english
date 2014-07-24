@@ -46,7 +46,9 @@ class MultichoicequestionsController < ApplicationController
       #render text: params.inspect
 	  vocabulary = Vocabulary.find_by name: params[:multichoicequestion][:vocabulary]
 	  multichoicequestion = Multichoicequestion.new(multichoicequestion_params)
-	  multichoicequestion.vocabulary_id = vocabulary.id
+	  if vocabulary != nil
+		multichoicequestion.vocabulary_id = vocabulary.id
+	  end
 	  multichoicequestion.save
         if params['create_quizquestion'] != nil
             	   qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], origin_id: multichoicequestion.id, qtype: 'Multichoicequestion' }

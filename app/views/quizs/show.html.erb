@@ -26,12 +26,9 @@
 	</tr>
   <% end %>  
   </table>
-<%= link_to 'Add question', add_questions_lesson_quiz_path(@quiz.lesson, @quiz) %>
-<%= link_to 'New  question', new_lesson_quiz_quizquestion_path(@quiz.lesson, @quiz) %>
+<%= link_to 'Add question', new_lesson_quiz_quizquestion_path(@quiz.lesson, @quiz) %>
 
-<% if @quiz.quizquestions.count > 0 %>
 <%=  link_to 'Take', take_quiz_lesson_quiz_path(@quiz.lesson,@quiz) %>
-<% end %>
 <%= link_to 'Quizzes for this lesson', lesson_quizs_path %>
 <%= link_to 'Home', welcome_index_path %>
 

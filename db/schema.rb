@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140706184011) do
+ActiveRecord::Schema.define(version: 20140721142404) do
 
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
@@ -42,8 +42,7 @@ ActiveRecord::Schema.define(version: 20140706184011) do
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "audio"
-    t.string   "image"
+    t.string   "media"
   end
 
   create_table "lessons", force: true do |t|
@@ -56,6 +55,7 @@ ActiveRecord::Schema.define(version: 20140706184011) do
     t.string   "grammar_content"
     t.string   "phonics_content"
     t.string   "reading_content"
+    t.string   "lyrics_content"
   end
 
   create_table "lessonvocas", force: true do |t|

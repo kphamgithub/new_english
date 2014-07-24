@@ -13,15 +13,17 @@
            <p><%= link_to "manage vocabularies", vocabularies_path %></p>
 		   <p><%= link_to "manage classnotes", classnotes_path %></p>
 		<% else %>
-		    <ol class="list-unstyled">
-			<li>Your level: <%= current_user.level %>&nbsp<i class="fa fa-star"></i></li>
-			<li><strong>Your Lessons:</strong></li>
-			</ol>
-			    <ul class="list-group">
+		    
+			Your level: <%= current_user.level %>&nbsp<i class="fa fa-star"></i>
+			<strong>Your Lessons:</strong>
+			
+			        <table>
 					<% current_user.lessons.each do |lesson| %>
-					<li class="list-group-item"><%= link_to lesson.name, lesson_path(lesson.id) %></li>
+					<tr>
+					<td><%= link_to lesson.name, lesson_path(lesson.id) %></td>
+					<tr>
 					<% end %>
-				</ul>				
+				    </table>
 		<% end %>
         <% end %>
 </div>

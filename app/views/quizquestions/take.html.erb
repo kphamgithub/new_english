@@ -1,11 +1,14 @@
 <h3> Take_quiz </h3>
+ <% if current_user.name == "kpham" %>
 <p> 
 for admin only <%= @source_question.class.to_s %>
 </p>
+<% end %>
 
 <p> 
 <%= @source_question.question %>
 </p>
+	<% if !@source_question.media.blank? %> 
 		<% if @source_question.media.include? "mp3" %>
 			<div>			
 			<%= audio_tag @media_path, class: "audio_volume_only", id: "iconaudio", controls: false %>
@@ -20,7 +23,7 @@ for admin only <%= @source_question.class.to_s %>
 			<%= image_tag @media_path %>		
 		elsif @source_question.media.include? "mp4"
 		<% end %>
-
+	<% end %>
 <% if @quizquestion.qtype == "Multichoicequestion" %>
 <div>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
@@ -71,9 +74,6 @@ for admin only <%= @source_question.class.to_s %>
 </div>
 <% elsif @quizquestion.qtype == "Fillquestion" %>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
-  <p>
-  <%= @source_question.question %>
-  </p>
   <p>
   <%= text_field_tag 'answer' %>
   </p>

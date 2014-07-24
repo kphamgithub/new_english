@@ -124,10 +124,39 @@ class LessonsController < ApplicationController
 
   def show
       @lesson = Lesson.find(params[:id])	  
-	  @voca_quiz = Quiz.find_by quiz_type: 'vocabulary'
-	  @grammar_quiz = Quiz.find_by quiz_type: 'grammar'
-	  @phonics_quiz = Quiz.find_by quiz_type: 'phonics'
-	  @general_quiz = Quiz.find_by quiz_type: 'general'
+	  my_quizzes = @lesson.quizzes
+	  #@voca_quiz = Quiz.find_by quiz_type: 'vocabulary'
+	  my_quizzes.each do |quiz|
+	     if quiz.quiz_type == "vocabulary"
+		    @voca_quiz = quiz
+			break
+		 end
+	  end
+
+	  my_quizzes.each do |quiz|
+	     if quiz.quiz_type == "grammar"
+		    @grammar_quiz = quiz
+			break
+		 end
+	  end
+
+	  my_quizzes.each do |quiz|
+	     if quiz.quiz_type == "phonics"
+		    @phonics_quiz = quiz
+			break
+		 end
+	  end
+
+	  my_quizzes.each do |quiz|
+	     if quiz.quiz_type == "general"
+		    @general_quiz = quiz
+			break
+		 end
+	  end
+	  
+	  #@grammar_quiz = Quiz.find_by quiz_type: 'grammar'
+	  #@phonics_quiz = Quiz.find_by quiz_type: 'phonics'
+	  #@general_quiz = Quiz.find_by quiz_type: 'general'
 	  #@quiz = Quiz.find(@lesson.quiz_id)
 	  #@quiz = @lesson.quiz
 	  #@take_quiz_link = "location.href=" + "'" + take_quiz_lesson_path + "'"
@@ -150,7 +179,7 @@ class LessonsController < ApplicationController
   
   private
   def lesson_params
-	params.require(:lesson).permit(:name, :reading_content, :vocabulary_content, :grammar_content, :phonics_content, :video, :level)
+	params.require(:lesson).permit(:name, :reading_content, :vocabulary_content, :grammar_content, :phonics_content, :lyrics_content, :video, :level)
   end
 
 end

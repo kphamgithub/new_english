@@ -1,10 +1,12 @@
-<%= form_for :user, url: update_lesson_user_path(@user) do |f| %>
-  	<p>
-    <%= f.label :lesson%><br>
-    <%= collection_select :lesson, "lesson_id", Lesson.all, :id, :name %>
-  </p>  
-  <p>
-    <%= f.submit 'Update lesson' %>
-  </p>
-<% end %>
+<%= form_tag update_lesson_user_path :method=>'post' do %>
+    <% Lesson.all.each do |q| %>	
+		<%= check_box_tag q.id.to_s %> <%= q.name %> id = <%= q.id %>created on:<%= q.created_at %>
+	<p>
+	<% end %>
+	</p>
+	<p>
+	<%= submit_tag "Save selection" %>
+	</p>
+	<% end %>
+
 <%= link_to 'Back to Users List', users_path %>

@@ -7,6 +7,8 @@ class UsersController < ApplicationController
 
   def add_lesson
       @user = User.find(params[:id])
+	  all_lessons = Lesson.all
+	  render text: @user.lessons.count
   end
   
   def edit

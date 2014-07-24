@@ -1,4 +1,4 @@
-<h3>Quizzes for this lesson</h3>
+<h3>Quizzes for "<%= @lesson.name %>"</h3>
 <% @quizs.each do |q| %>
 	<p>
 	<%= q.name %>&nbsp quiz id = <%= q.id %> quiz type = <strong><%= q.quiz_type %></strong>
@@ -7,12 +7,8 @@
 	<%= link_to 'Take quiz', take_quiz_lesson_quiz_path(q.lesson,q) %> 
 	<% end %>
 	<% if current_user.name == "kpham" %>
-	<% if q.quizquestions.count > 0 %>
 	<%= link_to 'Show', lesson_quiz_path(q.lesson,q) %>	
-	<% else %>
-    <%= link_to 'Add question', add_questions_lesson_quiz_path(q.lesson, q) %>
-	<%= link_to 'New  question', new_lesson_quiz_quizquestion_path(q.lesson, q) %>
-	<% end %>
+	<%= link_to 'Add question', new_lesson_quiz_quizquestion_path(q.lesson, q) %>
 	<%= button_to "Delete ", { action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
 	<% end %> 
 	</p>

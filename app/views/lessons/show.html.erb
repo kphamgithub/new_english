@@ -1,12 +1,6 @@
 <h1><%= @lesson.name %></h1>
 <p>Level:<%= @lesson.level %></p>
 
-<% if !@lesson.reading_content.blank? %>
-<p>
-  <strong>Reading:</strong>
-  <%= raw@lesson.reading_content %>
-</p>
-<% end %>
 <table>
 <tr>
 <td>
@@ -16,7 +10,20 @@
 </td>
 </tr>
 </table>
+
+<% if !@lesson.lyrics_content.blank? %>
+<p>
+  <strong>Lyrics:</strong>
+  <%= raw@lesson.lyrics_content %>
 </p>
+<% end %>
+
+<% if !@lesson.reading_content.blank? %>
+<p>
+  <strong>Reading:</strong>
+  <%= raw@lesson.reading_content %>
+</p>
+<% end %>
 
 <% if !@lesson.vocabulary_content.blank? %>
 <p>
@@ -26,7 +33,8 @@
 <% end %>
 
  <% if @voca_quiz != nil %>
-<p><i class="fa fa-question-circle fa-lg">&nbsp</i><%= link_to 'Vocabulary quiz', take_quiz_lesson_quiz_path(@lesson,@voca_quiz) %></p>
+<p><i class="fa fa-question-circle fa-lg">&nbsp</i>
+<%= link_to 'Vocabulary quiz', take_quiz_lesson_quiz_path(@lesson,@voca_quiz) %></p>
  <% end %>
   
 <% if !@lesson.grammar_content.blank? %>
@@ -37,7 +45,8 @@
 <% end %>
 
 <% if @grammar_quiz != nil %>
-<p><i class="fa fa-question-circle fa-lg">&nbsp</i><%= link_to 'Grammar quiz', '#' %></p>
+<p><i class="fa fa-question-circle fa-lg">&nbsp</i>
+<%= link_to 'Grammar quiz', take_quiz_lesson_quiz_path(@lesson,@grammar_quiz) %></p>
 <% end %>
 
 <% if !@lesson.phonics_content.blank? %>
@@ -46,10 +55,15 @@
   <%= raw@lesson.phonics_content %>
 </p>
 <% end %>
+<% if @phonics_quiz != nil %>
+<p><i class="fa fa-question-circle fa-lg">&nbsp</i>
+<%= link_to 'Phonics quiz', take_quiz_lesson_quiz_path(@lesson,@phonics_quiz) %></p>
+<% end %>
 
 
 <% if @general_quiz != nil %>
-<p><i class="fa fa-question-circle fa-lg">&nbsp</i><%= link_to 'General quiz', '#' %></p>
+<p><i class="fa fa-question-circle fa-lg">&nbsp</i>
+<%= link_to 'General quiz', take_quiz_lesson_quiz_path(@lesson,@general_quiz) %></p>
 <% end %>
 
  <% if current_user.name == "kpham" %>
@@ -68,5 +82,6 @@
 	
  <p><%= link_to 'Edit Lesson', edit_lesson_path(@lesson) %></p>
  <p><%= link_to 'Add a quiz', new_lesson_quiz_path(@lesson) %></p>
+ <p><%= link_to 'Back to lesson index', lessons_path %></p>
  <% else %>
 <% end %>

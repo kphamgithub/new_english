@@ -20,6 +20,12 @@ class FillquestionsController < ApplicationController
 	  #render text: fillquestion_params
 	  @fillquestion = Fillquestion.new(fillquestion_params)
 	  @fillquestion.save
+	  #add to quiz
+	  if params['create_quizquestion'] != nil
+            	   qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], origin_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
+	    quizquestion = Quizquestion.new(qqrow)
+		quizquestion.save 
+	  end
 	  redirect_to @fillquestion
   end
   
