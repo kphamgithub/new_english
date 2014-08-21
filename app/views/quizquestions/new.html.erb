@@ -1,6 +1,6 @@
 <h1>Add a quizquestion</h1>
 <%= link_to 'Create new multichoice question', new_multichoicequestion_path %>
-<%= link_to 'Create new fill question', new_fillquestion_path %>
+<%= link_to 'Create new fill question', new_fillquestion_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
 <%= link_to 'Create new match question', new_matchquestion_path %>
 <p> Select questions: </p>
 <%= form_tag lesson_quiz_quizquestions_path :method=>'post' do %>

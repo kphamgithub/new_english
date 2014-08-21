@@ -83,9 +83,9 @@ class QuizquestionsController < ApplicationController
 	if @quizquestion.qtype == "Multichoicequestion"
 		@source_question = Multichoicequestion.find(@quizquestion.origin_id)
 		#render text: "MULTI"
-		@choice1_media_dir = "voca/"+ @source_question.choice1[0] + '/'
-		@choice2_media_dir = "voca/"+ @source_question.choice2[0] + '/'
-		@choice3_media_dir = "voca/"+ @source_question.choice3[0] + '/'
+		#@choice1_media_dir = "voca/"+ @source_question.choice1[0] + '/'
+		#@choice2_media_dir = "voca/"+ @source_question.choice2[0] + '/'
+		#@choice3_media_dir = "voca/"+ @source_question.choice3[0] + '/'
 	elsif @quizquestion.qtype == "Fillquestion"
 	    #render text: "FILL"
 		@source_question = Fillquestion.find(@quizquestion.origin_id)
@@ -150,9 +150,9 @@ class QuizquestionsController < ApplicationController
 		if k.include? "Multichoicequestion"
 		    question_name = Multichoicequestion.find(origin_id)
 		elsif  k.include? "Fillquestion"
-			question_name = Multichoicequestion.find(origin_id)
+			question_name = Fillquestion.find(origin_id)
 		elsif k.include? "Matchquestion"
-		    question_name = Multichoicequestion.find(origin_id)
+		    question_name = Matchquestion.find(origin_id)
 		end
 		#render text: arr[0]    #type 
 		#render text: arr[1]    #id

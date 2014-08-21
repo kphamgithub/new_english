@@ -22,12 +22,10 @@
    <% end %>
   <p>
 
-<p><%= collection_select :quiz, "id", Quiz.all, :id, :name %></p>
-
+  <p><%= text_field_tag :test %></p>
   <p>
-  <%= check_box_tag "create_quizquestion" %>Add this question to selected quiz:
+  <%= check_box_tag "create_quizquestion" %>Add this question to this quiz:
   </p>
-<p>
   
   <p>
     <%= f.submit %>

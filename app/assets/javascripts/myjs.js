@@ -1,3 +1,4 @@
+//= require jquery.ui.accordion
 
 var yourAudio = document.getElementById('myAudio'),
     ctrl = document.getElementById('audioControl');
@@ -35,7 +36,7 @@ if(!!document.createElement('audio').canPlayType) {
            song.pause();
        }
 
-	   function playPause2() {
+function playPause2() {
        var song = document.getElementById('iconaudio2');
 	   //alert("jere");
        if (song.paused)
@@ -44,7 +45,7 @@ if(!!document.createElement('audio').canPlayType) {
            song.pause();
        }
 
-	   function playPause3() {
+function playPause3() {
        var song = document.getElementById('iconaudio3');
 	   //alert("jere");
        if (song.paused)
@@ -84,4 +85,6 @@ function video_started() {
 	alert("video started");
 }
 
-
+$(function() {
+    $( "#accordion" ).accordion();
+});

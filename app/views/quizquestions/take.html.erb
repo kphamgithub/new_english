@@ -30,7 +30,7 @@ for admin only <%= @source_question.class.to_s %>
   <p>  
   <%= radio_button_tag 'choice', @source_question.choice1 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag @choice1_media_dir + @source_question.choice1+'.mp3' , class: "audio_volume_only", id: "iconaudio1", controls: false %>
+		<%= audio_tag @source_question.choice1 , class: "audio_volume_only", id: "iconaudio1", controls: false %>
   		<a href="javascript:playPause1();">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>
@@ -43,7 +43,7 @@ for admin only <%= @source_question.class.to_s %>
   <p>
   <%= radio_button_tag 'choice', @source_question.choice2 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag "/audios/voca/"+ @source_question.choice2[0] + '/' + @source_question.choice2+'.mp3' , class: "audio_volume_only", id: "iconaudio2", controls: false %>
+		<%= audio_tag @source_question.choice2[0] + '/' + @source_question.choice2+'.mp3' , class: "audio_volume_only", id: "iconaudio2", controls: false %>
   		<a href="javascript:playPause2();">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>
@@ -57,7 +57,7 @@ for admin only <%= @source_question.class.to_s %>
   <p>
   <%= radio_button_tag 'choice', @source_question.choice3 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag "/audios/voca/"+ @source_question.choice3[0] + '/' + @source_question.choice3+'.mp3' , class: "audio_volume_only", id: "iconaudio3", controls: false %>
+		<%= audio_tag @source_question.choice3[0] + '/' + @source_question.choice3+'.mp3' , class: "audio_volume_only", id: "iconaudio3", controls: false %>
   		<a href="javascript:playPause3();">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>

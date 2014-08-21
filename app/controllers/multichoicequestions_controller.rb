@@ -50,7 +50,8 @@ class MultichoicequestionsController < ApplicationController
 		multichoicequestion.vocabulary_id = vocabulary.id
 	  end
 	  multichoicequestion.save
-        if params['create_quizquestion'] != nil
+       
+	  if params['create_quizquestion'] != nil
             	   qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], origin_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
 	    quizquestion = Quizquestion.new(qqrow)
 		quizquestion.save 
