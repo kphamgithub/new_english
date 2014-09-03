@@ -1,0 +1,23 @@
+<%= form_for :fillquestion, url: fillquestion_path, method: :patch do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </p>
+  <p>
+    <%= f.label :question %><br>
+    <%= f.text_area :question %>
+  </p>
+    <p>
+    <%= f.label :media%><br>
+    <%= f.text_field :media %>
+    </p>    
+    <p>
+    <%= f.label :answer%><br>
+    <%= f.text_field :answer %>
+    </p>    
+	<p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Users List', users_path %>

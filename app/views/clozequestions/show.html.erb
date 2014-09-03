@@ -1,0 +1,33 @@
+    <h2> For Admin only</h2>
+	<p> Question 
+	<%= @clozequestion.id %>
+	</p>
+
+    <p> Name: 
+	<%= @clozequestion.name %>
+	</p>
+    <p>
+	<div>
+	<%= select_tag "choice", options_for_select(@people.collect {|p| [ p['name'], p['name'] ] }) %>
+	</div>
+	<div>
+    <% @joined_array.each do |str| %>
+	     <% if str.index('[') == 0 %>
+		    <% if str.index(',') != nil %>
+				<%= select_tag "choice", options_for_select(string_to_hash_array(strip_brackets_from_string(str)).collect {|p| [ p['name'], p['id'] ] }) %>
+			<% else %>
+			    <%= text_field_tag 'answer' %>
+			<% end %>
+		 <% else %>
+			<%= str %>
+		 <% end %>
+	<% end %>
+    </div>
+	</p>
+	<p>
+	  <%= select_tag "people", options_for_select(@hash_array.collect {|p| [ p['name'], p['id'] ] }) %>
+	</p>
+	    <p>
+	media = <%= @clozequestion.media %>
+	</p>
+

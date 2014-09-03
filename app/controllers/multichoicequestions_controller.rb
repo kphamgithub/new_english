@@ -3,6 +3,7 @@ class MultichoicequestionsController < ApplicationController
 	  if params[:voca_id] != nil   # new question link from vocabulary path
 	     @vocabulary = Vocabulary.find(params[:voca_id])
 	  end
+
  end
 
   def index
@@ -44,19 +45,23 @@ class MultichoicequestionsController < ApplicationController
 	
   def create
       #render text: params.inspect
+	  #{"utf8"=>"✓", "authenticity_token"=>"m1JUns4y4vL/SCy6te24DcIL06jxCR/osQi+zt3eR2c=", "multichoicequestion"=>{"name"=>"", "question"=>"", "vocabulary"=>"", "media"=>"", "choice1"=>"", "choice2"=>"", "choice3"=>"", "answer"=>"", "nothing"=>"this"}, "quiz"=>{"id"=>"20"}, "commit"=>"Save Multichoicequestion", "action"=>"create", "controller"=>"multichoicequestions"}
+	  
 	  vocabulary = Vocabulary.find_by name: params[:multichoicequestion][:vocabulary]
 	  multichoicequestion = Multichoicequestion.new(multichoicequestion_params)
-	  if vocabulary != nil
-		multichoicequestion.vocabulary_id = vocabulary.id
-	  end
+	  #if vocabulary != nil
+		#multichoicequestion.vocabulary_id = vocabulary.id
+	  #end
+	  
 	  multichoicequestion.save
        
-	  if params['create_quizquestion'] != nil
-            	   qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], origin_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
+	  if params['add_to_quiz'] != nil
+        qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], origin_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
 	    quizquestion = Quizquestion.new(qqrow)
 		quizquestion.save 
 	  end
 	  redirect_to multichoicequestions_path
+	  
   end
 
   private

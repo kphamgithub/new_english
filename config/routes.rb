@@ -1,4 +1,6 @@
 NewEnglish::Application.routes.draw do
+  get "clozequestions/new"
+  get "clozequestions/index"
   get "classnotes/index"
   get "classnotes/new"
   get "vocadrills/index"

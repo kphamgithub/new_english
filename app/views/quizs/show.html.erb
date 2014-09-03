@@ -15,6 +15,12 @@
 	<% if q.qtype == "Multichoicequestion" %>
 	    <% multichoicequestion = Multichoicequestion.find(q.origin_id) %>
 	    <%= link_to "Edit", edit_multichoicequestion_path(multichoicequestion.id) %>
+	<% elsif q.qtype == "Fillquestion" %>
+	    <% fillquestion = Fillquestion.find(q.origin_id) %>
+	    <%= link_to "Edit", edit_fillquestion_path(fillquestion.id) %>
+	<% elsif q.qtype == "Matchquestion" %>
+	    <% matchquestion = Matchquestion.find(q.origin_id) %>
+	    <%= link_to "Edit", edit_matchquestion_path(matchquestion.id) %>
 	<% end %>
 	</td>
 	<td>

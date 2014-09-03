@@ -89,45 +89,62 @@ class QuizquestionsController < ApplicationController
 	elsif @quizquestion.qtype == "Fillquestion"
 	    #render text: "FILL"
 		@source_question = Fillquestion.find(@quizquestion.origin_id)
+    elsif @quizquestion.qtype == "Clozequestion"
+	    #render text: "FILL"
+		@source_question = Clozequestion.find(@quizquestion.origin_id)
+        #@people = [{"name"=>"NameA", "id"=>"1"}]
+		question = "My name is [test,blah] and [foo,bar,been] but his name is [oo]"
+	# replace bracketed option text with stars (for splitting purpose only)
+	temp = question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
+	array_of_normal_text = temp.split('*')
+
+	array_of_bracketed_strings = question.scan( /\[.*?\]/ )
+	# [ [ee], [test,blah], [foo,bar,been], [oo] ]
+	
+    @joined_array = Array.new
+	array_of_normal_text.each_with_index do |arr,index| 
+		@joined_array.push(arr)
+		if index == (array_of_bracketed_strings.count)
+		  break
+		else
+			@joined_array.push(array_of_bracketed_strings[index])
+		end
+	end
+	
     elsif @quizquestion.qtype == "Matchquestion"
 	    @source_question = Matchquestion.find(@quizquestion.origin_id)
 		#render text: params.inspect	
 	end	
+	
 	if !@media_path.blank? 
 	@media_path = 'voca/' + @source_question.media[0] + '/' + @source_question.media
 	end
   end
   
   def processquestion
-    @quizquestion = Quizquestion.find(params[:id])
-	@quiz = Quiz.find(params[:quiz_id])
     #render text: params.inspect
+	#{"utf8"=>"✓", "authenticity_token"=>"FHLUwkVWE4vGuvnaGLTLPaxuCLn9bPPlQwEsubsX5tc=", "choice1"=>"test", "choice3"=>"foo", "answer5"=>"gg", "commit"=>"Submit", "action"=>"processquestion", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20", "id"=>"14"}
+	
+     params_keys = params.keys  
+	  #params format:   user_ID => 1 (selected)
+	  #examples         user_1 => 1
+	  #         		user_9 => 1
+	  params_keys.each do |k|
+	   if (k.include? "choice")
+	    #arr = k.split('_')		
+		#user_id = arr[1].to_i
+		 #   @user = User.find(user_id)
+		 #   @lesson.users << @user
+		end
+	  end
+	
+	@quizquestion = Quizquestion.find(params[:id])
+	@quiz = Quiz.find(params[:quiz_id])
 	#"matches"=>{"answer0"=>"b", "answer1"=>"d"}, 
-	if @quizquestion.qtype == "Multichoicequestion"
-		uanswer = params[:choice]
-	elsif @quizquestion.qtype == "Fillquestion"
-		uanswer = params[:answer]
-	elsif @quizquestion.qtype == "Matchquestion"
-	    #uanswer = params[:matchquestion].to_s
-		uanswer =  params[:matches].to_s		
-		#"matches"=>{"answer0"=>"sky", "answer1"=>"tree"},
+	params.each do |param|
+	     render text: param.inspect
 	end
-	@user = current_user
-	uid = @user.id
-	   #@quizquestionresults = Quizquestionresult.where("user_id = ? and quiz_id = ?  and quizquestion_id = ?", uid, @quiz.id, params[:id] )
-		qqr = Quizquestionresult.find_by(user_id: uid, quiz_id: @quiz.id, quizquestion_id: params[:id])
-		if qqr == nil
-			qqr = Quizquestionresult.new(user_id: uid, quiz_id: @quiz.id, quizquestion_id: @quizquestion.id,answer: uanswer)
-			qqr.save
-	    else
-		  qqr.update(quizquestion_id: @quizquestion.id, user_id: uid, quiz_id: @quiz.id, answer: uanswer)
-		  qqr.save
-	    end
-	if @quizquestion.next
-	redirect_to take_lesson_quiz_quizquestion_path(@quiz.lesson,@quiz,@quizquestion.next.id)
-	else
-	  redirect_to user_quiz_quizquestionresults_path(@user,@quiz)
-	end		 
+    #render text: params.count
   end
 
   def create
@@ -144,13 +161,15 @@ class QuizquestionsController < ApplicationController
       lesson_id = params[:lesson_id]
 	  quiz_id = params[:quiz_id]
 	  mykeys.each do |k|
-	   if (k.include? "Multichoicequestion") or (k.include? "Fillquestion") or (k.include? "Matchquestion")
+	   if (k.include? "Multichoicequestion") or (k.include? "Fillquestion") or (k.include? "Matchquestion") or (k.include? "Clozequestion")
 	    arr = k.split('_')		
 		origin_id = arr[1].to_i
 		if k.include? "Multichoicequestion"
 		    question_name = Multichoicequestion.find(origin_id)
 		elsif  k.include? "Fillquestion"
 			question_name = Fillquestion.find(origin_id)
+		elsif  k.include? "Clozequestion"
+			question_name = Clozequestion.find(origin_id)		
 		elsif k.include? "Matchquestion"
 		    question_name = Matchquestion.find(origin_id)
 		end

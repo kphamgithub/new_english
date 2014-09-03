@@ -81,6 +81,28 @@ for admin only <%= @source_question.class.to_s %>
   <%= submit_tag "Submit"%>
   </p>
 <% end %>   
+
+<% elsif @quizquestion.qtype == "Clozequestion" %>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+	<div>
+    <% @joined_array.each_with_index do |str, index| %>
+	     <% if str.index('[') == 0 %>
+		    <% if str.index(',') != nil %>
+				<%= select_tag "answer"+index.to_s, options_for_select(string_to_hash_array(strip_brackets_from_string(str)).collect {|p| [ p['name'], p['name'] ] }) %>
+			<% else %>
+			    <%= text_field_tag 'answer'+index.to_s %>
+			<% end %>
+		 <% else %>
+			<%= str %>
+		 <% end %>
+	<% end %>
+	<%= options_for_select([ "VISA", "MasterCard" ], "MasterCard") %>
+    </div>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   
+
 <% elsif @quizquestion.qtype == "Matchquestion" %>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
   <p>

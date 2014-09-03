@@ -42,12 +42,11 @@
   </p>  
 
 <p><%= collection_select :quiz, "id", Quiz.all, :id, :name %></p>
-
   <p>
-  <%= check_box_tag "create_quizquestion" %>Add this question to selected quiz:
+  <%= check_box_tag "add_to_quiz" %>Add this question to selected quiz:
   </p>
 <p>
     <%= f.submit %>
   </p>
 <% end %>
-<%= link_to 'Back.... to Lessons List', multichoicequestions_path %>
+<%= link_to 'Back to Lessons List', multichoicequestions_path %>
