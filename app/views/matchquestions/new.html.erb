@@ -1,11 +1,14 @@
 <%= form_tag (matchquestions_path) do %>
   <p>
+    New match question
+  </p>
+  <p>
     <%= label_tag :name %><br>
     <%= text_field_tag :name %>
   </p>
     <p>
-    <%= f.label :question %><br>
-    <%= f.text_area :question %>
+    <%= label_tag :question %><br>
+    <%= text_field_tag :question %>
   </p>
 
   <div>

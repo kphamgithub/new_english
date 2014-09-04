@@ -15,7 +15,7 @@ module ApplicationHelper
   end
   def strip_brackets_from_string(string)
 	str1 = string.chop # chops off the last character from string and returns a new string
-	str1.slice!(0) # slice() remove the closing square bracket from str1
+	str1.slice!(0) # slice() remove the opening square bracket from str1
 	return str1
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140828004340) do
+ActiveRecord::Schema.define(version: 20140904125443) do
 
   create_table "add_name_to_clozequestions", force: true do |t|
     t.string   "name"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20140828004340) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "audio"
+    t.string   "media"
   end
 
   create_table "multichoicequestions", force: true do |t|

@@ -38,7 +38,46 @@ class QuizquestionresultsController < ApplicationController
 			else
 			   results_hash[:status] = "incorrect"
 			end
-			#@results_arr.push(results_hash)
+			#@results_arr.push(results_hash)			
+		elsif question_type == "Clozequestion"
+		    results_hash["qtype"] = "Clozequestion"
+		    clozequestion = Clozequestion.find(origin_id)
+			answer_keys_array = clozequestion.answer.split(',')
+			temp = clozequestion.question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
+			array_of_normal_text = temp.split('*')
+
+			correct_answer_array = Array.new
+			array_of_normal_text.each_with_index do |arr,index| 
+				correct_answer_array.push(arr)
+				if index == (answer_keys_array.count)
+					break
+				else
+				    answer_key = answer_keys_array[index] + '*'
+					correct_answer_array.push(answer_key)
+				end
+			end			
+			
+			user_answer_array = Array.new
+			user_answers = qqr.answer.split(',')
+			array_of_normal_text.each_with_index do |arr,index| 
+				user_answer_array.push(arr)
+				if index == (user_answers.count)
+					break
+				else
+				   uanswer = user_answers[index].strip
+				   key = answer_keys_array[index].strip
+				   #if user_answers[index].to_s == answer_keys_array[index]
+				    if key == uanswer
+					user_answer_array.push(uanswer << '*')
+				   else
+				   	user_answer_array.push(uanswer << '@')
+				   end
+				end
+			end			
+			
+			results_hash[:correct_answer] = correct_answer_array
+			results_hash[:user_answer] = user_answer_array
+			
 		elsif question_type == "Matchquestion"
 		    #render text: params.inspect
 			results_hash["qtype"] = "Matchquestion"
@@ -72,7 +111,6 @@ class QuizquestionresultsController < ApplicationController
 				    myresults.push("incorrect")
 				end
 			end
-
 			
 			results_hash["matches"] =  matches
 			results_hash["user_answers"] =  user_answers

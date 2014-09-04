@@ -24,18 +24,12 @@ class MatchquestionsController < ApplicationController
 	  end
 	  #render text: params.inspect
 	  #render text: rows.inspect
-	  #@match = @matchquestion.matches.create()
 	  rows.each do |r|
 	     @matchquestion.matches.create(r)
-		 #match = Match.new(r)
-		 #match.save
 	  end
-	  #@matchquestion.save
-	  render text: rows.inspect
-	  
-	  #@matchquestion = Matchquestion.new(matchquestion_params)
-	  #@matchquestion.save
-	  #redirect_to @matchquestion
+	  @matchquestion.save
+	  #render text: rows.inspect	  
+	  redirect_to @matchquestion
   end
   
   def destroy

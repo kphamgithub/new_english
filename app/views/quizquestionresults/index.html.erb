@@ -73,6 +73,39 @@
 	   </tr>
 	</table>	
 	</div>
+		<% elsif r["qtype"] == "Clozequestion" %>
+	   <div>
+		<% user_answer_array = r[:user_answer] %>
+		<p><strong>You answered:</strong>
+		<% user_answer_array.each do |user_answer| %>
+		   <% if user_answer.include? '*' %>
+		   <span style="color:green;font-weight: bold;">
+		   <%= user_answer.chop %>
+		   </span>
+		   <% elsif user_answer.include? '@' %>
+		   <span style="color:red;font-weight: bold;">
+		   <%= user_answer.chop %>
+		   </span>
+		   <% else %>
+		   <%= user_answer %>
+		   <% end %>
+		<% end %>
+		</p>
+
+		<% correct_answer_array = r[:correct_answer] %>
+		<p><strong>Correct answer:</strong>
+		<% correct_answer_array.each do |correct_answer| %>
+		   <% if correct_answer.include? '*' %>
+		   <span style="color:green;font-weight: bold;">
+		   <%= correct_answer.chop %>
+		   </span>
+		   <% else %>
+		   <%= correct_answer %>
+		   <% end %>
+		<% end %>
+		</p>		
+		</div>
+	
 	<% elsif r["qtype"] == "Fillquestion" %>
 	   <div>
 		<p>user answer: <%= r[:user_answer] %></p>
@@ -82,4 +115,3 @@
 	<% end %>
 <% end %>
 <% end %>
-<%= link_to 'See results', user_quiz_quizquestionresults_path(@user, @quiz.id) %>
