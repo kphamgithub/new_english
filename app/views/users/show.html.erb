@@ -4,5 +4,20 @@
 <h3>Level = <%= @user.level %></h3>
 <% @user.lessons.each do |lesson| %>
    Lesson: <strong><%= lesson.name %></strong>
+   <% lesson.quizzes.each do |quiz| %>
+      <p>
+      <%= quiz.name %>
+	  <% @quizquestionresults = Quizquestionresult.where("user_id = ? and quiz_id = ?", @user.id, quiz.id ) %>
+	  <% if @quizquestionresults.count == 0 %>
+	      <%= @user.name %> didn't take this quiz yet.
+	  <% end %>
+	  <% @quizquestionresults.each do |qqr| %>
+		<% quizquestion = Quizquestion.find(qqr.quizquestion_id) %>
+		<%= link_to "See results", user_quiz_quizquestionresults_path(@user.id, quiz.id) %>
+	  <% end %>
+	  </p>
+   <% end %>
 <% end %>
+
+
 

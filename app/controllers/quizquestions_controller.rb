@@ -93,7 +93,7 @@ class QuizquestionsController < ApplicationController
 	    #render text: "FILL"
 		@source_question = Clozequestion.find(@quizquestion.origin_id)
         #@people = [{"name"=>"NameA", "id"=>"1"}]
-		question = "My name is [test,blah] and [foo,bar,been] but his name is [oo]"
+		question = @source_question.question  #"My name is [test,blah] and [foo,bar,been] but his name is [oo]"
 	# replace bracketed option text with stars (for splitting purpose only)
 	temp = question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
 	array_of_normal_text = temp.split('*')
@@ -123,28 +123,52 @@ class QuizquestionsController < ApplicationController
   
   def processquestion
     #render text: params.inspect
-	#{"utf8"=>"✓", "authenticity_token"=>"FHLUwkVWE4vGuvnaGLTLPaxuCLn9bPPlQwEsubsX5tc=", "choice1"=>"test", "choice3"=>"foo", "answer5"=>"gg", "commit"=>"Submit", "action"=>"processquestion", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20", "id"=>"14"}
+	#{"utf8"=>"✓", "authenticity_token"=>"FHLUwkVWE4vGuvnaGLTLPaxuCLn9bPPlQwEsubsX5tc=", "answer1"=>"test", "answer3"=>"foo", "answer5"=>"gg", "commit"=>"Submit", "action"=>"processquestion", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20", "isd"=>"14"}
 	
-     params_keys = params.keys  
+     #params_keys = params.keys  
 	  #params format:   user_ID => 1 (selected)
 	  #examples         user_1 => 1
 	  #         		user_9 => 1
-	  params_keys.each do |k|
-	   if (k.include? "choice")
-	    #arr = k.split('_')		
-		#user_id = arr[1].to_i
-		 #   @user = User.find(user_id)
-		 #   @lesson.users << @user
-		end
-	  end
 	
 	@quizquestion = Quizquestion.find(params[:id])
+	#"matches"=>{"answer0"=>"b", "answer1"=>"d"}, 
+    #render text: user_answer	
 	@quiz = Quiz.find(params[:quiz_id])
 	#"matches"=>{"answer0"=>"b", "answer1"=>"d"}, 
-	params.each do |param|
-	     render text: param.inspect
+	if @quizquestion.qtype == "Multichoicequestion"
+		uanswer = params[:choice]
+	elsif @quizquestion.qtype == "Fillquestion"
+		uanswer = params[:answer]
+	elsif @quizquestion.qtype == "Clozequestion"
+	  answer_string = ''
+	  params.each_with_index do |(key, value), index|
+		if (key.include? "answer")
+		   answer_string << value
+		   answer_string << ','
+		end
+	  end
+	  uanswer = answer_string.chop # chop off the last comma
+	elsif @quizquestion.qtype == "Matchquestion"
+	#uanswer = params[:matchquestion].to_s
+	uanswer =  params[:matches].to_s		
+	#"matches"=>{"answer0"=>"sky", "answer1"=>"tree"},
 	end
-    #render text: params.count
+	@user = current_user
+	uid = @user.id
+	   #@quizquestionresults = Quizquestionresult.where("user_id = ? and quiz_id = ?  and quizquestion_id = ?", uid, @quiz.id, params[:id] )
+		qqr = Quizquestionresult.find_by(user_id: uid, quiz_id: @quiz.id, quizquestion_id: params[:id])
+		if qqr == nil
+			qqr = Quizquestionresult.new(user_id: uid, quiz_id: @quiz.id, quizquestion_id: @quizquestion.id,answer: uanswer)
+			qqr.save
+	    else
+		  qqr.update(quizquestion_id: @quizquestion.id, user_id: uid, quiz_id: @quiz.id, answer: uanswer)
+		  qqr.save
+	    end
+	if @quizquestion.next
+	redirect_to take_lesson_quiz_quizquestion_path(@quiz.lesson,@quiz,@quizquestion.next.id)
+	else
+	  redirect_to user_quiz_quizquestionresults_path(@user,@quiz)
+	end
   end
 
   def create

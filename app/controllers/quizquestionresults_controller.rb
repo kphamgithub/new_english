@@ -12,8 +12,8 @@ class QuizquestionresultsController < ApplicationController
 	 @results_arr = Array.new
 	 results_hash = Hash.new
 	 @quizquestionresults = Quizquestionresult.where("user_id = ? and quiz_id = ?", params[:user_id], params[:quiz_id] )
-	@quizquestionresults.each do |qqr|
-		quizquestion = qqr.quizquestion
+	 @quizquestionresults.each do |qqr|
+		quizquestion = Quizquestion.find(qqr.quizquestion_id)
 		origin_id = quizquestion.origin_id
 		question_type = quizquestion.qtype
 		question = nil
@@ -81,6 +81,11 @@ class QuizquestionresultsController < ApplicationController
 		end		
 		@results_arr.push(results_hash)
 	end	
+  end
+  
+  def show
+	 @user = User.find(params[:user_id])
+	 @quiz = Quiz.find(params[:quiz_id])  
   end
   
   def destroy

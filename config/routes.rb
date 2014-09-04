@@ -95,6 +95,7 @@ NewEnglish::Application.routes.draw do
 				post 'delete_questionresults'
 			end
 			resources :quizquestionresults
+			
 		end
 	 end
 	   
