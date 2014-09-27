@@ -1,5 +1,3 @@
-//= require jquery.ui.accordion
-
 var yourAudio = document.getElementById('myAudio'),
     ctrl = document.getElementById('audioControl');
 
@@ -88,3 +86,12 @@ function video_started() {
 $(function() {
     $( "#accordion" ).accordion();
 });
+
+$(function() {
+    $( "#draggable" ).draggable();
+});
+
+$(function() {
+  $('.datepicker').datepicker();
+});
+

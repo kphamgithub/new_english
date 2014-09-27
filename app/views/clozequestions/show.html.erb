@@ -5,11 +5,12 @@
 
     <p> Name: 
 	<%= @clozequestion.name %>
+	</p>   
+	<p> question: 
+	<%= @clozequestion.question %>
 	</p>
+
     <p>
-	<div>
-	<%= select_tag "choice", options_for_select(@people.collect {|p| [ p['name'], p['name'] ] }) %>
-	</div>
 	<div>
     <% @joined_array.each do |str| %>
 	     <% if str.index('[') == 0 %>
@@ -24,10 +25,9 @@
 	<% end %>
     </div>
 	</p>
-	<p>
-	  <%= select_tag "people", options_for_select(@hash_array.collect {|p| [ p['name'], p['id'] ] }) %>
-	</p>
 	    <p>
 	media = <%= @clozequestion.media %>
 	</p>
-
+	
+	<%= link_to "Edit", edit_clozequestion_path(@clozequestion.id) %>
+	<%= link_to "Back to quiz", lesson_quiz_path(@lesson_id, @quiz_id) %>

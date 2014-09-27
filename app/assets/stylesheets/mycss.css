@@ -9,3 +9,5 @@
 .audio_volume_only {
     width: 20px;
  }
+
+#draggable { width: 300px; height: 300px; background: red; }

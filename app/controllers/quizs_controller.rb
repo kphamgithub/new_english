@@ -14,6 +14,7 @@ class QuizsController < ApplicationController
   end
   def show
 	@quiz = Quiz.find(params[:id])
+	@lesson = Lesson.find(params[:lesson_id])
   end
   def create
 	  #render text: quiz_params.inspect

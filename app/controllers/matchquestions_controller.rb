@@ -3,6 +3,8 @@ class MatchquestionsController < ApplicationController
     @matchquestions = Matchquestion.all
   end
   def new
+	 @quiz_id = params[:quiz_id]
+	 @lesson_id = params[:lesson_id]
   end
   def show
 	 @matchquestion = Matchquestion.find(params[:id])
@@ -29,7 +31,8 @@ class MatchquestionsController < ApplicationController
 	  end
 	  @matchquestion.save
 	  #render text: rows.inspect	  
-	  redirect_to @matchquestion
+	  redirect_to lesson_quiz_path(params[:lesson_id], params[:quiz_id])
+
   end
   
   def destroy

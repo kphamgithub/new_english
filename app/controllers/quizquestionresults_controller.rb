@@ -91,31 +91,36 @@ class QuizquestionresultsController < ApplicationController
 			   matches.push(match.match)   #left = match,  #right = answer
 			end
 			
-			user_answers = []
-			user_answer_hash.each_with_index do |(key, val),index|
-				user_answers.push(val)
-			end
-			
-			answer_keys = []
-			question.matches.each do |match,index|
-			   #save all answer keys in an array
-			   #key = question.left + ' ' + question.right 
-			   answer_keys.push(match.answer)   #left = match,  #right = answer
-			end
-			
-			myresults = []
-			user_answers.each_with_index do |ans,index|			    
-				if ans == answer_keys[index]
-					myresults.push("correct")
-				else
-				    myresults.push("incorrect")
+			if question.mode != 'game'
+				user_answers = []
+				user_answer_hash.each_with_index do |(key, val),index|
+					user_answers.push(val)
 				end
-			end
 			
-			results_hash["matches"] =  matches
-			results_hash["user_answers"] =  user_answers
-			results_hash["answer_keys"] = answer_keys
-			results_hash["my_results"] =  myresults
+				answer_keys = []
+				question.matches.each do |match,index|
+				   #save all answer keys in an array
+				   #key = question.left + ' ' + question.right 
+				   answer_keys.push(match.answer)   #left = match,  #right = answer
+				end
+				
+				myresults = []
+				user_answers.each_with_index do |ans,index|			    
+					if ans == answer_keys[index]
+						myresults.push("correct")
+					else
+						myresults.push("incorrect")
+					end
+				end
+				results_hash["mode"] = "exercise"
+				results_hash["matches"] =  matches
+				results_hash["user_answers"] =  user_answers
+				results_hash["answer_keys"] = answer_keys
+				results_hash["my_results"] =  myresults
+			else
+			    results_hash["mode"] = "game"
+			    results_hash["matches"] =  matches
+			end
 		end		
 		@results_arr.push(results_hash)
 	end	

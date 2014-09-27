@@ -4,8 +4,8 @@ class FillquestionsController < ApplicationController
   end
 
   def new
-     #@quiz_id = params[:quiz_id]
-	 #@lesson_id = params[:lesson_id]
+     @quiz_id = params[:quiz_id]
+	 @lesson_id = params[:lesson_id]
      #if params[:voca_id] != nil   # new question link from vocabulary path
 	  #   @vocabulary = Vocabulary.find(params[:voca_id])
      #end

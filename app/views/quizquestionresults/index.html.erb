@@ -15,6 +15,7 @@
 	   <p>status: <%= r[:status] %></p>
 	  </div>
     <% elsif r["qtype"] == "Matchquestion" %>
+		<% if r["mode"] == "exercise" %>
 	   <div>
 		<table width = "450">	    
 	   <tr>
@@ -73,6 +74,7 @@
 	   </tr>
 	</table>	
 	</div>
+	<% end %>
 		<% elsif r["qtype"] == "Clozequestion" %>
 	   <div>
 		<% user_answer_array = r[:user_answer] %>

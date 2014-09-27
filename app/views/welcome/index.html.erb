@@ -11,7 +11,9 @@
   <% end %>
 	    <% if current_user %>
         <% if current_user.name == "kpham" %>
-		
+	
+<a href="#" onclick="paintIt(this, '#990000')">Paint it BLUE</a>
+	
 		   <p><%= link_to "manage users", users_path %></p>
 		   <p><%= link_to "manage lessons", lessons_path %></p>
            <p><%= link_to "manage vocabularies", vocabularies_path %></p>

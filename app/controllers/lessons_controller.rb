@@ -176,7 +176,6 @@ class LessonsController < ApplicationController
 	  redirect_to lessons_path
   end
 
-  
   private
   def lesson_params
 	params.require(:lesson).permit(:name, :reading_content, :vocabulary_content, :grammar_content, :phonics_content, :lyrics_content, :video, :level)

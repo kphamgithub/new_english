@@ -113,6 +113,15 @@ class QuizquestionsController < ApplicationController
 	
     elsif @quizquestion.qtype == "Matchquestion"
 	    @source_question = Matchquestion.find(@quizquestion.origin_id)
+		if @source_question.mode == "game"
+		    @matches = Match.where("matchquestion_id = ?", @source_question.id )
+			
+			#@str4 = matches[0].match
+			
+			#@match1 = "/images/spots.jpg"
+
+			#@answer1 = "spots"
+		end
 		#render text: params.inspect	
 	end	
 	

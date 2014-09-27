@@ -1,0 +1,231 @@
+<h3> Take_quiz </h3>
+ <% if current_user.name == "kpham" %>
+   <h1>I am not afraid of monsters</h1>
+ <p> 
+for admin only <%= @source_question.class.to_s %>
+</p>
+<% end %>
+
+	<% if !@source_question.media.blank? %> 
+		<% if @source_question.media.include? "mp3" %>
+			<div>			
+			<%= audio_tag @media_path, class: "audio_volume_only", id: "iconaudio", controls: false %>
+			<a href="javascript:playPause();">
+				<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
+			</a>
+			<br>
+			<br>
+			<br>
+			</div>		
+        <% elsif @source_question.media.include? "jpg" %>
+			<%= image_tag @media_path %>		
+		elsif @source_question.media.include? "mp4"
+		<% end %>
+	<% end %>
+<% if @quizquestion.qtype == "Multichoicequestion" %>
+<div>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+  <p>  
+  <%= radio_button_tag 'choice', @source_question.choice1 %>
+   <% if @source_question.choice_label_display_mode == 'audio' %>
+		<%= audio_tag @source_question.choice1 , class: "audio_volume_only", id: "iconaudio1", controls: false %>
+  		<a href="javascript:playPause1();">
+			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
+		</a>
+   <% elsif @source_question.choice_label_display_mode == 'image' %>
+        <%= image_tag @choice1_media_dir + @source_question.choice1+'.jpg' %>
+   <% else %>
+        <%= @source_question.choice1 %>
+   <% end %>
+  </p>
+  <p>
+  <%= radio_button_tag 'choice', @source_question.choice2 %>
+   <% if @source_question.choice_label_display_mode == 'audio' %>
+		<%= audio_tag @source_question.choice2[0] + '/' + @source_question.choice2+'.mp3' , class: "audio_volume_only", id: "iconaudio2", controls: false %>
+  		<a href="javascript:playPause2();">
+			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
+		</a>
+   <% elsif @source_question.choice_label_display_mode == 'image' %>
+        <%= image_tag "/images/voca/"+ @source_question.choice2[0] + '/' + @source_question.choice2+'.jpg' %>
+   <% else %>
+        <%= @source_question.choice2 %>
+   <% end %>
+  </p>
+  
+  <p>
+  <%= radio_button_tag 'choice', @source_question.choice3 %>
+   <% if @source_question.choice_label_display_mode == 'audio' %>
+		<%= audio_tag @source_question.choice3[0] + '/' + @source_question.choice3+'.mp3' , class: "audio_volume_only", id: "iconaudio3", controls: false %>
+  		<a href="javascript:playPause3();">
+			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
+		</a>
+   <% elsif @source_question.choice_label_display_mode == 'image' %>
+        <%= image_tag "/images/voca/"+ @source_question.choice3[0] + '/' + @source_question.choice3+'.jpg' %>
+   <% else %>
+        <%= @source_question.choice3 %>
+   <% end %>
+  </p>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>
+</div>
+<% elsif @quizquestion.qtype == "Fillquestion" %>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+  <p>
+  <%= text_field_tag 'answer' %>
+  </p>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   
+
+<% elsif @quizquestion.qtype == "Clozequestion" %>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+	<div>
+    <% @joined_array.each_with_index do |str, index| %>
+	     <% if str.index('[') == 0 %>
+		    <% if str.index(',') != nil %>
+				<%= select_tag "answer"+index.to_s, options_for_select(string_to_hash_array(strip_brackets_from_string(str)).shuffle.collect {|p| [ p['name'], p['name'] ] }) %>
+			<% else %>
+			    <%= text_field_tag 'answer'+index.to_s %>
+			<% end %>
+		 <% else %>
+			<%= str %>
+		 <% end %>
+	<% end %>
+    </div>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   
+
+<% elsif @quizquestion.qtype == "Matchquestion" %>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+  <p>
+  match id: <%= @quizquestion.origin_id %>
+  </p>
+  <% if @source_question.mode == "game" %>
+  <div id="main" role="main">    
+    <div id="tutorial-memorygame" class="quizy-memorygame">
+      <ul>
+          <li class="match1">
+		  <% if @str1.include? "jpg" %>
+		  <%= image_tag @str1 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @str1 %></p>
+		  <% end %>
+          </li>
+          <li class="match2">
+		  <% if @str2.include? "jpg" %>
+		  <%= image_tag @str2 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @str2 %></p>
+		  <% end %>
+          </li>
+          <li class="match3">
+           <% if @str3.include? "jpg" %>
+		  <%= image_tag @str3 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @str3 %></p>
+		  <% end %>
+          </li>
+          <li class="match4">
+           <% if @str4.include? "jpg" %>
+		  <%= image_tag @str4 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @str4 %></p>
+		  <% end %>
+          </li>
+          <li class="match5">
+           <% if @str5.include? "jpg" %>
+		  <%= image_tag @str5 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @str5 %></p>
+		  <% end %>
+          </li>
+          <li class="match6">
+           <% if @str6.include? "jpg" %>
+		  <%= image_tag @str6 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @str6 %></p>
+		  <% end %>
+          </li>
+          <li class="match1">
+           <% if @match1.include? "jpg" %>
+		  <%= image_tag @match1 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @match1 %></p>
+		  <% end %>
+          </li>
+          <li class="match2">
+           <% if @match2.include? "jpg" %>
+		  <%= image_tag @match2 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @match2 %></p>
+		  <% end %>
+          </li>
+          <li class="match3">
+           <% if @match3.include? "jpg" %>
+		  <%= image_tag @match3 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @match3 %></p>
+		  <% end %>
+
+          </li>
+          <li class="match4">
+           <% if @match4.include? "jpg" %>
+		  <%= image_tag @match4 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @match4 %></p>
+		  <% end %>
+          </li>
+          <li class="match5">
+            <% if @match5.include? "jpg" %>
+		  <%= image_tag @match5 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @match5 %></p>
+		  <% end %>
+          </li>
+          <li class="match6">
+           <% if @match6.include? "jpg" %>
+		  <%= image_tag @match6 %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= @match6 %></p>
+		  <% end %>
+          </li>
+      </ul>
+    </div>
+	</div>
+	
+	
+	
+     <script>
+		console.log("latest test");
+		$('#mydiv').myPluginName({itemWidth: 156});
+		$('#tutorial-memorygame').quizyMemoryGame({itemWidth: 156, itemHeight: 156, itemsMargin:15, colCount:4, animType:'flip' , flipAnim:'tb', animSpeed:250, resultIcons:true });
+	</script>
+  <% else %>
+  <table>
+  <% @source_question.matches.each_with_index do |my_match,index| %>
+  <tr>
+  <td>
+  <%= my_match.match%>
+  </td>
+  <td>
+   &nbsp; &nbsp; &nbsp; &nbsp;    
+  </td>
+  <td>
+  <%= collection_select :matches, "answer"+index.to_s, Match.where("matchquestion_id = ?", @quizquestion.origin_id ).shuffle, :answer, :answer %>
+  </td>
+  </tr>
+  <% end %>
+  </table>
+  <% end %>
+  </p>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   
+<% end %>
+

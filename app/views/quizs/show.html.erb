@@ -2,24 +2,31 @@
 <h3>Name:<%= @quiz.name %></h3>
 <h4>Type: <strong><%= @quiz.quiz_type%></h4></strong>
 
-<h4>id = <%= @quiz.id%> This quiz belongs to lesson: <%= link_to @quiz.lesson.name, lesson_path(@quiz.lesson.id)  %></h4>
+<h4>Quiz id = <%= @quiz.id%> This quiz belongs to lesson: <%= link_to @quiz.lesson.name, lesson_path(@quiz.lesson.id)  %></h4>
 <p>Number of questions: <%= @quiz.quizquestions.count %></p>
 <table>
 <% @quiz.quizquestions.each do |q| %>
 	<tr>
 	<td>
     <%= q.qtype %> 
-	id = <%= q.origin_id %> name = <%= q.name %>
+	id = <%= q.origin_id %> Name = <%= q.name %>
 	</td>
 	<td>
 	<% if q.qtype == "Multichoicequestion" %>
 	    <% multichoicequestion = Multichoicequestion.find(q.origin_id) %>
+		<%= link_to "Show", multichoiequestion_path(multichoicequestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
 	    <%= link_to "Edit", edit_multichoicequestion_path(multichoicequestion.id) %>
 	<% elsif q.qtype == "Fillquestion" %>
 	    <% fillquestion = Fillquestion.find(q.origin_id) %>
+	    <%= link_to "Show", fillquestion_path(fillquestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
 	    <%= link_to "Edit", edit_fillquestion_path(fillquestion.id) %>
+	<% elsif q.qtype == "Clozequestion" %>
+	    <% clozequestion = Clozequestion.find(q.origin_id) %>
+		<%= link_to "Show", clozequestion_path(clozequestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
+	    <%= link_to "Edit", edit_clozequestion_path(clozequestion.id) %>
 	<% elsif q.qtype == "Matchquestion" %>
 	    <% matchquestion = Matchquestion.find(q.origin_id) %>
+		<%= link_to "Show", matchquestion_path(matchquestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
 	    <%= link_to "Edit", edit_matchquestion_path(matchquestion.id) %>
 	<% end %>
 	</td>

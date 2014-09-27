@@ -12,8 +12,9 @@
 	  <td><%= voca.name %></td>
 	  <td><%= voca.definition %></td>
 	  <td><%= link_to "Edit", edit_vocabulary_path(voca.id) %></td>
-	  <td><%= link_to "New MTChoicequestion", new_multichoicequestion_path(:voca_id => voca.id) %></td>
-	  <td><%= link_to "New Fillquestion", new_fillquestion_path(:voca_id => voca.id) %></td>
+	  <td><%= link_to "New Multichoicequestion", new_multichoicequestion_path(:voca_id => voca.id) %></td>
+	  <td><%= link_to "New Clozequestion", new_clozequestion_path(:voca_id => voca.id) %></td>
+
 	  <td><%= link_to "List questions", questions_vocabulary_path(voca.id) %>&nbsp(<%= voca.multichoicequestions.count%>)</td>
     </tr>
   <% end %>

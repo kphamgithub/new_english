@@ -1,0 +1,13 @@
+<%= form_for :exam, url: exams_path do |f| %>
+<p>
+</p>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Exams List', exams_path %>

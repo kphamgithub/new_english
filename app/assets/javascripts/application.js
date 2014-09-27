@@ -11,6 +11,14 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
+//= require jquery.ui.all
+//= require turbolinks
+//= require myjs
+//= require quizquestion
+//= require jquery.flip
+
+
+

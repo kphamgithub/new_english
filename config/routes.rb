@@ -1,4 +1,7 @@
 NewEnglish::Application.routes.draw do
+  get "exams/new"
+  get "exams/index"
+  get "exams/show"
   get "clozequestions/new"
   get "clozequestions/index"
   get "classnotes/index"
@@ -30,7 +33,7 @@ NewEnglish::Application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
 	 resources :classnotes
-	 
+	 resources :exams
   	 resources :lessons do
 	    member do
 		    get 'show_vocabulary'

@@ -1,13 +1,11 @@
 <h3> Take_quiz </h3>
  <% if current_user.name == "kpham" %>
-<p> 
+   <h1>I am not afraid of monsters</h1>
+ <p> 
 for admin only <%= @source_question.class.to_s %>
 </p>
 <% end %>
 
-<p> 
-<%= @source_question.question %>
-</p>
 	<% if !@source_question.media.blank? %> 
 		<% if @source_question.media.include? "mp3" %>
 			<div>			
@@ -88,7 +86,7 @@ for admin only <%= @source_question.class.to_s %>
     <% @joined_array.each_with_index do |str, index| %>
 	     <% if str.index('[') == 0 %>
 		    <% if str.index(',') != nil %>
-				<%= select_tag "answer"+index.to_s, options_for_select(string_to_hash_array(strip_brackets_from_string(str)).collect {|p| [ p['name'], p['name'] ] }) %>
+				<%= select_tag "answer"+index.to_s, options_for_select(string_to_hash_array(strip_brackets_from_string(str)).shuffle.collect {|p| [ p['name'], p['name'] ] }) %>
 			<% else %>
 			    <%= text_field_tag 'answer'+index.to_s %>
 			<% end %>
@@ -96,7 +94,6 @@ for admin only <%= @source_question.class.to_s %>
 			<%= str %>
 		 <% end %>
 	<% end %>
-	<%= options_for_select([ "VISA", "MasterCard" ], "MasterCard") %>
     </div>
   <p>
   <%= submit_tag "Submit"%>
@@ -108,6 +105,40 @@ for admin only <%= @source_question.class.to_s %>
   <p>
   match id: <%= @quizquestion.origin_id %>
   </p>
+  <% if @source_question.mode == "game" %>
+  <div id="main" role="main">    
+    <div id="tutorial-memorygame" class="quizy-memorygame">
+      <ul>
+		<% @matches.each_with_index do |pair,index| %>
+		  <% classname = "match" << (index+1) %>
+    	  <li class=classname >
+		  <% if pair.match.include? "jpg" %>
+		  <%= image_tag pair.match %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= pair.match %></p>
+		  <% end %>
+          </li>			
+		  
+		  <li class=classname >
+		  <% if pair.answer.include? "jpg" %>
+		  <%= image_tag pair.answer %>	            
+		  <% else %>
+		  <br><br><br><p class="text-style1"><%= pair.answer %></p>
+		  <% end %>
+          </li>			
+		<% end %>
+      </ul>
+    </div>
+	</div>
+	
+	
+	
+     <script>
+		console.log("latest test");
+		$('#mydiv').myPluginName({itemWidth: 156});
+		$('#tutorial-memorygame').quizyMemoryGame({itemWidth: 156, itemHeight: 156, itemsMargin:15, colCount:4, animType:'flip' , flipAnim:'tb', animSpeed:250, resultIcons:true });
+	</script>
+  <% else %>
   <table>
   <% @source_question.matches.each_with_index do |my_match,index| %>
   <tr>
@@ -123,6 +154,7 @@ for admin only <%= @source_question.class.to_s %>
   </tr>
   <% end %>
   </table>
+  <% end %>
   </p>
   <p>
   <%= submit_tag "Submit"%>
