@@ -82,10 +82,9 @@ class QuizquestionsController < ApplicationController
 	@source_question = nil
 	if @quizquestion.qtype == "Multichoicequestion"
 		@source_question = Multichoicequestion.find(@quizquestion.origin_id)
-		#render text: "MULTI"
-		#@choice1_media_dir = "voca/"+ @source_question.choice1[0] + '/'
-		#@choice2_media_dir = "voca/"+ @source_question.choice2[0] + '/'
-		#@choice3_media_dir = "voca/"+ @source_question.choice3[0] + '/'
+		@choice1_mp3_path = @source_question.choice1.strip
+		@choice2_mp3_path = @source_question.choice2.strip
+		@choice3_mp3_path = @source_question.choice3.strip
 	elsif @quizquestion.qtype == "Fillquestion"
 	    #render text: "FILL"
 		@source_question = Fillquestion.find(@quizquestion.origin_id)
@@ -114,13 +113,7 @@ class QuizquestionsController < ApplicationController
     elsif @quizquestion.qtype == "Matchquestion"
 	    @source_question = Matchquestion.find(@quizquestion.origin_id)
 		if @source_question.mode == "game"
-		    @matches = Match.where("matchquestion_id = ?", @source_question.id )
-			
-			#@str4 = matches[0].match
-			
-			#@match1 = "/images/spots.jpg"
-
-			#@answer1 = "spots"
+		    @matches = Match.where("matchquestion_id = ?", @source_question.id)			
 		end
 		#render text: params.inspect	
 	end	
@@ -132,14 +125,20 @@ class QuizquestionsController < ApplicationController
   
   def processquestion
     #render text: params.inspect
-	#{"utf8"=>"✓", "authenticity_token"=>"FHLUwkVWE4vGuvnaGLTLPaxuCLn9bPPlQwEsubsX5tc=", "answer1"=>"test", "answer3"=>"foo", "answer5"=>"gg", "commit"=>"Submit", "action"=>"processquestion", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20", "isd"=>"14"}
-	
+	#{.., "choice"=>"voca/basketball.mp3\r\n", "commit"=>"Submit", "action"=>"processquestion", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20", "id"=>"22"}
      #params_keys = params.keys  
 	  #params format:   user_ID => 1 (selected)
 	  #examples         user_1 => 1
 	  #         		user_9 => 1
 	
 	@quizquestion = Quizquestion.find(params[:id])
+	#test only
+		#origin_id = quizquestion.origin_id
+	    #myquestion = Multichoicequestion.find(origin_id)
+		#@render text: myquestion.instance_eval('choice1')
+		#object.instance_eval('attribute') = 'ololo'
+	# end test
+		
 	#"matches"=>{"answer0"=>"b", "answer1"=>"d"}, 
     #render text: user_answer	
 	@quiz = Quiz.find(params[:quiz_id])

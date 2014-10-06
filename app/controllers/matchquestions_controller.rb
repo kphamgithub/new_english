@@ -10,6 +10,10 @@ class MatchquestionsController < ApplicationController
 	 @matchquestion = Matchquestion.find(params[:id])
   end
 
+  def edit
+	 @matchquestion = Matchquestion.find(params[:id])
+  end
+
   def create
       @matchquestion = Matchquestion.create({"name" => params["name"]})
       rows = []
@@ -31,8 +35,34 @@ class MatchquestionsController < ApplicationController
 	  end
 	  @matchquestion.save
 	  #render text: rows.inspect	  
-	  redirect_to lesson_quiz_path(params[:lesson_id], params[:quiz_id])
+	  #redirect_to lesson_quiz_path(params[:lesson_id], params[:quiz_id])
+	  redirect_to matchquestions_path
 
+  end
+  
+  def update 
+	  #render text: params.inspect
+      #{"utf8"=>"✓", "_method"=>"patch", "authenticity_token"=>"Ch2HUrOzZcfWQnxvIyeh5eLScLHyjELiT24voHOBNAs=", "matchquestion"=>{"name"=>"4th match question", "mode"=>"game"}, "match0"=>"car", "answer0"=>"vehicle", "match1"=>"hammer", "answer1"=>"tool", "commit"=>"Save Matchquestion", "action"=>"update", "controller"=>"matchquestions", "id"=>"9"}
+	  @matchquestion = Matchquestion.find(params[:id])
+      rows = []
+	  row = nil
+      params.each do |key,value|
+		if key.include? "match"
+		   row = Hash.new
+		   row["match"] = value
+		elsif key.include? "answer"
+		   row["answer"] = value
+		   rows.push(row)
+		   row = nil
+		end
+	  end	  
+	  
+	  @matchquestion.matches.each_with_index do |match, index|
+		 match.update(rows[index])
+		 match.save
+	  end
+	  @matchquestion.update(matchquestion_params)
+	  redirect_to matchquestions_path
   end
   
   def destroy
@@ -50,6 +80,6 @@ class MatchquestionsController < ApplicationController
   
   private
   def matchquestion_params
-	params.require(:matchquestion).permit(:name, :question, :match_id, :m1, :m2)
+	params.require(:matchquestion).permit(:name, :question, :mode)
   end
 end

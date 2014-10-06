@@ -3,6 +3,22 @@
  Author: Yane Frenski
 */
 
+    #tutorial-memorygame{
+      margin:auto;
+      width:780px;
+    }
+    
+    .text-style1{
+      font-size:20pt;
+      color:#a52a2a;
+      font-weight:bold;
+      text-shadow: 1px 1px 1px #fff;
+      margin:0;
+      line-height:24pt;
+    }
+    
+
+
 /* the stle for the wrapper element */
 .quizy-memorygame{
   position:relative;

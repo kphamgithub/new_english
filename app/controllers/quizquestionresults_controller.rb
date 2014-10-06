@@ -21,9 +21,11 @@ class QuizquestionresultsController < ApplicationController
 		if question_type == "Multichoicequestion"
 		    results_hash["qtype"] = "Multichoicequestion"
 		    question = Multichoicequestion.find(origin_id)
-			results_hash[:key] = question.answer
-			results_hash[:user_answer] = qqr.answer
-			if question.answer == qqr.answer
+			correct_answer = question.instance_eval(question.answer)
+			results_hash[:key] = correct_answer
+			results_hash[:user_answer] = qqr.answ						
+			#if question.answer == qqr.answer
+			if correct_answer == qqr.answer
 			   results_hash[:status] = "correct"
 			else
 			   results_hash[:status] = "incorrect"

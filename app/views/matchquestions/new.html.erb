@@ -10,12 +10,16 @@
     <%= label_tag :question %><br>
     <%= text_field_tag :question %>
   </p>
+  <p>
+    <%= label_tag :mode %><br>
+    <%= text_field_tag :mode %>
+  </p>
 
   <div>
   <table>
     <th><%= label_tag :match %></th>
 	<th><%= label_tag :answer %></th>
-	<% (0..1).each_with_index do | t,index | %>
+	<% (0..5).each_with_index do | t,index | %>
     <tr>
     <td>
     <%= text_field_tag "match" + index.to_s %>

@@ -14,7 +14,7 @@
 	<td>
 	<% if q.qtype == "Multichoicequestion" %>
 	    <% multichoicequestion = Multichoicequestion.find(q.origin_id) %>
-		<%= link_to "Show", multichoiequestion_path(multichoicequestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
+		<%= link_to "Show", multichoicequestion_path(multichoicequestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
 	    <%= link_to "Edit", edit_multichoicequestion_path(multichoicequestion.id) %>
 	<% elsif q.qtype == "Fillquestion" %>
 	    <% fillquestion = Fillquestion.find(q.origin_id) %>

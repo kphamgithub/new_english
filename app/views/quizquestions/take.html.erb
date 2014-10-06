@@ -28,12 +28,12 @@ for admin only <%= @source_question.class.to_s %>
   <p>  
   <%= radio_button_tag 'choice', @source_question.choice1 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag @source_question.choice1 , class: "audio_volume_only", id: "iconaudio1", controls: false %>
-  		<a href="javascript:playPause1();">
+		<%= audio_tag @choice1_mp3_path , class: "audio_volume_only", id: "iconaudio1", controls: false %>
+   <a href="javascript:playMP3('iconaudio1');">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>
    <% elsif @source_question.choice_label_display_mode == 'image' %>
-        <%= image_tag @choice1_media_dir + @source_question.choice1+'.jpg' %>
+        <%= image_tag @choice1_image_dir + @source_question.choice1+'.jpg' %>
    <% else %>
         <%= @source_question.choice1 %>
    <% end %>
@@ -41,8 +41,8 @@ for admin only <%= @source_question.class.to_s %>
   <p>
   <%= radio_button_tag 'choice', @source_question.choice2 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag @source_question.choice2[0] + '/' + @source_question.choice2+'.mp3' , class: "audio_volume_only", id: "iconaudio2", controls: false %>
-  		<a href="javascript:playPause2();">
+		<%= audio_tag @choice2_mp3_path , class: "audio_volume_only", id: "iconaudio2", controls: false %>
+  		<a href="javascript:playMP3('iconaudio2');">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>
    <% elsif @source_question.choice_label_display_mode == 'image' %>
@@ -50,13 +50,12 @@ for admin only <%= @source_question.class.to_s %>
    <% else %>
         <%= @source_question.choice2 %>
    <% end %>
-  </p>
-  
+  </p>  
   <p>
   <%= radio_button_tag 'choice', @source_question.choice3 %>
    <% if @source_question.choice_label_display_mode == 'audio' %>
-		<%= audio_tag @source_question.choice3[0] + '/' + @source_question.choice3+'.mp3' , class: "audio_volume_only", id: "iconaudio3", controls: false %>
-  		<a href="javascript:playPause3();">
+		<%= audio_tag @choice3_mp3_path , class: "audio_volume_only", id: "iconaudio3", controls: false %>
+  		<a href="javascript:playMP3('iconaudio3');">
 			<i id = "playbutton" class="fa fa-play-circle-o fa-2x"></i>
 		</a>
    <% elsif @source_question.choice_label_display_mode == 'image' %>
@@ -110,8 +109,8 @@ for admin only <%= @source_question.class.to_s %>
     <div id="tutorial-memorygame" class="quizy-memorygame">
       <ul>
 		<% @matches.each_with_index do |pair,index| %>
-		  <% classname = "match" << (index+1) %>
-    	  <li class=classname >
+		  <% classname = "match" << (index+1).to_s %>
+    	  <li class= '<%= classname %>' >
 		  <% if pair.match.include? "jpg" %>
 		  <%= image_tag pair.match %>	            
 		  <% else %>
@@ -119,7 +118,7 @@ for admin only <%= @source_question.class.to_s %>
 		  <% end %>
           </li>			
 		  
-		  <li class=classname >
+		  <li class='<%= classname %>' >
 		  <% if pair.answer.include? "jpg" %>
 		  <%= image_tag pair.answer %>	            
 		  <% else %>
@@ -129,15 +128,12 @@ for admin only <%= @source_question.class.to_s %>
 		<% end %>
       </ul>
     </div>
-	</div>
+	</div>	
 	
+	<script>
+$('#tutorial-memorygame').quizyMemoryGame({itemWidth: 156, itemHeight: 156, itemsMargin:15, colCount:4, animType:'flip' , flipAnim:'tb', animSpeed:250, resultIcons:true });
+</script>
 	
-	
-     <script>
-		console.log("latest test");
-		$('#mydiv').myPluginName({itemWidth: 156});
-		$('#tutorial-memorygame').quizyMemoryGame({itemWidth: 156, itemHeight: 156, itemsMargin:15, colCount:4, animType:'flip' , flipAnim:'tb', animSpeed:250, resultIcons:true });
-	</script>
   <% else %>
   <table>
   <% @source_question.matches.each_with_index do |my_match,index| %>

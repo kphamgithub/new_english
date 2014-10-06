@@ -1,8 +1,20 @@
 <%= form_for :user, url: update_level_user_path do |f| %>
+    <p>
+	    &nbsp
+		&nbsp
+		&nbsp
+	</p>
+		<p>
+	   &nbsp  
+	</p>
+
   	<p>
-    <%= f.label :level%><br>
-    <%= f.text_field :level %>
-  </p>  
+     <%= f.select :level, options_for_select([['Basic','Basic'],['Intermediate','Intermediate'],['Advanced','Advanced'],['Expert','Expert']], :selected => params[:level]) %>
+  </p>
+	<p>
+	   &nbsp  
+	</p>
+  
   <p>
     <%= f.submit 'Update level' %>
   </p>

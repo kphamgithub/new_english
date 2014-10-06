@@ -14,7 +14,8 @@ class UsersController < ApplicationController
   def edit
   @user = User.find(params[:id])
   end
-  def create	  
+  def create	
+	  #render text: params.inspect
 	  @user = User.new(user_params)
 	  @user.save
 	  redirect_to @user 	  
@@ -24,7 +25,7 @@ class UsersController < ApplicationController
 	  #@lesson = @user.lesson #Lesson.find(@user.lesson_id)
   end
   def update_lesson
-     #render text: params[].inspect
+     #render text: params.inspect
 	 lesson = Lesson.find(params[:lesson][:lesson_id])
 	 user = User.find(params[:id])
 	 user.lessons << lesson
@@ -57,7 +58,7 @@ class UsersController < ApplicationController
 	
   private
   def user_params
-	params.require(:user).permit(:name,:password)
+	params.require(:user).permit(:name, :password, :level)
   end
   
   def user_level_params

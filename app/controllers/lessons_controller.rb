@@ -103,8 +103,16 @@ class LessonsController < ApplicationController
   end
   
   def create
-	  #render text: params[:lesson].inspect    
-	  @lesson = Lesson.create(lesson_params)
+  	  @lesson = Lesson.create(lesson_params)
+	  #render text: params[:lesson][:level].inspect 
+	  #render text: params.inspect
+	  if params["add_students"] == "1"
+	      lesson_level = params[:lesson][:level]
+		  users_at_this_level = User.where("level = ?",lesson_level)
+		  users_at_this_level.each do |user|	   	    
+			@lesson.users << user		
+		  end	
+	  end
 	  redirect_to @lesson
   end
 

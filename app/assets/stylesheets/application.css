@@ -13,4 +13,6 @@
  *= require font-awesome
  *= require jquery.ui.all
  *= require quizymemorygame
+ *= require ckeditor/contents
+ *= require ckeditor/plugins/wordcount/css/wordcount
  */

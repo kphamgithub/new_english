@@ -13,12 +13,19 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require_tree .
 //= require jquery.ui.all
 //= require turbolinks
 //= require myjs
 //= require quizquestion
 //= require jquery.flip
-
-
-
+//= require ckeditor/config
+//= require ckeditor/plugins/audio/plugin
+//= require ckeditor/plugins/audio/dialogs/audio
+//= require ckeditor/plugins/wordcount/plugin
+//= require ckeditor/plugins/timestamp/plugin
+//= require ckeditor/plugins/allmedias/plugin
+//= require ckeditor/plugins/allmedias/lang/en
+//= require ckeditor/plugins/allmedias/lang/zh
+//= require ckeditor/plugins/allmedias/lang/zh-cn
+//= require ckeditor/plugins/allmedias/dialogs/allMedias
+//= require_tree .

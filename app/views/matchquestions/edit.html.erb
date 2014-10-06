@@ -1,24 +1,27 @@
-<%= form_for :multichoicequestion, url: multichoicequestion_path(@multichoicequestion), method: :patch do |f| %>
+<%= form_for :matchquestion, url: matchquestion_path(@matchquestion), method: :patch do |f| %>
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </p>
- 
   <p>
-    <%= f.label :choice1%><br>
-    <%= f.text_field :choice1 %>
-  </p>
-
-  <p>
-    <%= f.label :choice2%><br>
-    <%= f.text_field :choice2 %>
+    <%= f.label :mode %><br>
+    <%= f.text_field :mode %>
   </p>
   
-  <p>
-    <%= f.label :choice3%><br>
-    <%= f.text_field :choice3 %>
-  </p>
-
+   <table>
+    <th><%= label_tag :match %></th>
+	<th><%= label_tag :answer %></th>
+	<% @matchquestion.matches.each_with_index do | mymatch,index | %>
+    <tr>
+    <td>
+    <%= text_field_tag "match" + index.to_s, mymatch.match %>
+	</td>
+    <td>
+    <%= text_field_tag "answer" + index.to_s, mymatch.answer %>
+	</td>
+	</tr>
+	<% end %>
+  </table>
   <p>
     <%= f.submit %>
   </p>

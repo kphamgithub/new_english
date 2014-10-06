@@ -1,4 +1,14 @@
 <%= form_for :lesson, url: lessons_path do |f| %>
+<p>
+Create a new lesson
+</p>
+<p>
+Create a new lesson
+</p>
+<p>
+Create a new lesson
+</p>
+
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -31,14 +41,17 @@
 
   <p>
     <%= f.label :video%><br>
-    <%= f.text_field :video, :value => 'none' %>
+    <%= f.text_field :video, :value => '' %>
   </p>  
   
     <p>
     <%= f.label :level%><br>
-    <%= f.text_field :level %>
-  </p>  
-  <p>
+  <%= f.select :level, options_for_select([['Basic','Basic'],['Intermediate','Intermediate'],['Advanced','Advanced'],['Expert','Expert']], :selected => params[:level]) %>
+  </p>
+ <p>
+  <%= check_box_tag "add_students" %> Add lesson to students at this level
+  </p>
+  
     <%= f.submit %>
   </p>
 <% end %>

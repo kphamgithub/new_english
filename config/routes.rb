@@ -1,4 +1,5 @@
 NewEnglish::Application.routes.draw do
+  get "matches/update"
   get "exams/new"
   get "exams/index"
   get "exams/show"

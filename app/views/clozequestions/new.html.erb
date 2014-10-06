@@ -7,12 +7,13 @@
     <%= f.label :instruction %><br>
     <%= f.text_area :instruction %>
   </p>
+  
   <p>
     <%= f.label :question %><br>
-    <%= f.text_area :question %>
+    <%= f.cktext_area :quéstion, :value => '', :id => 'enter text' %>
   </p>
   
- <p>
+	<p>
     <%= f.label :media%><br>
     <%= f.text_field :media %>
     </p>    
