@@ -1,38 +1,41 @@
-<%= form_tag (matchquestions_path) do %>
+<%= form_for :matchquestion, url: matchquestions_path(:quiz_id => @quiz_id,:lesson_id => @lesson_id ) do |f| %>
   <p>
-    New match question
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
   </p>
   <p>
-    <%= label_tag :name %><br>
-    <%= text_field_tag :name %>
-  </p>
-    <p>
-    <%= label_tag :question %><br>
-    <%= text_field_tag :question %>
+    <%= f.label :question %><br>
+    <%= f.text_area :question %>
   </p>
   <p>
-    <%= label_tag :mode %><br>
-    <%= text_field_tag :mode %>
+    <%= f.label :mode%><br>
+  <%= f.select :mode, options_for_select([['game','game'],['exercise','exercise']], :selected => params[:mode]) %>
   </p>
 
   <div>
   <table>
     <th><%= label_tag :match %></th>
 	<th><%= label_tag :answer %></th>
-	<% (0..5).each_with_index do | t,index | %>
+	<% (0..3).each_with_index do | t,index | %>
     <tr>
     <td>
-    <%= text_field_tag "match" + index.to_s %>
+    <%= text_field_tag "match_" + index.to_s %>
 	</td>
     <td>
-    <%= text_field_tag "answer" + index.to_s %>
+    <%= text_field_tag "answer_" + index.to_s %>
 	</td>
 	</tr>
 	<% end %>
   </table>
   </div>  
+
+<p><%= collection_select :quiz, "id", Quiz.all, :id, :name %></p>
+
   <p>
-    <%= submit_tag "Submit" %>
+  <%= check_box_tag "add_to_quiz" %>Add this question to selected quiz:
+  </p>
+  <p>
+    <%= f.submit %>
   </p>
 <% end %>
-<%= link_to 'Back to Lessons List', matchquestions_path %>
+<%= link_to 'Back to Lessons List', multichoicequestions_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930235650) do
+ActiveRecord::Schema.define(version: 20141017095151) do
 
   create_table "add_name_to_clozequestions", force: true do |t|
     t.string   "name"
@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(version: 20140930235650) do
     t.string   "name"
     t.string   "media"
     t.string   "instruction"
+  end
+
+  create_table "examquestions", force: true do |t|
+    t.string   "name"
+    t.integer  "exam_id"
+    t.integer  "origin_id"
+    t.string   "qtype"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "exams", force: true do |t|
@@ -141,6 +150,10 @@ ActiveRecord::Schema.define(version: 20140930235650) do
     t.datetime "updated_at"
     t.integer  "origin_id"
     t.string   "qtype"
+    t.integer  "matchquestion_id"
+    t.integer  "fillquestion_id"
+    t.integer  "multichoicequestion_id"
+    t.integer  "clozequestion_id"
   end
 
   create_table "quizzes", force: true do |t|
@@ -151,6 +164,16 @@ ActiveRecord::Schema.define(version: 20140930235650) do
     t.integer  "testid"
     t.string   "quiz_type"
     t.integer  "exam_id"
+  end
+
+  create_table "scramblers", force: true do |t|
+    t.string   "q1"
+    t.string   "q2"
+    t.string   "q3"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "media"
   end
 
   create_table "userlessons", force: true do |t|

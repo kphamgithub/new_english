@@ -22,7 +22,7 @@ class QuizquestionsController < ApplicationController
 		    #search quiz questions
 			found = false
 			@quiz.quizquestions.each do |qq|
-				if qq.qtype == "Matchquestion" and qq.origin_id == 	  mcq.id
+				if qq.qtype == "Multichoicequestion" and qq.origin_id == 	  mcq.id
 					found = true
 					break
 				end
@@ -42,7 +42,7 @@ class QuizquestionsController < ApplicationController
 		    #search quiz questions
 			found = false
 			@quiz.quizquestions.each do |qq|
-				if qq.qtype == "Matchquestion" and qq.origin_id == 	  fq.id
+				if qq.qtype == "Fillquestion" and qq.origin_id == 	  fq.id
 					found = true
 					break
 				end
@@ -88,7 +88,10 @@ class QuizquestionsController < ApplicationController
 	elsif @quizquestion.qtype == "Fillquestion"
 	    #render text: "FILL"
 		@source_question = Fillquestion.find(@quizquestion.origin_id)
-    elsif @quizquestion.qtype == "Clozequestion"
+	elsif @quizquestion.qtype == "Scrambler"
+	    #render text: "FILL"
+		@source_question = Scrambler.find(@quizquestion.origin_id)
+	elsif @quizquestion.qtype == "Clozequestion"
 	    #render text: "FILL"
 		@source_question = Clozequestion.find(@quizquestion.origin_id)
         #@people = [{"name"=>"NameA", "id"=>"1"}]
@@ -181,38 +184,41 @@ class QuizquestionsController < ApplicationController
 
   def create
 	  #render text: params.inspect
+	  #{"utf8"=>"✓", "authenticity_token"=>"8rtr8j4JLkgyfOIqIzeCBbsuXE/IbhPigLEipMhUnmw=", "Matchquestion_9"=>"1", "Matchquestion_5"=>"1", "commit"=>"Save selection", "method"=>"post", "action"=>"create", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20"}
+	  	  
+	  
 	  #{"utf8"=>"✓", "authenticity_token"=>"JLjLAD8gA66/lLCvE6JVuwEYlMk+TPyM+ES6e9r/aPk=", "Multichoicequestion_18"=>"1", "commit"=>"Save selection", "method"=>"post", "action"=>"create", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20"}
 	  #@quizquestion = Quizquestion.new(quizquestion_params)
 	  #@quizquestion.save
-	  #redirect_to quizquestion_path
-	  
-	  mykeys = params.keys  
-	  #params format:   questionTYPE_questionID => 1  (selected)
-	  #examples: 		Multichoicequestion_9 => 1
-	  # 		        Fillquestion_1 => 1
-      lesson_id = params[:lesson_id]
+	  #redirect_to quizquestion_path	  
+	  lesson_id = params[:lesson_id]
 	  quiz_id = params[:quiz_id]
-	  mykeys.each do |k|
-	   if (k.include? "Multichoicequestion") or (k.include? "Fillquestion") or (k.include? "Matchquestion") or (k.include? "Clozequestion")
-	    arr = k.split('_')		
-		origin_id = arr[1].to_i
-		if k.include? "Multichoicequestion"
-		    question_name = Multichoicequestion.find(origin_id)
-		elsif  k.include? "Fillquestion"
-			question_name = Fillquestion.find(origin_id)
-		elsif  k.include? "Clozequestion"
-			question_name = Clozequestion.find(origin_id)		
-		elsif k.include? "Matchquestion"
-		    question_name = Matchquestion.find(origin_id)
+
+	mykeys = params.keys  
+	row = Array.new
+	mykeys.each do |k|
+		if (k.include? "Multichoicequestion") or (k.include? "Fillquestion") or (k.include? "Matchquestion") or (k.include? "Clozequestion")
+			arr = k.split('_')	
+			question_id = arr[1].to_i
+			if k.include? "Matchquestion"
+				question = Matchquestion.find(question_id)
+				row = {quiz_id: quiz_id, name: question.name, matchquestion_id: question_id, qtype: arr[0] }
+			elsif k.include? "Multichoicequestion"
+				question = Multichoicequestion.find(question_id)
+				row = {quiz_id: quiz_id, name: question.name, multichoicequestion_id: question_id, qtype: arr[0]}
+			elsif k.include? "Fillquestion"
+				question = Fillquestion.find(question_id)
+				row = {quiz_id: quiz_id, name: question.name, fillquestion_id: question_id, qtype: arr[0] }
+			elsif k.include? "Clozequestion"
+				question = Clozequestion.find(question_id)
+				row = {quiz_id: quiz_id, name: question.name, clozequestion_id: question_id, qtype: arr[0] }		
+			end
+			@quizquestion = Quizquestion.new(row)
+			@quizquestion.save
 		end
-		#render text: arr[0]    #type 
-		#render text: arr[1]    #id
-	   row = {quiz_id: quiz_id,name: question_name.name, origin_id: arr[1],qtype: arr[0] }
-	    @quizquestion = Quizquestion.new(row)
-		@quizquestion.save
-		end
-	  end
-	  redirect_to lesson_quiz_path(lesson_id, quiz_id)	  
+	end
+	#render text: row.inspect
+	  redirect_to lesson_quiz_path(lesson_id, quiz_id)	 	  
   end
   
   def destroy
@@ -227,7 +233,7 @@ class QuizquestionsController < ApplicationController
   end
   private
   def quizquestion_params
-	params.require(:quiz).permit(:name, :quiz_id, :origin_id, :qtype)
+	params.require(:quiz).permit(:name, :quiz_id, :match_id, :qtype)
   end
 end
 

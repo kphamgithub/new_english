@@ -5,25 +5,17 @@
 	<h4>Exam <%= exam.id %>&nbsp<%= exam.name %></h4>
 	<table>
 	<tr>
-	<td><strong><%= link_to 'Show',exam_path(lesson) %></strong></td>
+	<td><strong><%= link_to 'Show',exam_path(exam) %></strong></td>
 	<td>&nbsp</td>
-    <td><strong><%= link_to 'Edit', edit_exam_path(lesson) %></strong></td>
+	<strong><%= link_to 'Add question', new_exam_examquestion_path(exam) %><strong>
+
+    <td><strong><%= link_to 'Edit', edit_exam_path(exam) %></strong></td>
 	<td><strong><%= button_to "Delete ", { action: "destroy", id: exam.id }, method: :delete, data: { confirm: "Are you sure?" } %></strong></td>
 	</tr>
 	</table>
-	There are <%= exam.quizzes.count %> quizzes for this exam
-	<%= link_to 'Show', exam_quizs_path(lesson) %>
-	 <%= link_to 'Add a quiz', new_lesson_quiz_path(lesson) %>
+	There are <%= exam.examquestions.count %> questions for this exam
 	</p>
 	<p>
-	    There are <%= lesson.users.count %> users for this lesson (the lessons for these users will be deleted upon lesson's deletion) :
-	</p>
-		<% lesson.users.each do |user| %>
-			 <%= user.name %>
-		<% end %>
-	<p>
-	 <strong><%= link_to 'Delete user', delete_user_lesson_path(lesson) %></strong>
-	<strong><%= link_to 'Add user', add_user_lesson_path(lesson) %></strong>
   <% end %>
   </p>
   

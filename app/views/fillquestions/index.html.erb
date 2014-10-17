@@ -1,4 +1,4 @@
-    <h2> Fillquestions. For Admin only</h2>
+    <h2> For Admin only</h2>
 	<% @fillquestions.each do |q| %>
 	<p> Question id:
 	<%= q.id %>
@@ -6,10 +6,12 @@
     <p> Name: 
 	<%= q.name %>
 	</p>
-    <p>
-	<%= q.question %>
+	<% if q.quizquestion != nil %>
+	<p> Associated with quizquestion ID: 
+	<%= q.quizquestion.id %>
 	</p>
-	<p> ************ </p>
+	<% end %>
+	<%= button_to "Delete ", { controller: "fillquestions", action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
 	<% end %>
 
 

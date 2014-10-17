@@ -1,2 +1,18 @@
-<h1>Clozequestions#index</h1>
-<p>Find me in app/views/clozequestions/index.html.erb</p>
+    <h2> For Admin only</h2>
+	<% @clozequestions.each do |q| %>
+	<p> Question id:
+	<%= q.id %>
+	</p>
+    <p> Name: 
+	<%= q.name %>
+	</p>
+	<% if q.quizquestion != nil %>
+	<p> Associated with quizquestion ID: 
+	<%= q.quizquestion.id %>
+	</p>
+	<% end %>
+	<%= button_to "Delete ", { controller: "clozequestions", action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
+	<% end %>
+
+
+

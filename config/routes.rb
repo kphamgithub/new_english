@@ -1,8 +1,11 @@
 NewEnglish::Application.routes.draw do
+  get 'examquestions/index'
+
+  get "scramblers/index"
   get "matches/update"
-  get "exams/new"
-  get "exams/index"
-  get "exams/show"
+  #get "exams/new"
+  #get "exams/index"
+  #get "exams/show"
   get "clozequestions/new"
   get "clozequestions/index"
   get "classnotes/index"
@@ -31,10 +34,21 @@ NewEnglish::Application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  # get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
 	 resources :classnotes
-	 resources :exams
+	 resources :exams do
+	 	resources :examquestions do
+			member do
+				get 'take'
+			end
+			member do
+				post 'processquestion'
+				post 'remove_from_exam'
+			end
+		end
+	 end
+	 
   	 resources :lessons do
 	    member do
 		    get 'show_vocabulary'
@@ -105,7 +119,17 @@ NewEnglish::Application.routes.draw do
 	   
 	 resources :sessions
 	 
+	 resources :scramblers do
+		member do
+			get 'take'
+		end
+		member do
+		    #post 'process_question'
+			post 'remove_from_quiz'
+		end
+	 end
 
+	 
 	 resources :fillquestions do
 		member do
 			get 'take'

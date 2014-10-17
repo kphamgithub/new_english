@@ -25,7 +25,7 @@ function playPause() {
            song.pause();
        }
 
-function playMP3(audio_element_id) {
+	   function playMP3(audio_element_id) {
        var song = document.getElementById(audio_element_id);
 	   //alert("jere");
        if (song.paused)
@@ -74,6 +74,6 @@ $(function() {
 });
 
 $(function() {
-  $('.datepicker').datepicker();
+  $("#datepicker").datepicker();
 });
 

@@ -3,9 +3,11 @@ class ExamsController < ApplicationController
   end
 
   def index
+	@exams = Exam.all
   end
 
   def show
+	@exam = Exam.find(params[:id])
   end
   
   def create

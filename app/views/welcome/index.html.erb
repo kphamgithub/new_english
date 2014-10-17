@@ -1,7 +1,7 @@
 <p>There should be a check mark here:</p>
 <div class="ui-icon ui-icon-check"></div>
-<p>Click to open the date picker:</p>
-<p><input type="text" class="datepicker"></p>
+<p>There should be a check mark here:</p>
+<div class="ui-icon ui-icon-check"></div>
 <div class="center hero-unit">
   <% if current_user %>
   <h2 style="color:red">Welcome <strong><%= current_user.name %></strong> to TiengAnhTuyHoa.com.</h2> 
@@ -16,10 +16,21 @@
 	
 		   <p><%= link_to "manage users", users_path %></p>
 		   <p><%= link_to "manage lessons", lessons_path %></p>
-           <p><%= link_to "manage vocabularies", vocabularies_path %></p>
-		   <p><%= link_to "manage classnotes", classnotes_path %></p>
-		<% else %>
-		    
+		   	<p><%= link_to "manage exams", exams_path %></p>
+		   			<p>Click to open the date picker:</p>
+<p><input type="text" id="datepicker"></p>
+
+
+	<div id="content">
+		<div hidden id="output">hidden</div>
+		<div hidden id="cardPile">card</div>
+		<div hidden id="cardSlots">slots</div>
+	</div>
+
+<button onclick="scramble()">Click me</button>   
+
+
+		<% else %>		    
 			Your level: <%= current_user.level %>&nbsp<i class="fa fa-star"></i>
 			<strong>Your Lessons:</strong>
 			 

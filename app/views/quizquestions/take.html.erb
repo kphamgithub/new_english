@@ -79,6 +79,19 @@ for admin only <%= @source_question.class.to_s %>
   </p>
 <% end %>   
 
+<% elsif @quizquestion.qtype == "Scrambler" %>
+<%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
+	<div id="content">
+	here
+		<div id="output"></div>
+		<div id="cardPile"></div>
+		<div id="cardSlots"></div>
+	</div>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   
+
 <% elsif @quizquestion.qtype == "Clozequestion" %>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
 	<div>

@@ -1,0 +1,194 @@
+/* Add some margin to the page and set a default font and colour */
+ 
+ /* margin: 30px; /
+ 
+body { 
+  font-family: "Georgia", serif;
+  line-height: 1.8em;
+  color: #333;
+}
+ 
+/* Give headings their own font */
+ 
+h1, h2, h3, h4 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+ 
+/* Main content area */
+ /* margin: 40px 60px; */
+ 
+#content {
+  
+  text-align: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+ 
+
+/* Header/footer boxes */
+  
+/* Slots for final card positions */
+ /* margin: 50px auto 0 auto; */
+ 
+#cardSlots { 
+  background: #ddf;
+}
+ 
+/* The initial pile of unsorted cards */
+ /*  margin: 0 auto; */
+ 
+#cardPile {  
+  background: #ffd;
+}
+ /*  padding: 20px; */
+ /* width: 510px; note: width to be specified based on individual cards (kpham) */
+#cardPile{ 
+  position:absolute; 
+  left: 0px;
+  width:47%;
+  border: 2px solid #333;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  margin-left:auto;
+  margin-right:auto;
+}
+/*border-radius: 10px;*/
+
+#cardSlots{ 
+  position:relative; 
+  left:26%;
+  width:53%;
+  border: 2px solid #333;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+
+ 
+#cardPile div{
+  z-index: 1;
+}
+
+#cardSlots div{
+  z-index: 0; 
+}
+
+/* Individual cards and slots  width: 58px; */
+ /* padding: 5px; height: 28px; padding-bottom: 30;margin: 0 0 0 0px; float: left; padding-top: 30px; white-space:nowrap; */
+ 
+#cardSlots div, #cardPile div{
+  position: relative;
+  height:25px;
+  width:100%;
+  padding-top:5px;
+  padding-bottom:5px;
+  border: 2px solid #333;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin-left:auto;
+  margin-right:auto;
+  
+}
+  
+#cardSlots div.hovered {
+  background: #aaa;
+}
+ 
+#cardSlots div {
+  border-style: dashed;
+  background: #fff;
+  color: #ffffff;
+}
+/*font-size: 20px; text-shadow: 0 0 3px #000;*/
+#cardPile div {
+  background: #99CCFF;
+  color: #330000;
+}
+ 
+#next_button {
+    position:absolute;
+	left:400px;
+	top:100px;
+	background:#99CCFF;
+}
+
+/*background: #66ccff; */
+#error_text {   
+  color: #000000;
+  font-size: 26px;
+}
+
+.error_count {  
+  color: #990000;
+  font-size: 36px;
+}
+
+
+#output {
+  background: #66ccff;
+  color: #000000;
+  font-size: 20px;
+}
+ 
+/* Individually coloured cards */
+ 
+#card1.correct { background: red; }
+#card2.correct { background: brown; }
+#card3.correct { background: orange; }
+#card4.correct { background: yellow; }
+#card5.correct { background: green; }
+#card6.correct { background: cyan; }
+#card7.correct { background: blue; }
+#card8.correct { background: indigo; }
+#card9.correct { background: purple; }
+#card10.correct { background: violet; }
+ 
+ 
+/* "You did it!" message */
+#successMessage {
+  
+  left: 580px;
+  top: 250px;
+  width: 0;
+  height: 0;
+  z-index: 100;
+  background: #dfd;
+  border: 2px solid #333;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+  padding: 20px;
+}
+
+ .count {
+font-weight: bold;
+font-size: 20px;
+padding: 0px 2px;
+} 
+
+div.timer {
+    border:1px #666666 solid;
+    width:130px;
+    height:30px;
+    line-height:40px;
+    font-size:24px;
+    font-family:"Courier New", Courier, monospace;
+    text-align:center;
+    margin:4px;
+	background: #ff9966;
+}

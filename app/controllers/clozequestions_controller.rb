@@ -48,6 +48,7 @@ class ClozequestionsController < ApplicationController
   end
 
   def index
+    @clozequestions = Clozequestion.all
   end
   
   def strip_brackets_from_string(string)
@@ -114,6 +115,13 @@ class ClozequestionsController < ApplicationController
 	  else
 	    render 'edit'
 	  end 
+  end
+
+  def destroy
+	  #render text: params[:id].inspect
+      clozequestion = Matchquestion.find(params[:id])
+	  clozequestion.destroy
+	  redirect_to clozequestions_path
   end
 
   

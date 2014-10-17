@@ -1,3 +1,3 @@
 class Exam < ActiveRecord::Base
-	   has_many :quizzes, dependent: :destroy
+	   has_many :examquestions, dependent: :destroy
 end

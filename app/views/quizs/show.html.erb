@@ -9,23 +9,23 @@
 	<tr>
 	<td>
     <%= q.qtype %> 
-	id = <%= q.origin_id %> Name = <%= q.name %>
+	Name = <%= q.name %>
 	</td>
 	<td>
 	<% if q.qtype == "Multichoicequestion" %>
-	    <% multichoicequestion = Multichoicequestion.find(q.origin_id) %>
+	    <% multichoicequestion = Multichoicequestion.find(q.multichoicequestion_id) %>
 		<%= link_to "Show", multichoicequestion_path(multichoicequestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
 	    <%= link_to "Edit", edit_multichoicequestion_path(multichoicequestion.id) %>
 	<% elsif q.qtype == "Fillquestion" %>
-	    <% fillquestion = Fillquestion.find(q.origin_id) %>
+	    <% fillquestion = Fillquestion.find(q.fillquestion_id) %>
 	    <%= link_to "Show", fillquestion_path(fillquestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
 	    <%= link_to "Edit", edit_fillquestion_path(fillquestion.id) %>
 	<% elsif q.qtype == "Clozequestion" %>
-	    <% clozequestion = Clozequestion.find(q.origin_id) %>
+	    <% clozequestion = Clozequestion.find(q.clozequestion_id) %>
 		<%= link_to "Show", clozequestion_path(clozequestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
 	    <%= link_to "Edit", edit_clozequestion_path(clozequestion.id) %>
 	<% elsif q.qtype == "Matchquestion" %>
-	    <% matchquestion = Matchquestion.find(q.origin_id) %>
+	    <% matchquestion = Matchquestion.find(q.matchquestion_id) %>
 		<%= link_to "Show", matchquestion_path(matchquestion.id, :lesson_id => @lesson.id, :quiz_id => @quiz.id) %>
 	    <%= link_to "Edit", edit_matchquestion_path(matchquestion.id) %>
 	<% end %>

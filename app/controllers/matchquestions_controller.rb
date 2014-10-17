@@ -15,14 +15,15 @@ class MatchquestionsController < ApplicationController
   end
 
   def create
-      @matchquestion = Matchquestion.create({"name" => params["name"]})
+      #render text: params.inspect
+	  matchquestion = Matchquestion.new(matchquestion_params)
       rows = []
 	  row = nil
       params.each do |key,value|
-		if key.include? "match"
+		if key.include? "match_"
 		   row = Hash.new
 		   row["match"] = value
-		elsif key.include? "answer"
+		elsif key.include? "answer_"
 		   row["answer"] = value
 		   rows.push(row)
 		   row = nil
@@ -30,14 +31,13 @@ class MatchquestionsController < ApplicationController
 	  end
 	  #render text: params.inspect
 	  #render text: rows.inspect
+	  matchquestion.save
 	  rows.each do |r|
-	     @matchquestion.matches.create(r)
-	  end
-	  @matchquestion.save
+	     matchquestion.matches.create(r)
+	  end 
 	  #render text: rows.inspect	  
 	  #redirect_to lesson_quiz_path(params[:lesson_id], params[:quiz_id])
 	  redirect_to matchquestions_path
-
   end
   
   def update 
@@ -82,4 +82,5 @@ class MatchquestionsController < ApplicationController
   def matchquestion_params
 	params.require(:matchquestion).permit(:name, :question, :mode)
   end
+    
 end

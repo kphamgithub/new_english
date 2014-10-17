@@ -96,7 +96,8 @@ class LessonsController < ApplicationController
   def update
      @lesson = Lesson.find(params[:id])
 	 if @lesson.update(lesson_params)
-	  	redirect_to @lesson
+	  	#redirect_to @lesson
+		render 'edit'
 	 else
 	    render 'edit'
 	 end

@@ -24,6 +24,12 @@
     <%= f.label :media%><br>
     <%= f.text_field :media %>
     </p>    
+	
+	    <p>
+    <%= f.label :choice_label_display_mode%><br>
+  <%= f.select :choice_label_display_mode, options_for_select([['text','text'],['image','image'],['audio','audio']], :selected => params[:choice_label_display_mode]) %>
+  </p>
+
     <p>
     <%= f.label :choice1%><br>
     <%= f.text_area :choice1 %>

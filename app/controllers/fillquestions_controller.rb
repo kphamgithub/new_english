@@ -33,7 +33,14 @@ class FillquestionsController < ApplicationController
 	  end
 	  redirect_to lesson_quiz_path(params[:lesson_id], params[:quiz_id])
   end
-  
+
+  def destroy
+	  #render text: params[:id].inspect
+      fillquestion = Fillquestion.find(params[:id])
+	  fillquestion.destroy
+	  redirect_to fillquestions_path
+  end
+
   private
   def fillquestion_params
 	params.require(:fillquestion).permit(:name, :question, :answer, :quiz_id)

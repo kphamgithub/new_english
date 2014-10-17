@@ -1,9 +1,4 @@
-/*
- *= require jquery.ui.datepicker
- *= require jquery.ui.accordion
- */
- 
-#quiz_button {
+ #quiz_button {
    display:none
 }
 .audio_volume_only {

@@ -1,0 +1,26 @@
+<%= form_for :scrambler, url: scramblers_path do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </p>
+  <p>
+    <%= f.label :q1 %><br>
+    <%= f.text_area :q1 %>
+  </p>  
+   <p>
+    <%= f.label :q2 %><br>
+    <%= f.text_area :q2 %>
+  </p>  
+  <p>
+    <%= f.label :q3 %><br>
+    <%= f.text_area :q3 %>
+	
+	  <p>
+  <%= check_box_tag "add_to_quiz" %>Add this question to this quiz:
+  </p>
+	
+  </p>  
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Lessons List', scramblers_path %>
