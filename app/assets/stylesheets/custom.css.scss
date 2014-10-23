@@ -1,37 +1,8 @@
 @import "bootstrap";
-
-#user_nav {
-   color: black;
-}
-
-.navbar-inverse {
-    background-image: none;
-    background-color: #FF6600;
-    border-color: #E7E7E7;
-}
-
-.navbar-fixed-top {
-   top: 10px;
-    background-image: none;
-   background-color: #FF6600;
-   height: 60px;
-}
-
-.navbar {
-  .navbar-inner {
-    background-image: none;
-    background-color: #2c2c2c;
-    height: 40px;
-  }
-}
-
+@import "bootstrap-sprockets";
 
 html {
   overflow-y: scroll;
-}
-
-body {
-  padding-top: 60px;
 }
 
 section {
@@ -71,10 +42,6 @@ h2 {
   color: #000000;
 }
 
-p {
-  font-size: 1.1em;
-  line-height: 1.7em;
-}
 
 li {
   font-size: 1.0em;

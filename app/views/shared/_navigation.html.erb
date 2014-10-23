@@ -1,0 +1,15 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+  	  <div id = "user_nav">
+	  <% if current_user %>
+	  Logged in as <%= current_user.name %>
+	  <%= link_to "Log out", log_out_path %>
+	  <% else %>
+	  <%= link_to "Log me in", log_in_path %>
+	  <% end %>
+	  </div>
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Tieng Anh Tuy Hoa</a>
+    </div>
+  </div>
+</nav>

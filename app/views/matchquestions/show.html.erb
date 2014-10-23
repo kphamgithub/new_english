@@ -7,6 +7,10 @@
 	<%= @matchquestion.name %>
 	</p>
 
-	<p> Quizquestion ID:
-	<%= @matchquestion.quizquestion.id %>
-	</p>
+	<div> <strong>Quizquestions associated with this question:</strong> 
+	<% @matchquestion.quizquestions.each do |qq| %>
+	<p>
+	quizquestion id = <%= qq.id %> quiz id = <%= qq.quiz.id %> name= <%= qq.quiz.name %>
+	<p/>
+	<% end %>
+	</div>

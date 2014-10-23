@@ -1,4 +1,4 @@
 class Matchquestion < ActiveRecord::Base
     has_many :matches, dependent: :destroy
-	has_one :quizquestion, dependent: :destroy
+	has_many :quizquestions, dependent: :destroy
 end

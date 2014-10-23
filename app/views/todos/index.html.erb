@@ -1,0 +1,31 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'View list', todos_path %></li>
+  <li><%= link_to 'New todo', new_todo_path %></li>
+</ul>
+<h1>Listing todos</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Notes</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @todos.each do |todo| %>
+      <tr>
+        <td><%= todo.title %></td>
+        <td><%= todo.notes %></td>
+        <td><%= link_to 'Show', todo, class: 'btn btn-primary btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_todo_path(todo), class: 'btn btn-success' %></td>
+        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Todo', new_todo_path, class: 'btn btn-success' %>

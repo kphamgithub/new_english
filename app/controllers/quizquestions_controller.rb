@@ -22,7 +22,7 @@ class QuizquestionsController < ApplicationController
 		    #search quiz questions
 			found = false
 			@quiz.quizquestions.each do |qq|
-				if qq.qtype == "Multichoicequestion" and qq.origin_id == 	  mcq.id
+				if qq.qtype == "Multichoicequestion" and qq.multichoicequestion_id == 	  mcq.id
 					found = true
 					break
 				end
@@ -35,14 +35,32 @@ class QuizquestionsController < ApplicationController
 			end
 	    end	   
 	    #render text: @available_questions.count
-		
-		
+
+        clozequestions = Multichoicequestion.all
+	    clozequestions.each do |cq|
+		    #search quiz questions
+			found = false
+			@quiz.quizquestions.each do |qq|
+				if qq.qtype == "Clozequestion" and qq.clozequestion_id == cq.id
+					found = true
+					break
+				end
+			end
+			if found == false
+			    #if voca_quiz and mcq.vocabulary_id != nil
+				    #if mcq.vocabulary_id != nil
+					@available_questions.push(cq)
+				#end
+			end
+	    end	   
+	    #render text: @available_questions.count
+				
 		fillquestions = Fillquestion.all
 		fillquestions.each do |fq|
 		    #search quiz questions
 			found = false
 			@quiz.quizquestions.each do |qq|
-				if qq.qtype == "Fillquestion" and qq.origin_id == 	  fq.id
+				if qq.qtype == "Fillquestion" and qq.fillquestion_id ==  fq.id
 					found = true
 					break
 				end
@@ -58,7 +76,7 @@ class QuizquestionsController < ApplicationController
 		    #search quiz questions
 			found = false
 			@quiz.quizquestions.each do |qq|
-				if qq.qtype == "Matchquestion" and qq.origin_id == mq.id
+				if qq.qtype == "Matchquestion" and qq.matchquestion_id == mq.id
 				found = true
 				break
 				end
@@ -81,19 +99,19 @@ class QuizquestionsController < ApplicationController
 	@quizquestion = Quizquestion.find(params[:id])
 	@source_question = nil
 	if @quizquestion.qtype == "Multichoicequestion"
-		@source_question = Multichoicequestion.find(@quizquestion.origin_id)
+		@source_question = @quizquestion.multichoicequestion
 		@choice1_mp3_path = @source_question.choice1.strip
 		@choice2_mp3_path = @source_question.choice2.strip
 		@choice3_mp3_path = @source_question.choice3.strip
 	elsif @quizquestion.qtype == "Fillquestion"
 	    #render text: "FILL"
-		@source_question = Fillquestion.find(@quizquestion.origin_id)
+		@source_question = @quizquestion.fillquestion
 	elsif @quizquestion.qtype == "Scrambler"
 	    #render text: "FILL"
 		@source_question = Scrambler.find(@quizquestion.origin_id)
 	elsif @quizquestion.qtype == "Clozequestion"
 	    #render text: "FILL"
-		@source_question = Clozequestion.find(@quizquestion.origin_id)
+		@source_question = @quizquestion.clozequestion
         #@people = [{"name"=>"NameA", "id"=>"1"}]
 		question = @source_question.question  #"My name is [test,blah] and [foo,bar,been] but his name is [oo]"
 	# replace bracketed option text with stars (for splitting purpose only)
@@ -114,7 +132,7 @@ class QuizquestionsController < ApplicationController
 	end
 	
     elsif @quizquestion.qtype == "Matchquestion"
-	    @source_question = Matchquestion.find(@quizquestion.origin_id)
+	    @source_question = @quizquestion.matchquestion
 		if @source_question.mode == "game"
 		    @matches = Match.where("matchquestion_id = ?", @source_question.id)			
 		end
@@ -186,11 +204,6 @@ class QuizquestionsController < ApplicationController
 	  #render text: params.inspect
 	  #{"utf8"=>"✓", "authenticity_token"=>"8rtr8j4JLkgyfOIqIzeCBbsuXE/IbhPigLEipMhUnmw=", "Matchquestion_9"=>"1", "Matchquestion_5"=>"1", "commit"=>"Save selection", "method"=>"post", "action"=>"create", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20"}
 	  	  
-	  
-	  #{"utf8"=>"✓", "authenticity_token"=>"JLjLAD8gA66/lLCvE6JVuwEYlMk+TPyM+ES6e9r/aPk=", "Multichoicequestion_18"=>"1", "commit"=>"Save selection", "method"=>"post", "action"=>"create", "controller"=>"quizquestions", "lesson_id"=>"16", "quiz_id"=>"20"}
-	  #@quizquestion = Quizquestion.new(quizquestion_params)
-	  #@quizquestion.save
-	  #redirect_to quizquestion_path	  
 	  lesson_id = params[:lesson_id]
 	  quiz_id = params[:quiz_id]
 

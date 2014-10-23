@@ -6,11 +6,14 @@
     <p> Name: 
 	<%= q.name %>
 	</p>
-	<% if q.quizquestion != nil %>
-	<p> Associated with quizquestion ID: 
-	<%= q.quizquestion.id %>
-	</p>
+	
+	<div> <strong>Quizquestions associated with this question:</strong> 
+	<% q.quizquestions.each do |qq| %>
+	<p>
+	quizquestion id = <%= qq.id %> quiz id = <%= qq.quiz.id %> name= <%= qq.quiz.name %>
+	<p/>
 	<% end %>
+	</div>
 
 	<%= button_to "Delete ", { controller: "matchquestions", action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
 	<% end %>

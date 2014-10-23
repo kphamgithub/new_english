@@ -1,0 +1,13 @@
+		      <ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'Home', welcome_index_path %></li>
+  <li><%= link_to 'New todo', new_todo_path %></li>
+  <li><%= link_to 'Songs', welcome_index_user_path %></li>
+  </ul>
+
+			<p><strong>Your level: <%= current_user.level %></strong>&nbsp<i class="fa fa-star"></i></p>
+			<p><strong>Your Lessons:</strong></p>
+			        <ul>
+					<% current_user.lessons.each do |lesson| %>
+					<li><%= link_to lesson.name, lesson_path(lesson.id) %></li>
+					<% end %>
+				    </ul>

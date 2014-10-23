@@ -187,7 +187,7 @@ class LessonsController < ApplicationController
 
   private
   def lesson_params
-	params.require(:lesson).permit(:name, :reading_content, :vocabulary_content, :grammar_content, :phonics_content, :lyrics_content, :video, :level)
+	params.require(:lesson).permit(:name, :reading_content, :vocabulary_content, :grammar_content, :phonics_content, :lyrics_content, :video, :level, :content_type)
   end
 
 end

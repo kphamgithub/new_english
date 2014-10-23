@@ -1,3 +1,3 @@
 class Clozequestion < ActiveRecord::Base
-	has_one :quizquestion, dependent: :destroy
+	has_many :quizquestions, dependent: :destroy
 end

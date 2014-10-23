@@ -1,99 +1,38 @@
-<p>There should be a check mark here:</p>
-<div class="ui-icon ui-icon-check"></div>
-<p>There should be a check mark here:</p>
-<div class="ui-icon ui-icon-check"></div>
-<div class="center hero-unit">
-  <% if current_user %>
-  <h2 style="color:red">Welcome <strong><%= current_user.name %></strong> to TiengAnhTuyHoa.com.</h2> 
+<% if current_user %>
+
+  <% if current_user.name == "kpham" %>
+    <h2> ADMIN </h2>
   <% else %>
-  
-  <h2>Welcome to TiengAnhTuyHoa.com.</h2> 
+  <ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'Home', welcome_index_path %></li>
+  <li><%= link_to 'New todo', new_todo_path %></li>
+  <li><%= link_to 'Songs', welcome_index_user_path %></li>
+  </ul>
+  <br>
+  <h2>Welcome Student to TATH.com</h2>
+<table class = "table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Notes</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @todos.each do |todo| %>
+      <tr>
+        <td><%= todo.title %></td>
+        <td><%= todo.notes %></td>
+        <td><%= link_to 'Show', todo, class: 'btn btn-primary btn-xs'%></td>
+        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
   <% end %>
-	    <% if current_user %>
-        <% if current_user.name == "kpham" %>
-	
-<a href="#" onclick="paintIt(this, '#990000')">Paint it BLUE</a>
-	
-		   <p><%= link_to "manage users", users_path %></p>
-		   <p><%= link_to "manage lessons", lessons_path %></p>
-		   	<p><%= link_to "manage exams", exams_path %></p>
-		   			<p>Click to open the date picker:</p>
-<p><input type="text" id="datepicker"></p>
-
-
-	<div id="content">
-		<div hidden id="output">hidden</div>
-		<div hidden id="cardPile">card</div>
-		<div hidden id="cardSlots">slots</div>
-	</div>
-
-<button onclick="scramble()">Click me</button>   
-
-
-		<% else %>		    
-			Your level: <%= current_user.level %>&nbsp<i class="fa fa-star"></i>
-			<strong>Your Lessons:</strong>
-			 
-<div id="accordion">
-  <h3>Section 1</h3>
-  <div>
-    <p>
-    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-    ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-    amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-    </p>
-  </div>
-  <h3>Section 2</h3>
-  <div>
-    <p>
-    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-    suscipit faucibus urna.
-    </p>
-  </div>
-  <h3>Section 3</h3>
-  <div>
-    <p>
-    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-    </p>
-    <ul>
-      <li>List item one</li>
-      <li>List item two</li>
-      <li>List item three</li>
-    </ul>
-  </div>
-  <h3>Section 4</h3>
-  <div>
-    <p>
-    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-    mauris vel est.
-    </p>
-    <p>
-    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-    inceptos himenaeos.
-    </p>
-  </div>
-</div>
-			
-			
-			
-			
-			        <table>
-					<% current_user.lessons.each do |lesson| %>
-					<tr>
-					<td><%= link_to lesson.name, lesson_path(lesson.id) %></td>
-					<tr>
-					<% end %>
-				    </table>
-		<% end %>
-        <% end %>
-</div>
-
+<% end %>
+<%= link_to 'New Todo', new_todo_path , class: 'btn btn-success' %>

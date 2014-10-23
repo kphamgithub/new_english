@@ -12,7 +12,7 @@ class ScramblersController < ApplicationController
 	  scrambler.save
 	  #logic for add to quiz
 	  if params['add_to_quiz'] != nil
-        qqrow = {quiz_id: params[:quiz_id],name: scrambler.name,    origin_id: scrambler.id, qtype: 'Scrambler' }
+        qqrow = {quiz_id: params[:quiz_id],name: scrambler.name,    scrambler_id: scrambler.id, qtype: 'Scrambler' }
 	    quizquestion = Quizquestion.new(qqrow)
     	quizquestion.save 
 	  end

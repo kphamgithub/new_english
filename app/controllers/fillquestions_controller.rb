@@ -27,11 +27,18 @@ class FillquestionsController < ApplicationController
 	  fillquestion.save
 	  #logic for add to quiz
 	  if params['add_to_quiz'] != nil
-       qqrow = {quiz_id: params[:quiz_id],name: fillquestion.name, origin_id: fillquestion.id, qtype: 'Fillquestion' }
+       qqrow = {quiz_id: params[:quiz_id],name: fillquestion.name, fillquestion_id: fillquestion.id, qtype: 'Fillquestion' }
 	   quizquestion = Quizquestion.new(qqrow)
     	quizquestion.save 
 	  end
-	  redirect_to lesson_quiz_path(params[:lesson_id], params[:quiz_id])
+	  
+	  if params['add_to_quiz'] != nil
+	    my_quiz = Quiz.find(params[:quiz_id])
+		redirect_to lesson_quiz_path(my_quiz.lesson.id, params[:quiz_id])
+	  else 
+	     redirect_to fillquestions_path
+      end
+
   end
 
   def destroy

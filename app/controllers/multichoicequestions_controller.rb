@@ -56,11 +56,18 @@ class MultichoicequestionsController < ApplicationController
 	  multichoicequestion.save
        
 	  if params['add_to_quiz'] != nil
-        qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], origin_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
+        qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], multichoicequestion_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
 	    quizquestion = Quizquestion.new(qqrow)
 		quizquestion.save 
 	  end
-	  redirect_to multichoicequestions_path
+	  
+	  if params['add_to_quiz'] != nil
+	    my_quiz = Quiz.find(params[:quiz][:id])
+		redirect_to lesson_quiz_path(my_quiz.lesson.id, params[:quiz][:id])
+	  else 
+	     redirect_to multichoicequestions_path
+      end
+
 	  
   end
 

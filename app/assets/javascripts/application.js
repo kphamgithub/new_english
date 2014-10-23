@@ -13,11 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require jquery-ui/datepicker
 //= require myjs
 //= require quizquestion
 //= require jquery.flip
 //= require_tree ./ckeditor
 //= require scramblers
-
+//= require bootstrap
+//= require_tree .

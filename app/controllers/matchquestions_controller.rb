@@ -3,6 +3,7 @@ class MatchquestionsController < ApplicationController
     @matchquestions = Matchquestion.all
   end
   def new
+     #render text: params.inspect
 	 @quiz_id = params[:quiz_id]
 	 @lesson_id = params[:lesson_id]
   end
@@ -35,9 +36,19 @@ class MatchquestionsController < ApplicationController
 	  rows.each do |r|
 	     matchquestion.matches.create(r)
 	  end 
-	  #render text: rows.inspect	  
-	  #redirect_to lesson_quiz_path(params[:lesson_id], params[:quiz_id])
-	  redirect_to matchquestions_path
+	  
+	  if params['add_to_quiz'] != nil
+        qqrow = {quiz_id: params[:quiz][:id],name: params[:matchquestion][:name], matchquestion_id: matchquestion.id, qtype: 'Matchquestion' }
+	    quizquestion = Quizquestion.new(qqrow)
+		quizquestion.save 
+	  end
+	  
+	  if params['add_to_quiz'] != nil
+	    my_quiz = Quiz.find(params[:quiz][:id])
+		redirect_to lesson_quiz_path(my_quiz.lesson.id, params[:quiz][:id])
+	  else 
+	     redirect_to matchquestions_path
+      end
   end
   
   def update 

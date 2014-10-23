@@ -5,22 +5,18 @@ class QuizquestionresultsController < ApplicationController
 	 
 	 @user = User.find(params[:user_id])
 	 @quiz = Quiz.find(params[:quiz_id])
-	 #@quizquestions = @quiz.quizquestions
-	 #quizquestions.each do |qq|
-		#origin_id = qq.origin_id
-	 #end
 	 @results_arr = Array.new
 	 results_hash = Hash.new
 	 @quizquestionresults = Quizquestionresult.where("user_id = ? and quiz_id = ?", params[:user_id], params[:quiz_id] )
 	 @quizquestionresults.each do |qqr|
 		quizquestion = Quizquestion.find(qqr.quizquestion_id)
-		origin_id = quizquestion.origin_id
-		question_type = quizquestion.qtype
+		#origin_id = quizquestion.origin_id
+		#question_type = quizquestion.qtype
 		question = nil
 		results_hash = Hash.new
-		if question_type == "Multichoicequestion"
+		if quizquestion.qtype == "Multichoicequestion"
 		    results_hash["qtype"] = "Multichoicequestion"
-		    question = Multichoicequestion.find(origin_id)
+		    question = quizquestion.multichoicequestion
 			correct_answer = question.instance_eval(question.answer)
 			results_hash[:key] = correct_answer
 			results_hash[:user_answer] = qqr.answ						
@@ -30,9 +26,9 @@ class QuizquestionresultsController < ApplicationController
 			else
 			   results_hash[:status] = "incorrect"
 			end
-		elsif question_type == "Fillquestion"
+		elsif quizquestion.qtype == "Fillquestion"
 			results_hash["qtype"] = "Fillquestion"
-		    question = Fillquestion.find(origin_id)
+		    question = quizquestion.fillquestion
 			results_hash[:key] = question.answer
 			results_hash[:user_answer] = qqr.answer
 			if question.answer == qqr.answer
@@ -41,9 +37,9 @@ class QuizquestionresultsController < ApplicationController
 			   results_hash[:status] = "incorrect"
 			end
 			#@results_arr.push(results_hash)			
-		elsif question_type == "Clozequestion"
+		elsif quizquestion.qtype == "Clozequestion"
 		    results_hash["qtype"] = "Clozequestion"
-		    clozequestion = Clozequestion.find(origin_id)
+		    clozequestion = quizquestion.clozequestion
 			answer_keys_array = clozequestion.answer.split(',')
 			temp = clozequestion.question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
 			array_of_normal_text = temp.split('*')
@@ -80,12 +76,11 @@ class QuizquestionresultsController < ApplicationController
 			results_hash[:correct_answer] = correct_answer_array
 			results_hash[:user_answer] = user_answer_array
 			
-		elsif question_type == "Matchquestion"
+		elsif quizquestion.qtype == "Matchquestion"
 		    #render text: params.inspect
 			results_hash["qtype"] = "Matchquestion"
 		    user_answer_hash = eval(qqr.answer)
-			question = Matchquestion.find(quizquestion.origin_id)
-			
+			question = quizquestion.matchquestion
 			matches = []
 			question.matches.each do |match,index|
 			   #save all answer keys in an array

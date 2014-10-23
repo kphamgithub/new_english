@@ -1,4 +1,4 @@
-<%= form_for :matchquestion, url: matchquestions_path(:quiz_id => @quiz_id,:lesson_id => @lesson_id ) do |f| %>
+<%= form_for :matchquestion, url: matchquestions_path(:quiz_id => @quiz_id)  do |f| %>
   <p>
     <%= f.label :name %><br>
     <%= f.text_area :name %>
@@ -30,7 +30,6 @@
   </div>  
 
 <p><%= collection_select :quiz, "id", Quiz.all, :id, :name %></p>
-
   <p>
   <%= check_box_tag "add_to_quiz" %>Add this question to selected quiz:
   </p>
