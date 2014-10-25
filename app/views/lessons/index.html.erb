@@ -1,3 +1,8 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Home', welcome_index_path %></li>
+  <li  class="active"><%= link_to 'Lessons', lessons_path %></li>
+  <li><%= link_to 'Users', users_path %></li>
+  </ul>
 <h1>Lessons listing</h1>
 <h4><strong><%= link_to 'New Lesson', new_lesson_path %></strong></h4>
 <% @lessons.each do |lesson| %>

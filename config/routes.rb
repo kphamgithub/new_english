@@ -22,6 +22,8 @@ NewEnglish::Application.routes.draw do
   get "sessions/new"
   get "welcome/index"
   get "welcome/index_user"
+  get "welcome/index_song"
+  get "welcome/index_story"
   get 'log_out' => 'sessions#destroy'
   get 'log_in' => 'sessions#new'
   # The priority is based upon order of creation: first created -> highest priority.

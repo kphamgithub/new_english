@@ -1,0 +1,17 @@
+		      <ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Home', welcome_index_path %></li>
+  <li><%= link_to 'New todo', new_todo_path %></li>
+  <li  class="active"><%= link_to 'Songs', welcome_index_song_path %></li>
+  <li><%= link_to 'Stories', welcome_index_story_path %></li>
+  
+  </ul>
+
+			<p><strong>Your level: <%= current_user.level %></strong>&nbsp<i class="fa fa-star"></i></p>
+			<p><strong>Your Songs:</strong></p>
+			        <ul>
+					<% current_user.lessons.each do |lesson| %>
+					<% if lesson.content_type == 'song' %>
+					<li><%= link_to lesson.name, lesson_path(lesson.id) %></li>
+					<% end %>
+					<% end %>
+				    </ul>

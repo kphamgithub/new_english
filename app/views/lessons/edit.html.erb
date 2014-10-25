@@ -1,5 +1,6 @@
 <h2> EDIT LESSON </h2>
 <%= form_for :lesson, url: lesson_path(@lesson), method: :patch do |f| %>
+ 
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -7,39 +8,38 @@
 
   <p>
     <%= f.label :reading %><br>
-    <%= f.cktext_area :reading_content  %>
+    <%= f.cktext_area :reading_content, :id => 'mycontent' %>
   </p>
 
-  <p>
+    <p>
     <%= f.label :vocabulary %><br>
-    <%= f.cktext_area :vocabulary_content  %>
+    <%= f.cktext_area :vocabulary_content, :id => 'myvocabulary_content' %>
   </p>
 
-  <p>
+    <p>
     <%= f.label :grammar %><br>
-    <%= f.cktext_area :grammar_content  %>
-  </p>
-
-  <p>
-    <%= f.label :phonics %><br>
-    <%= f.cktext_area :phonics_content  %>
-  </p>
-
-  <p>
-    <%= f.label :lyrics %><br>
-    <%= f.cktext_area :lyrics_content  %>
+    <%= f.cktext_area :grammar_content, :id => 'mygrammar' %>
   </p>
   
     <p>
-    <%= f.label :video %><br>
-    <%= f.text_field :video %>
+    <%= f.label :phonics %><br>
+    <%= f.cktext_area :phonics_content, :id => 'myphonics' %>
   </p>
+
+   <p>
+    <%= f.label :lyrics %><br>
+    <%= f.cktext_area :lyrics_content, :id => 'mylyrics' %>
+  </p>
+
+  <p>
+    <%= f.label :video%><br>
+    <%= f.text_field :video %>
+  </p>  
   
     <p>
     <%= f.label :level%><br>
-    <%= f.text_field :level  %>
-  </p>  
-  <p>
+  <%= f.select :level, options_for_select([['Basic','Basic'],['Intermediate','Intermediate'],['Advanced','Advanced'],['Expert','Expert']], :selected => params[:level]) %>
+  </p> 
     <%= f.submit %>
   </p>
 <% end %>

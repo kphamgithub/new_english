@@ -1,15 +1,21 @@
 <% if current_user %>
-
   <% if current_user.name == "kpham" %>
-    <h2> ADMIN </h2>
+	<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'Home', welcome_index_path %></li>
+  <li><%= link_to 'Lessons', lessons_path %></li>
+  <li><%= link_to 'Users', welcome_index_story_path %></li>
+  </ul>
+
   <% else %>
   <ul class="nav nav-tabs" role="tablist">
   <li class="active"><%= link_to 'Home', welcome_index_path %></li>
   <li><%= link_to 'New todo', new_todo_path %></li>
-  <li><%= link_to 'Songs', welcome_index_user_path %></li>
+  <li><%= link_to 'Songs', welcome_index_song_path %></li>
+  <li><%= link_to 'Stories', welcome_index_story_path %></li>
   </ul>
   <br>
-  <h2>Welcome Student to TATH.com</h2>
+  <h2>Welcome <%= current_user.name %> to TATH.com</h2>
+  <h2><strong>Your level: <%= current_user.level %></strong>&nbsp<i class="fa fa-star"></i></h2>
 <table class = "table">
   <thead>
     <tr>
@@ -35,4 +41,6 @@
 
   <% end %>
 <% end %>
-<%= link_to 'New Todo', new_todo_path , class: 'btn btn-success' %>
+<br>
+<br>
+<%= link_to 'New Lesson', new_lesson_path , class: 'btn btn-success' %>
