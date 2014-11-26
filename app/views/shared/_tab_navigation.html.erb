@@ -1,0 +1,35 @@
+   <% if active_tab == "Home" %>
+	<li class="active"><%= link_to 'Home', welcome_index_path %></li> 
+  <% else %>
+	<li><%= link_to 'Home', welcome_index_path %></li>
+  <% end %>
+  
+  <% if active_tab == "song" %>
+	<li class="active"><%= link_to 'Songs', lessons_path(:display => "song") %></li> 
+  <% else %>
+	<li><%= link_to 'Songs', lessons_path(:display => "song") %></li>
+  <% end %>
+
+    <% if active_tab == "story" %>
+	<li class="active"><%= link_to 'Stories', lessons_path(:display => "story") %></li> 
+  <% else %>
+	<li><%= link_to 'Stories', lessons_path(:display => "story") %></li>
+  <% end %>
+
+  <% if active_tab == "vocabulary" %>
+	<li class="active"><%= link_to 'Vocabulary', lessons_path(:display => "vocabulary") %></li> 
+  <% else %>
+	<li><%= link_to 'Vocabulary', lessons_path(:display => "vocabulary") %></li>
+  <% end %>
+
+    <% if active_tab == "phonics" %>
+	<li class="active"><%= link_to 'Phonics', lessons_path(:display => "phonics") %></li> 
+  <% else %>
+	<li><%= link_to 'Phonics', lessons_path(:display => "phonics") %></li>
+  <% end %>
+
+    <% if active_tab == "grammar" %>
+	<li class="active"><%= link_to 'Grammar', lessons_path(:display => "grammar") %></li> 
+  <% else %>
+	<li><%= link_to 'Grammar', lessons_path(:display => "grammar") %></li>
+  <% end %>

@@ -1,14 +1,15 @@
 <ul class="nav nav-tabs" role="tablist">
-  <li><%= link_to 'Home', welcome_index_path %></li>
-  <li  class="active"><%= link_to 'Lessons', lessons_path %></li>
-  <li><%= link_to 'Users', users_path %></li>
-  </ul>
-<h1>Lessons listing</h1>
+<%= render partial: 'shared/tab_navigation', locals: {active_tab: @active_tab} %>
+</ul>
+  <br>  
+<% if current_user.name == 'kpham' %>
+<h1>Lessons (<%= @active_tab %>) listing</h1>
 <h4><strong><%= link_to 'New Lesson', new_lesson_path %></strong></h4>
 <% @lessons.each do |lesson| %>
+<% if lesson.content_type == @display %>
 	<p>
 	<h4>Lesson <%= lesson.id %>&nbsp<%= lesson.name %></h4>
-	<table>
+	<table class = 'table' >
 	<tr>
 	<td><strong><%= link_to 'Show',lesson_path(lesson) %></strong></td>
 	<td>&nbsp</td>
@@ -29,6 +30,23 @@
 	<p>
 	 <strong><%= link_to 'Delete user', delete_user_lesson_path(lesson) %></strong>
 	<strong><%= link_to 'Add user', add_user_lesson_path(lesson) %></strong>
+	
+  <% end %>
+  <% end %>
+  <% else %>
+	<h2>Your lessons (<%= @active_tab %>) listing</h2>
+	<table class = "table" >
+	<% current_user.lessons.each do |lesson| %>
+	<% if lesson.content_type == @display %>
+	    <tr>
+		<td>
+		<p><%= lesson.name %><p>
+		</td>
+		<td><%= link_to 'Learn', lesson_path(lesson.id)%></td>
+		</tr>
+	<% end %>
+	<% end %>
+	</table>
   <% end %>
   </p>
   

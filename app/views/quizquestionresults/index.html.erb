@@ -79,6 +79,7 @@
 	   <div>
 		<% user_answer_array = r[:user_answer] %>
 		<p><strong>You answered:</strong>
+		<% correct_answers_count = 0 %>
 		<% user_answer_array.each do |user_answer| %>
 		   <% if user_answer.include? '*' %>
 		   <span style="color:green;font-weight: bold;">
@@ -107,7 +108,9 @@
 		<% end %>
 		</p>		
 		</div>
-	
+	    <div>
+		  <p><strong>You got correct answers out of <%= @number_of_inputs %></strong></p>
+		</div>
 	<% elsif r["qtype"] == "Fillquestion" %>
 	   <div>
 		<p>user answer: <%= r[:user_answer] %></p>

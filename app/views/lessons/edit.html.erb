@@ -7,6 +7,11 @@
   </p>
 
   <p>
+    <%= f.label :content_type %><br>
+    <%= f.select :content_type, options_for_select([['song','song'],['story','story'],['vocabulary','vocabulary'],['phonics','phonics'],['grammar','grammar']], :selected => @lesson.content_type) %>
+</p>
+
+  <p>
     <%= f.label :reading %><br>
     <%= f.cktext_area :reading_content, :id => 'mycontent' %>
   </p>
@@ -37,10 +42,10 @@
   </p>  
   
     <p>
-    <%= f.label :level%><br>
-  <%= f.select :level, options_for_select([['Basic','Basic'],['Intermediate','Intermediate'],['Advanced','Advanced'],['Expert','Expert']], :selected => params[:level]) %>
+  <%= f.label :level%><br>
+  <%= f.select :level, options_for_select([['Basic','Basic'],['Intermediate','Intermediate'],['Advanced','Advanced'],['Expert','Expert']], :selected => @lesson.level) %>
   </p> 
     <%= f.submit %>
   </p>
 <% end %>
-<%= link_to 'Back to Lessons List', lessons_path %>
+<%= link_to 'Home', welcome_index_path %>

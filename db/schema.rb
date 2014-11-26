@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023000309) do
+ActiveRecord::Schema.define(version: 20141119013025) do
 
   create_table "add_name_to_clozequestions", force: true do |t|
     t.string   "name"
@@ -135,6 +135,14 @@ ActiveRecord::Schema.define(version: 20141023000309) do
     t.string   "question_type"
   end
 
+  create_table "question_multichoices", force: true do |t|
+    t.string   "name"
+    t.string   "content"
+    t.integer  "multichoicequestion_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "quizquestionresults", force: true do |t|
     t.integer  "quizquestion_id"
     t.integer  "user_id"
@@ -196,6 +204,7 @@ ActiveRecord::Schema.define(version: 20141023000309) do
     t.datetime "updated_at"
     t.string   "level"
     t.string   "password"
+    t.string   "real_name"
   end
 
   create_table "uservocas", force: true do |t|

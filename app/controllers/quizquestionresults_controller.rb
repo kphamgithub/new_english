@@ -39,42 +39,26 @@ class QuizquestionresultsController < ApplicationController
 			#@results_arr.push(results_hash)			
 		elsif quizquestion.qtype == "Clozequestion"
 		    results_hash["qtype"] = "Clozequestion"
-		    clozequestion = quizquestion.clozequestion
-			answer_keys_array = clozequestion.answer.split(',')
-			temp = clozequestion.question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
-			array_of_normal_text = temp.split('*')
-
-			correct_answer_array = Array.new
-			array_of_normal_text.each_with_index do |arr,index| 
-				correct_answer_array.push(arr)
-				if index == (answer_keys_array.count)
-					break
-				else
-				    answer_key = answer_keys_array[index] + '*'
-					correct_answer_array.push(answer_key)
-				end
-			end			
+		    clozequestion = Clozequestion.find(quizquestion.clozequestion_id)
+			array_of_bracketed_strings = clozequestion.question.scan( /\[.*?\]/ )
+	        # [ [ee], [test,blah], [foo,bar,been], [oo] ]
+			@number_of_inputs = array_of_bracketed_strings.count
+			answer_keys_array = Array.new
 			
-			user_answer_array = Array.new
-			user_answers = qqr.answer.split(',')
-			array_of_normal_text.each_with_index do |arr,index| 
-				user_answer_array.push(arr)
-				if index == (user_answers.count)
-					break
-				else
-				   uanswer = user_answers[index].strip
-				   key = answer_keys_array[index].strip
-				   #if user_answers[index].to_s == answer_keys_array[index]
-				    if key == uanswer
-					user_answer_array.push(uanswer << '*')
-				   else
-				   	user_answer_array.push(uanswer << '@')
-				   end
-				end
-			end			
-			
-			results_hash[:correct_answer] = correct_answer_array
-			results_hash[:user_answer] = user_answer_array
+			array_of_bracketed_strings.each do |bracketed_strings|
+			    # bracketed_strings = "[ee]"
+				# bracketed_strings = "[test,blah]"
+				# removes brackets
+				non_bracketed_strs = bracketed_strings.gsub(/[\[\]]/, '')             
+				# split strs_in_bracket into an array
+				
+				array_of_strings_in_a_pair_of_brackets = non_bracketed_strs.strip.split(",")
+				# array_of_strings_in_a_pair_of_brackets[0] is the answer key
+				answer_keys_array.push(array_of_strings_in_a_pair_of_brackets[0])		
+				
+				results_hash[:correct_answer] = array_of_strings_in_a_pair_of_brackets
+				results_hash[:user_answer] = "test"
+			end
 			
 		elsif quizquestion.qtype == "Matchquestion"
 		    #render text: params.inspect

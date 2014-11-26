@@ -1,6 +1,8 @@
 class LessonsController < ApplicationController
   def index
      @lessons = Lesson.all
+	 @display = params[:display]
+	 @active_tab = @display
   end
   
   def new

@@ -92,6 +92,7 @@ for admin only <%= @source_question.class.to_s %>
 <% end %>   
 
 <% elsif @quizquestion.qtype == "Clozequestion" %>
+<%= raw@source_question.instruction %>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
 	<div>
     <% @joined_array.each_with_index do |str, index| %>

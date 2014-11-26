@@ -24,6 +24,9 @@ NewEnglish::Application.routes.draw do
   get "welcome/index_user"
   get "welcome/index_song"
   get "welcome/index_story"
+  get "welcome/index_grammar"
+  get "welcome/index_phonics"
+  get "welcome/index_vocabulary"
   get 'log_out' => 'sessions#destroy'
   get 'log_in' => 'sessions#new'
   # The priority is based upon order of creation: first created -> highest priority.
@@ -107,8 +110,10 @@ NewEnglish::Application.routes.draw do
 		 
 	 resources :users do
 		member do
-			get 'add_lesson'
-			post 'update_lesson'
+			get 'add_lessons'
+			get 'remove_lessons'
+			post 'update_add_lessons'
+			post 'update_remove_lessons'
 			get 'assign_level'
 			post 'update_level'
 		end	 

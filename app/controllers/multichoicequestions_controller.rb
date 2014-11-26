@@ -1,9 +1,10 @@
 class MultichoicequestionsController < ApplicationController
   def new
+      @multichoicequestion = Multichoicequestion.new
 	  if params[:voca_id] != nil   # new question link from vocabulary path
 	     @vocabulary = Vocabulary.find(params[:voca_id])
 	  end
-
+      2.times { @multichoicequestion.question_multichoices.build}
  end
 
   def index
@@ -13,7 +14,6 @@ class MultichoicequestionsController < ApplicationController
     
   def edit
      #render text: params.inspect
-	 
      @multichoicequestion = Multichoicequestion.find(params[:id])
   end
   
@@ -44,36 +44,18 @@ class MultichoicequestionsController < ApplicationController
   end
 	
   def create
-      #render text: params.inspect
+      render text: params.inspect
+	  #{"utf8"=>"✓", "authenticity_token"=>"SSLE9rOJRwfvIny6E7TTQLw7fdqYF8BX3eavLMBpzu4=", "multichoicequestion"=>{"name"=>"very last", "question_multichoices_attributes"=>{"0"=>{"content"=>"c"}, "1"=>{"content"=>"b"}, "2"=>{"content"=>"b"}}, "vocabulary"=>"", "media"=>"", "choice_label_display_mode"=>"text", "choice1"=>"n", "choice2"=>"n", "choice3"=>"n", "answer"=>""}, "quiz"=>{"id"=>"21"}, "commit"=>"Create Multichoicequestion", "action"=>"create", "controller"=>"multichoicequestions"	  
+	  
 	  #{"utf8"=>"✓", "authenticity_token"=>"m1JUns4y4vL/SCy6te24DcIL06jxCR/osQi+zt3eR2c=", "multichoicequestion"=>{"name"=>"", "question"=>"", "vocabulary"=>"", "media"=>"", "choice1"=>"", "choice2"=>"", "choice3"=>"", "answer"=>"", "nothing"=>"this"}, "quiz"=>{"id"=>"20"}, "commit"=>"Save Multichoicequestion", "action"=>"create", "controller"=>"multichoicequestions"}
-	  
-	  vocabulary = Vocabulary.find_by name: params[:multichoicequestion][:vocabulary]
-	  multichoicequestion = Multichoicequestion.new(multichoicequestion_params)
-	  #if vocabulary != nil
-		#multichoicequestion.vocabulary_id = vocabulary.id
-	  #end
-	  
-	  multichoicequestion.save
-       
-	  if params['add_to_quiz'] != nil
-        qqrow = {quiz_id: params[:quiz][:id],name: params[:multichoicequestion][:name], multichoicequestion_id: multichoicequestion.id, qtype: 'Multichoicequestion' }
-	    quizquestion = Quizquestion.new(qqrow)
-		quizquestion.save 
-	  end
-	  
-	  if params['add_to_quiz'] != nil
-	    my_quiz = Quiz.find(params[:quiz][:id])
-		redirect_to lesson_quiz_path(my_quiz.lesson.id, params[:quiz][:id])
-	  else 
-	     redirect_to multichoicequestions_path
-      end
-
 	  
   end
 
   private
-  def multichoicequestion_params
-	params.require(:multichoicequestion).permit(:name, :quiz_id, :question, :media, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer)
+  
+  
+    def multichoicequestion_params
+	params.require(:multichoicequestion).permit(:name, :question, :media, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer)
   end
-end
 
+end

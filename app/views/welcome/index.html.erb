@@ -1,46 +1,19 @@
 <% if current_user %>
-  <% if current_user.name == "kpham" %>
-	<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><%= link_to 'Home', welcome_index_path %></li>
-  <li><%= link_to 'Lessons', lessons_path %></li>
-  <li><%= link_to 'Users', welcome_index_story_path %></li>
-  </ul>
-
-  <% else %>
   <ul class="nav nav-tabs" role="tablist">
-  <li class="active"><%= link_to 'Home', welcome_index_path %></li>
-  <li><%= link_to 'New todo', new_todo_path %></li>
-  <li><%= link_to 'Songs', welcome_index_song_path %></li>
-  <li><%= link_to 'Stories', welcome_index_story_path %></li>
+  <li  class="active"><%= link_to 'Home', welcome_index_path %></li>
+  <li><%= link_to 'Songs', lessons_path(:display => "song") %></li>
+  <li><%= link_to 'Stories', lessons_path(:display => "story") %></li>
+  <li><%= link_to 'Vocabulary', lessons_path(:display => "vocabulary") %></li>
+  <li><%= link_to 'Phonics', lessons_path(:display => "phonics") %></li>
+  <li><%= link_to 'Grammar', lessons_path(:display => "grammar") %></li>
   </ul>
   <br>
-  <h2>Welcome <%= current_user.name %> to TATH.com</h2>
+  <h2>Welcome <%= current_user.real_name %> to TATH.com</h2>
   <h2><strong>Your level: <%= current_user.level %></strong>&nbsp<i class="fa fa-star"></i></h2>
-<table class = "table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Notes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @todos.each do |todo| %>
-      <tr>
-        <td><%= todo.title %></td>
-        <td><%= todo.notes %></td>
-        <td><%= link_to 'Show', todo, class: 'btn btn-primary btn-xs'%></td>
-        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 <br>
-
-  <% end %>
+<% if current_user.name == "kpham" %>
+<%= link_to 'New Lesson', new_lesson_path , class: 'btn btn-success' %>
+<% end %>
 <% end %>
 <br>
 <br>
-<%= link_to 'New Lesson', new_lesson_path , class: 'btn btn-success' %>

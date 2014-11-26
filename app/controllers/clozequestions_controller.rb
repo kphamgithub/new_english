@@ -94,13 +94,13 @@ class ClozequestionsController < ApplicationController
 	  clozequestion.save
 	  #logic for add to quiz
 	  if params['add_to_quiz'] != nil
-       qqrow = {quiz_id: params[:quiz][:id],name: clozequestion.name, clozequestion_id: clozequestion.id, qtype: 'Clozequestion' }
+       qqrow = {quiz_id: params[:quiz_id],name: clozequestion.name, clozequestion_id: clozequestion.id, qtype: 'Clozequestion' }
 	   quizquestion = Quizquestion.new(qqrow)
     	quizquestion.save 
 	  end
 	  if params['add_to_quiz'] != nil
-	    my_quiz = Quiz.find(params[:quiz][:id])
-		redirect_to lesson_quiz_path(my_quiz.lesson.id, params[:quiz][:id])
+	    my_quiz = Quiz.find(params[:quiz_id])
+		redirect_to lesson_quiz_path(my_quiz.lesson.id, params[:quiz_id])
 	  else 
 	     redirect_to clozequestions_path
       end	   

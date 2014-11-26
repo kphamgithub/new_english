@@ -1,0 +1,22 @@
+ <%= form_for @multichoicequestion, url: multichoicequestions_path do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </p>
+  
+  <%= f.fields_for :question_multichoices do |q| %>
+     <p class="fields">
+    <%= q.label :name, "question" %><br>
+    <%= q.text_area :content %>
+	</p>
+  <% end %>   
+
+    <p>
+    <%= f.label :choice_label_display_mode%><br>
+  <%= f.select :choice_label_display_mode, options_for_select([['text','text'],['image','image'],['audio','audio']], :selected => params[:choice_label_display_mode]) %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Lessons List', multichoicequestions_path %>

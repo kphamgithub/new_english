@@ -1,0 +1,27 @@
+<%= form_tag update_remove_lessons_user_path :method=>'post' do %>
+    <p>Lessons for user <%= @user.name %>(<%= @user.level %>)</p>
+    <% @user.lessons.each do |lesson| %>	
+		<%= check_box_tag lesson.id.to_s %> <%= lesson.name %> id = <%= lesson.id %>(<%= lesson.level %>)
+	<p>
+	<% end %>
+	</p>
+	
+	<p>For this user, <strong>REMOVE</strong>:</p>
+	<p>
+	<%= check_box_tag "remove_basic_lessons" %> All basic lessons
+	</p>
+	<p>
+	<%= check_box_tag "remove_intermediate_lessons" %> All
+	intermediate lessons
+	</p>
+	<p>
+	<%= check_box_tag "remove_advanced_lessons" %> All advanced lessons
+    </p>
+	
+	<p>
+	<%= submit_tag "Save selection" %>
+	</p>
+	<% end %>
+
+<%= link_to 'Users Index', users_path %>
+<%= link_to 'Add Lessons', add_lessons_user_path %>

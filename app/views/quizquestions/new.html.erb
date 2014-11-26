@@ -5,6 +5,7 @@
 new_fillquestion_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
 <%= link_to 'Create new cloze question', new_clozequestion_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
 <%= link_to 'Create new match question', new_matchquestion_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
+<%= link_to 'Create new multichoice question', new_multichoicequestion_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
 <%= link_to 'Create new scrambler question', new_scrambler_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
 
 <p> Select questions: </p>

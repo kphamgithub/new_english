@@ -4,6 +4,15 @@ class WelcomeController < ApplicationController
      if current_user
 	    #@my_lesson = current_user.lesson
 	    #@my_lesson = Lesson.find(current_user.lesson_id)
+
+	    #render text: @my_lesson.name
+	 end
+  end
+
+  def index_song
+     if current_user
+	    @active_tab = 'Songs'
+	    #@my_lesson = Lesson.find(current_user.lesson_id)
 	    #render text: @my_lesson.name
 	 end
   end
@@ -16,6 +25,7 @@ class WelcomeController < ApplicationController
 	 end
   end
 
+  
   def index_story
      if current_user
 		@stories = Array.new

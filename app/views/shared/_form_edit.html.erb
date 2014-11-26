@@ -1,0 +1,60 @@
+<%= form_for @multichoicequestion, url: multichoicequestion_path, method: :patch do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </p>
+  
+  <%= f.fields_for :question_multichoices do |q| %>
+     <p>
+    <%= q.label :name, "question" %><br>
+    <%= q.text_field :content, :rows => 3 %>
+	<%= q.check_box :_destroy %>
+	<%= q.label :_destroy, "Remove Question" %>
+	</p>
+  <% end %>
+   
+  <% if @vocabulary != nil %>
+    <p> Voca name = <%= @vocabulary.name %></p>
+    <p>
+    <%= f.label :vocabulary%><br>
+    <%= f.text_field :vocabulary, :value => @vocabulary.name %>
+    </p>
+   <% else %>
+    <p>
+    <%= f.label :vocabulary%><br>
+    <%= f.text_field :vocabulary %>
+    </p>    
+   <% end %>
+  <p>
+    <%= f.label :media%><br>
+    <%= f.text_field :media %>
+    </p>    
+	
+	    <p>
+    <%= f.label :choice_label_display_mode%><br>
+  <%= f.select :choice_label_display_mode, options_for_select([['text','text'],['image','image'],['audio','audio']], :selected => params[:choice_label_display_mode]) %>
+  </p>
+
+    <p>
+    <%= f.label :choice1%><br>
+    <%= f.text_area :choice1 %>
+  </p>  
+      <p>
+    <%= f.label :choice2%><br>
+    <%= f.text_area :choice2 %>
+  </p>  
+    <p>
+    <%= f.label :choice3%><br>
+    <%= f.text_area :choice3 %>
+  </p>  
+  
+  <p>
+    <%= f.label :answer%><br>
+    <%= f.text_field :answer %>
+  </p>  
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
