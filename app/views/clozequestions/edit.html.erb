@@ -1,18 +1,2 @@
-<%= form_for :clozequestion, url: clozequestion_path, method: :patch do |f| %>
-  <p>
-    <%= f.label :name %><br>
-    <%= f.text_area :name %>
-  </p>
-  <p>
-    <%= f.label :question %><br>
-    <%= f.text_area :question %>
-  </p>
-    <p>
-    <%= f.label :media%><br>
-    <%= f.text_field :media %>
-    </p>       
-	<p>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+<%= render partial: 'shared/form_clozequestion_edit' %>
+<%= link_to 'Back to Lessons List', clozequestions_path %>

@@ -1,0 +1,8 @@
+<%= render partial: 'shared/form_quizpage_new' , locals: {question_type: @question_type} %>
+<%= link_to 'Back to Lessons List', multichoicequestions_path %>
+<h1>Add a quizquestion</h1>
+<%= link_to 'Create new fill question', 
+new_fillquestion_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
+<%= link_to 'Create new match question', new_matchquestion_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
+<%= link_to 'Create new multichoice question', new_multichoicequestion_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>
+<%= link_to 'Create new scrambler question', new_scrambler_path(:lesson_id => @lesson_id,:quiz_id => @quiz_id) %>

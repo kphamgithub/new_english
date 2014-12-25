@@ -2,13 +2,12 @@
 <% @quizs.each do |q| %>
 	<p>
 	<%= q.name %>&nbsp quiz id = <%= q.id %> quiz type = <strong><%= q.quiz_type %></strong>
-	There are <%= q.quizquestions.count %> questions in this quiz.
-	<% if q.quizquestions.count > 0 %>
+	There are <%= q.quizpages.count %> pages in this quiz.
+	<% if q.quizpages.count > 0 %>
 	<%= link_to 'Take quiz', take_quiz_lesson_quiz_path(q.lesson,q) %> 
 	<% end %>
 	<% if current_user.name == "kpham" %>
 	<%= link_to 'Show', lesson_quiz_path(q.lesson,q) %>	
-	<%= link_to 'Add question', new_lesson_quiz_quizquestion_path(q.lesson, q) %>
 	<%= button_to "Delete ", { action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
 	<% end %> 
 	</p>

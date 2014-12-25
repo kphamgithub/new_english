@@ -1,0 +1,83 @@
+<%= form_for (@quiz_page), url: lesson_quiz_quizpages_path(:lesson_id => @lesson_id , :quiz_id => @quiz_id) do |f| %>
+
+   <%= f.hidden_field :question_type, value: question_type %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </p>
+  <p>
+    <%= f.label :instruction %><br>
+	<%= f.cktext_area :instruction, :value => '', :id => 'myinstruction' %>
+  </p>
+  
+<% if question_type == 'clozequestion' %>
+  <a href="javascript:addBox('question');">
+			<i id = "add" class="fa fa-plus-circle fa-2x"></i>
+			</a>
+
+<a href="javascript:removeBox();">
+			<i id = "remove" class="fa fa-minus-circle fa-2x"></i>
+			</a>
+
+	<%= f.label :questions %><br>
+	<br>
+    <%= f.fields_for :question_clozequestions do |q| %>
+     <p class="fields">
+    <%= q.text_area :question %>
+	</p>
+  <% end %>
+<% elsif question_type == 'matchquestion' %>  
+  <a href="javascript:addBoxes('question','answer');">
+			<i id = "add" class="fa fa-plus-circle fa-2x"></i>
+			</a>
+
+<a href="javascript:removeBox();">
+			<i id = "remove" class="fa fa-minus-circle fa-2x"></i>
+			</a>
+	
+	<%= f.label :questions %><br>
+	<br>
+    <%= f.fields_for :question_matchquestions do |q| %>
+     <p class="fields">
+    <%= q.text_area :question %>
+	<%= q.text_area :answer %>
+	</p>
+  <% end %>
+  <% elsif question_type == 'multichoicequestion' %>  
+  <a href="javascript:add3Boxes('choice1','choice2','choice3');">
+			<i id = "add" class="fa fa-plus-circle fa-2x"></i>
+			</a>
+
+<a href="javascript:removeBox();">
+			<i id = "remove" class="fa fa-minus-circle fa-2x"></i>
+			</a>
+	
+	<%= f.label :choices %><br>
+
+	<br>
+  <%= f.label :choices %><br>
+  <%= f.fields_for :question_multichoicequestions do |q| %>
+     <p class="fields">
+    <%= q.text_area :choice1 %>
+	<%= q.text_area :choice2 %>
+	<%= q.text_area :choice3 %>
+	</p>
+  <% end %>   
+
+	<% end %>
+
+<p><%= collection_select :quiz, "id", Quiz.all, :id, :name %></p>
+
+    <p>
+  <%= check_box_tag "add_to_quiz" %>Add this question to this quiz:
+  </p>
+  <p><strong>OR</p>
+  <p>
+  <%= check_box_tag "add_to_selected_quiz" %> Add this question to selected quiz:
+  </p>
+ 
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Lessons List', multichoicequestions_path %>

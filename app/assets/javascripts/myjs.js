@@ -77,38 +77,117 @@ $(function() {
   $("#datepicker").datepicker();
 });
 
-function remove_field() {
-  alert("in here");
-}
-
 //when the Add Field button is clicked
 
-function addBox() {
-      //var count = //$('#new_multichoicequestion').find(".fields").length;
-   //alert(count);
-   var last_fields = $('#new_multichoicequestion').find(".fields").last();
-   var last_input_element = last_fields.children().last();
-   var id_parts = last_input_element.attr('id').split("_");
-   var new_id_index = (parseInt(id_parts[4])+1).toString()
+function addBox(item_name) {
+   var my_form = $("body").find("form").first();
+   var form_id = my_form.attr('id'); // "new_multichoicequestion"
+   var form_id_parts = form_id.split("_");
+   var form_name = form_id_parts[1]; // "multichoicequestion"
+									  
+   var last_fields_element = my_form.find(".fields").last();
    
-   var new_label_name = "multichoicequestion_question_multichoices_attributes" + "_" + new_id_index+ "_" + "name";
+   var text_area_element = last_fields_element.children().last();
+   //var last_input_element = last_fields_element.child
+   var textarea_id_parts = text_area_element.attr('id').split("_");
+   var new_id_index = (parseInt(textarea_id_parts[4])+1).toString();
+   var nested_attributes_name = textarea_id_parts[1] + "_" + textarea_id_parts[2]; 
    
-   var new_input_id = "multichoicequestion_question_multichoices_attributes" + "_" + new_id_index+ "_" + "content";
-   var new_input_name = "multichoicequestion[question_multichoices_attributes]" + "[" + new_id_index + "]" + "[content]";
+   //alert(nested_attributes_name);
    
-   $('<p class="fields"><label>question</label><br><textarea></textarea></p>').insertAfter(last_fields);
-
-   var new_last_input_element = $('#new_multichoicequestion').find(".fields").last().children().last();   
+   var new_input_id = form_name + "_" + nested_attributes_name + "_" + "attributes" + "_" + new_id_index+ "_" + item_name;
    
-   new_last_input_element.attr("id",new_input_id);
-   new_last_input_element.attr("name",new_input_name);   
-
-   var new_last_label_element = $('#new_multichoicequestion').find(".fields").last().children().first();   
-   
-   new_last_label_element.attr("for",new_label_name);
+   var new_input_name = form_name + "[" + nested_attributes_name + "_" + "attributes" + "]" + "[" + new_id_index + "]" + "[" + item_name + "]" ;
+             
+   //append a <p> with a <textarea> then set the id and name of the <textarea>
+   $('<p class="fields"><textarea></textarea></p>').insertAfter(last_fields_element).find("textarea").attr({ id: new_input_id, name: new_input_name });
 }
 
 function removeBox() {
-   var last_fields = $('#new_multichoicequestion').find(".fields").last();
-   last_fields.remove();
+   var my_form = $("body").find("form").first();
+   //alert(my_form.attr('id'))
+   var last_fields_element = my_form.find(".fields").last();
+   //var last_fields_element = $(form_id).find(".fields").last();
+   last_fields_element.remove();
 }
+
+function addBoxes(item_name, item_name1) {
+   var my_form = $("body").find("form").first();
+   var form_id = my_form.attr('id'); // "new_multichoicequestion"
+   var form_id_parts = form_id.split("_");
+   var form_name = form_id_parts[1]; // "multichoicequestion"
+									  
+   var last_fields_element = my_form.find(".fields").last();
+   
+   var text_area_element = last_fields_element.children().last();
+   //var last_input_element = last_fields_element.child
+   var textarea_id_parts = text_area_element.attr('id').split("_");
+   var new_id_index = (parseInt(textarea_id_parts[4])+1).toString();
+   var nested_attributes_name = textarea_id_parts[1] + "_" + textarea_id_parts[2]; 
+   
+   //alert(nested_attributes_name);
+   
+   var new_textarea_id = form_name + "_" + nested_attributes_name + "_" + "attributes" + "_" + new_id_index+ "_" + item_name;
+   
+   var new_textarea_name = form_name + "[" + nested_attributes_name + "_" + "attributes" + "]" + "[" + new_id_index + "]" + "[" + item_name + "]" ;
+   
+   //add a new <p> element with classname = "fields" and a textarea, set the textarea id and name
+   
+   $('<p class="fields"><textarea></textarea></p>').insertAfter(last_fields_element).find("textarea").attr({ id: new_textarea_id, name: new_textarea_name });
+
+   //***add second textarea on the same row for match question**
+   last_fields_element = my_form.find(".fields").last();
+   
+   var new_textarea_id1 = form_name + "_" + nested_attributes_name + "_" + "attributes" + "_" + new_id_index+ "_" + item_name1;
+   
+   var new_textarea_name1 = form_name + "[" + nested_attributes_name + "_" + "attributes" + "]" + "[" + new_id_index + "]" + "[" + item_name1 + "]" ;
+
+   //add a new <textare> element and set id and name
+   $('<textarea ></textarea>').insertAfter(last_fields_element.children().last()).attr({ id: new_textarea_id1, name: new_textarea_name1 });
+  
+}
+
+function add3Boxes(item_name1, item_name2, item_name3) {
+   var my_form = $("body").find("form").first();
+   var form_id = my_form.attr('id'); // "new_multichoicequestion"
+   var form_id_parts = form_id.split("_");
+   var form_name = form_id_parts[1]; // "multichoicequestion"
+									  
+   var last_fields_element = my_form.find(".fields").last();
+   
+   var text_area_element = last_fields_element.children().last();
+   //var last_input_element = last_fields_element.child
+   var textarea_id_parts = text_area_element.attr('id').split("_");
+   var new_id_index = (parseInt(textarea_id_parts[4])+1).toString();
+   var nested_attributes_name = textarea_id_parts[1] + "_" + textarea_id_parts[2]; 
+   
+   //alert(nested_attributes_name);
+   
+   var new_textarea_id1 = form_name + "_" + nested_attributes_name + "_" + "attributes" + "_" + new_id_index+ "_" + item_name1;
+   
+   var new_textarea_name1 = form_name + "[" + nested_attributes_name + "_" + "attributes" + "]" + "[" + new_id_index + "]" + "[" + item_name1 + "]" ;
+   
+   //add a new <p> element with classname = "fields" and a textarea, set the textarea id and name
+   
+   $('<p class="fields"><textarea></textarea></p>').insertAfter(last_fields_element).find("textarea").attr({ id: new_textarea_id1, name: new_textarea_name1 });
+
+   //***add second textarea on the same row*
+   last_fields_element = my_form.find(".fields").last();
+   
+   var new_textarea_id2 = form_name + "_" + nested_attributes_name + "_" + "attributes" + "_" + new_id_index+ "_" + item_name2;
+   
+   var new_textarea_name2 = form_name + "[" + nested_attributes_name + "_" + "attributes" + "]" + "[" + new_id_index + "]" + "[" + item_name2 + "]" ;
+
+   //add a new <textare> element and set id and name
+   $('<textarea ></textarea>').insertAfter(last_fields_element.children().last()).attr({ id: new_textarea_id2, name: new_textarea_name2 });
+  
+   //***add third textarea on the same row*
+   last_fields_element = my_form.find(".fields").last();
+   
+   var new_textarea_id3 = form_name + "_" + nested_attributes_name + "_" + "attributes" + "_" + new_id_index+ "_" + item_name3;
+   
+   var new_textarea_name3 = form_name + "[" + nested_attributes_name + "_" + "attributes" + "]" + "[" + new_id_index + "]" + "[" + item_name3 + "]" ;
+
+   //add a new <textare> element and set id and name
+   $('<textarea ></textarea>').insertAfter(last_fields_element.children().last()).attr({ id: new_textarea_id3, name: new_textarea_name3 });
+  }

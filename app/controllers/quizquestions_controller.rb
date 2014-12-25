@@ -110,27 +110,29 @@ class QuizquestionsController < ApplicationController
 	    #render text: "FILL"
 		@source_question = Scrambler.find(@quizquestion.origin_id)
 	elsif @quizquestion.qtype == "Clozequestion"
-	    #render text: "FILL"
-		@source_question = @quizquestion.clozequestion
-        #@people = [{"name"=>"NameA", "id"=>"1"}]
-		question = @source_question.question  #"My name is [test,blah] and [foo,bar,been] but his name is [oo]"
-	# replace bracketed option text with stars (for splitting purpose only)
-	temp = question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
-	array_of_normal_text = temp.split('*')
-
-	array_of_bracketed_strings = question.scan( /\[.*?\]/ )
-	# [ [ee], [test,blah], [foo,bar,been], [oo] ]
+	    @source_question = @quizquestion.clozequestion
+	    @array_of_joined_arrays = Array.new
+		@source_question.question_clozequestions.each do |my_question|
+			temp = my_question.question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
+			array_of_normal_text = temp.split('*')
+			array_of_bracketed_strings = my_question.question.scan( /\[.*?\]/ )
+			# [ [ee], [test,blah], [foo,bar,been], [oo] ]
 	
-    @joined_array = Array.new
-	array_of_normal_text.each_with_index do |arr,index| 
-		@joined_array.push(arr)
-		if index == (array_of_bracketed_strings.count)
-		  break
-		else
-			@joined_array.push(array_of_bracketed_strings[index])
+			j1 = Array.new
+			#j1.push("the [man]")
+			#j1.push("and")
+			joined_array = Array.new
+			array_of_normal_text.each_with_index do |arr,index| 
+				joined_array.push(arr)
+				if index == (array_of_bracketed_strings.count)
+					break
+				else
+					joined_array.push(array_of_bracketed_strings[index])
+				end
+			end
+			@array_of_joined_arrays.push(joined_array);
 		end
-	end
-	
+		
     elsif @quizquestion.qtype == "Matchquestion"
 	    @source_question = @quizquestion.matchquestion
 		if @source_question.mode == "game"
@@ -172,6 +174,7 @@ class QuizquestionsController < ApplicationController
 	  answer_string = ''
 	  params.each_with_index do |(key, value), index|
 		if (key.include? "answer")
+		   temp_arr = key.split('_')
 		   answer_string << value
 		   answer_string << ','
 		end
@@ -194,9 +197,9 @@ class QuizquestionsController < ApplicationController
 		  qqr.save
 	    end
 	if @quizquestion.next
-	redirect_to take_lesson_quiz_quizquestion_path(@quiz.lesson,@quiz,@quizquestion.next.id)
+	    redirect_to take_lesson_quiz_quizquestion_path(@quiz.lesson,@quiz,@quizquestion.next.id)
 	else
-	  redirect_to user_quiz_quizquestionresults_path(@user,@quiz)
+	    redirect_to user_quiz_quizquestionresults_path(@user,@quiz)
 	end
   end
 
@@ -237,11 +240,12 @@ class QuizquestionsController < ApplicationController
   def destroy
     #render text: params.inspect
 	# "action"=>"destroy", "controller"=>"quizquestions", "lesson_id"=>"1", "quiz_id"=>"9", "id"=>"27"}
-
+=begin
 	@quizquestion = Quizquestion.find(params[:id])
 	my_quiz = Quiz.find(@quizquestion.quiz_id)
 	@quizquestion.destroy
 	@quizquestion.save
+=end
 	redirect_to lesson_quiz_path(my_quiz.lesson,my_quiz)
   end
   private

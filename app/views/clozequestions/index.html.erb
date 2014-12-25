@@ -6,11 +6,9 @@
     <p> Name: 
 	<%= q.name %>
 	</p>
-	<% if q.quizquestion != nil %>
-	<p> Associated with quizquestion ID: 
-	<%= q.quizquestion.id %>
-	</p>
-	<% end %>
+	
+	<p><%= link_to "Edit", edit_clozequestion_path(q.id) %></p>
+
 	<%= button_to "Delete ", { controller: "clozequestions", action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
 	<% end %>
 

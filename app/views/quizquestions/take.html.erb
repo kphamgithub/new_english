@@ -95,16 +95,22 @@ for admin only <%= @source_question.class.to_s %>
 <%= raw@source_question.instruction %>
 <%= form_tag (processquestion_lesson_quiz_quizquestion_path) do %>
 	<div>
-    <% @joined_array.each_with_index do |str, index| %>
+	<% @array_of_joined_arrays.each_with_index do |joined_array,index| %>
+	<% base_index = index %>
+	<p>
+    <% joined_array.each_with_index do |str, index| %>
 	     <% if str.index('[') == 0 %>
+		    <% composite_id = base_index.to_s + '_' + index.to_s %>
 		    <% if str.index(',') != nil %>
-				<%= select_tag "answer"+index.to_s, options_for_select(string_to_hash_array(strip_brackets_from_string(str)).shuffle.collect {|p| [ p['name'], p['name'] ] }) %>
+				<%= select_tag "answer_"+composite_id, options_for_select(string_to_hash_array(strip_brackets_from_string(str)).shuffle.collect {|p| [ p['name'], p['name'] ] }) %>
 			<% else %>
-			    <%= text_field_tag 'answer'+index.to_s %>
+			    <%= text_field_tag 'answer'+composite_id %>
 			<% end %>
 		 <% else %>
 			<%= str %>
 		 <% end %>
+	<% end %>
+	</p>
 	<% end %>
     </div>
   <p>
@@ -158,7 +164,7 @@ $('#tutorial-memorygame').quizyMemoryGame({itemWidth: 156, itemHeight: 156, item
    &nbsp; &nbsp; &nbsp; &nbsp;    
   </td>
   <td>
-  <%= collection_select :matches, "answer"+index.to_s, Match.where("matchquestion_id = ?", @quizquestion.origin_id ).shuffle, :answer, :answer %>
+  <%= collection_select :matches, "answer"+index.to_s, Match.where("matchquestion_id = ?", @quizquestion.matchquestion_id ).shuffle, :answer, :answer %>
   </td>
   </tr>
   <% end %>

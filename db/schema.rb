@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119013025) do
-
-  create_table "add_name_to_clozequestions", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20141221155017) do
 
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
@@ -123,9 +117,6 @@ ActiveRecord::Schema.define(version: 20141119013025) do
   create_table "multichoicequestions", force: true do |t|
     t.string   "name"
     t.string   "question"
-    t.string   "choice1"
-    t.string   "choice2"
-    t.string   "choice3"
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -135,12 +126,41 @@ ActiveRecord::Schema.define(version: 20141119013025) do
     t.string   "question_type"
   end
 
-  create_table "question_multichoices", force: true do |t|
-    t.string   "name"
-    t.string   "content"
-    t.integer  "multichoicequestion_id"
+  create_table "question_clozequestions", force: true do |t|
+    t.string   "question"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "clozequestion_id"
+    t.string   "answer"
+    t.integer  "quizpage_id"
+  end
+
+  create_table "question_matchquestions", force: true do |t|
+    t.string   "question"
+    t.string   "answer"
+    t.integer  "quizpage_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "question_multichoicequestions", force: true do |t|
+    t.string   "question"
+    t.string   "choice1"
+    t.string   "choice2"
+    t.string   "choice3"
+    t.string   "answer"
+    t.integer  "quizpage_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "quizpages", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "instruction"
+    t.integer  "quiz_id"
+    t.string   "question_type"
   end
 
   create_table "quizquestionresults", force: true do |t|
@@ -150,6 +170,8 @@ ActiveRecord::Schema.define(version: 20141119013025) do
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "question_id"
+    t.string   "question_type"
   end
 
   create_table "quizquestions", force: true do |t|

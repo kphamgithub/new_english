@@ -1,8 +1,10 @@
 class ClozequestionsController < ApplicationController
   def new
-      #@people = [{"name"=>"NameA", "id"=>"1"}]
+     #@people = [{"name"=>"NameA", "id"=>"1"}]
 	 @quiz_id = params[:quiz_id]
 	 @lesson_id = params[:lesson_id]
+	 @clozequestion = Clozequestion.new
+	 2.times { @clozequestion.question_clozequestions.build}
   end
 
   def show
@@ -13,8 +15,11 @@ class ClozequestionsController < ApplicationController
   @clozequestion = Clozequestion.find(params[:id])
   
   #@people = [{"name"=>"NameA", "id"=>"001"}, {"name"=>"NameB", "id"=>"002"}]
-  
-	str = "jupiter,mars,saturn,sun"
+      #@clozequestion.question_clozequestions.each do |my_question|
+		#temp = my_question.question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
+	  #end 
+	  
+=begin
 	question = @clozequestion.question #"My name is [test,blah] and [foo,bar,been] but his name is [oo]"
 	# replace bracketed option text with stars (for splitting purpose only)
 	temp = question.gsub( /\[.*?\]/,'*' )  # My name is * and * and *
@@ -45,6 +50,7 @@ class ClozequestionsController < ApplicationController
 		#puts h.to_s
 		@hash_array.push(h)
 	end
+=end
   end
 
   def index
@@ -66,32 +72,14 @@ class ClozequestionsController < ApplicationController
 	  #render text: params[][:quiz][:id]    
 	  clozequestion = Clozequestion.new(clozequestion_params)
 	  
-	  array_of_bracketed_strings = clozequestion.question.scan( /\[.*?\]/ )
+	  # Example question: tigers are [animals, vehicles, tools] and cars are [vehicles, toys, buildings]
+	  # the string "animals" and the string "vehicles" comprise the answer string
+	  clozequestion.question_clozequestions.each do |my_question|
+		my_question.answer = get_answer_string(my_question.question)
+	  end # each question loop
 	  
-	  array_of_strings_without_brackets = Array.new
-	  array_of_bracketed_strings.each do |string| 
-	      array_of_strings_without_brackets.push(strip_brackets_from_string(string))
-	  end
-	  
-	  answers_array = Array.new
-	  array_of_strings_without_brackets.each do |string| 
-		 if string.index(',') == nil
-			answers_array.push(string)	
-		 else
-		    option_array = string.split(',')
-		    answers_array.push(option_array[0])	
-		 end
-	  end
-	  answers_string = ''
-	  answers_array.each_with_index do |string,index|
-	    answers_string << string
-		if index < (answers_array.count-1)
-			answers_string << ','
-		end
-	  end
-	  
-	  clozequestion.answer = answers_string
 	  clozequestion.save
+	  
 	  #logic for add to quiz
 	  if params['add_to_quiz'] != nil
        qqrow = {quiz_id: params[:quiz_id],name: clozequestion.name, clozequestion_id: clozequestion.id, qtype: 'Clozequestion' }
@@ -108,11 +96,11 @@ class ClozequestionsController < ApplicationController
 
     def update
 	  #render text: params.inspect
-      clozequestion = Clozequestion.find(params[:id])
-	  #if @multichoicequestion.update(params[:multichoicequestion].permit(:name, :quiz_id, :question,:media, :audio, :image, :choice_label_display_mode, :choice1, :choice2, :choice3, :answer))
-	  
-	  #Multichoicequestion.new(multichoicequestion_params)
-	  
+      clozequestion = Clozequestion.find(params[:id])	  
+	  clozequestion.question_clozequestions.each do |my_question|
+		my_question.answer = get_answer_string(my_question.question) #answers_string
+	  end # each question loop
+
 	  if clozequestion.update(clozequestion_params)
 	  	redirect_to clozequestion_path
 	  else
@@ -130,7 +118,33 @@ class ClozequestionsController < ApplicationController
   
   private
   def clozequestion_params
-	params.require(:clozequestion).permit(:name, :instruction, :question, :quiz_id)
+	params.require(:clozequestion).permit(:name, :instruction, :question, :quiz_id, question_clozequestions_attributes: [:id,:question])
   end
-  
+  def get_answer_string(question)
+     array_of_bracketed_strings = question.scan( /\[.*?\]/ )
+	  #array_of_bracketed_strings will contain the strings: "[animals, vehicles, tools]" and "[vehicles, toys, buildings]"
+	  
+	  array_of_strings_without_brackets = Array.new
+	  array_of_bracketed_strings.each do |string| 
+	      array_of_strings_without_brackets.push(strip_brackets_from_string(string))
+	  end
+	  
+	  answers_array = Array.new
+	  array_of_strings_without_brackets.each do |string| 
+		 if string.index(',') == nil   # there is only one choice string ( text field input)
+			answers_array.push(string)	
+		 else   # many choices, dropdown box
+		    option_array = string.split(',')
+		    answers_array.push(option_array[0])	
+		 end
+	  end
+	  answers_string = ''
+	  answers_array.each_with_index do |string,index|
+	    answers_string << string
+		if index < (answers_array.count-1)
+			answers_string << ','
+		end
+	  end
+	  return answers_string
+  end  # function get_answer_string
 end

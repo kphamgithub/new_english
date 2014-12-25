@@ -1,6 +1,5 @@
 <%= form_for :user, url: users_path do |f| %>
   <p>
-      
   </p>
   <p>
     <%= f.label :name %><br>
@@ -15,7 +14,6 @@
   <p>
   <%= f.select :level, options_for_select([['Basic','Basic'],['Intermediate','Intermediate'],['Advanced','Advanced'],['Expert','Expert']], :selected => params[:level]) %>
   </p>
- 
 	<p>
     <%= f.label :lesson%><br>
     <%= f.text_field :lesson_id %>

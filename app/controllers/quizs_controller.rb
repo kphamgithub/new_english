@@ -27,12 +27,19 @@ class QuizsController < ApplicationController
 	  #render text: params.inspect
 	  #{"action"=>"take_quiz", "controller"=>"quizs", "lesson_id"=>"16", "id"=>"20"}
 	  @quiz = Quiz.find(params[:id])
-      #render text: first_quizquestion.name
+	  if @quiz.quizpages.count > 0
+	     redirect_to take_lesson_quiz_quizpage_path(@quiz.lesson,@quiz,@quiz.quizpages.first)	  
+	  else
+	     render text: "Can't take quiz. There are no questions. Please add questions"
+	  end
+	  
+=begin
 	  if @quiz.quizquestions.count > 0
 	     redirect_to take_lesson_quiz_quizquestion_path(@quiz.lesson,@quiz,@quiz.quizquestions.first)	  
 	  else
 	     render text: "Can't take quiz. There are no questions. Please add questions"
 	  end
+=end
   end
   
   def destroy

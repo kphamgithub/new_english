@@ -17,6 +17,7 @@ class MatchquestionsController < ApplicationController
 
   def create
       #render text: params.inspect
+	  #{"utf8"=>"✓", "authenticity_token"=>"otXbMgw/NZ3hYIG+MM9X8A5s1bnnyzWMChtXMxmfiiw=", "matchquestion"=>{"name"=>"another match question for quiz 13", "question"=>"", "mode"=>"exercise"}, "match_0"=>"a", "answer_0"=>"b", "match_1"=>"c", "answer_1"=>"d", "match_2"=>"e", "answer_2"=>"f", "add_to_quiz"=>"1", "commit"=>"Save Matchquestion", "lesson_id"=>"38", "quiz_id"=>"13", "action"=>"create", "controller"=>"matchquestions"}
 	  matchquestion = Matchquestion.new(matchquestion_params)
       rows = []
 	  row = nil
@@ -38,7 +39,7 @@ class MatchquestionsController < ApplicationController
 	  end 
 	  
 	  if params['add_to_quiz'] != nil
-        qqrow = {quiz_id: params[:quiz][:id],name: params[:matchquestion][:name], matchquestion_id: matchquestion.id, qtype: 'Matchquestion' }
+        qqrow = {quiz_id: params[:quiz_id],name: params[:matchquestion][:name], matchquestion_id: matchquestion.id, qtype: 'Matchquestion' }
 	    quizquestion = Quizquestion.new(qqrow)
 		quizquestion.save 
 	  end

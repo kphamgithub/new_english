@@ -1,0 +1,34 @@
+ <%= form_for @multichoicequestion, url: multichoicequestions_path do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </p>
+    <p>
+    <%= f.label :question %><br>
+    <%= f.text_area :question %>
+  </p>
+  
+<a href="javascript:addBox('choice');">
+			<i id = "add" class="fa fa-plus-circle fa-2x"></i>
+			</a>
+
+<a href="javascript:removeBox();">
+			<i id = "remove" class="fa fa-minus-circle fa-2x"></i>
+			</a>
+  <br>
+  <%= f.label :choices %><br>
+  <%= f.fields_for :choices_multichoicequestions do |q| %>
+     <p class="fields">
+    <%= q.text_area :choice %>
+	</p>
+  <% end %>   
+  
+    <p>
+    <%= f.label :choice_label_display_mode%><br>
+  <%= f.select :choice_label_display_mode, options_for_select([['text','text'],['image','image'],['audio','audio']], :selected => params[:choice_label_display_mode]) %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Lessons List', multichoicequestions_path %>

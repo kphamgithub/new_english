@@ -1,0 +1,59 @@
+<%= form_for @multichoicequestion, url: multichoicequestion_path, method: :patch do |f| %>
+  <p>
+    <%= f.label :name %><br>
+    <%= f.text_area :name %>
+  </p>
+
+    <p>
+    <%= f.label :question %><br>
+    <%= f.text_area :question %>
+  </p>
+
+  <a href="javascript:addBox('choice');">
+			<i id = "add_edit" class="fa fa-plus-circle fa-2x"></i>
+			</a>
+
+<a href="javascript:removeBox();">
+			<i id = "remove_edit" class="fa fa-minus-circle fa-2x"></i>
+			</a>
+
+  <br>
+  <%= f.label :choices%><br>
+				
+  <%= f.fields_for :choices_multichoicequestions do |q| %>
+     <p class="fields">
+    <%= q.text_area :choice %>
+	</p>
+  <% end %>   
+   
+  <% if @vocabulary != nil %>
+    <p> Voca name = <%= @vocabulary.name %></p>
+    <p>
+    <%= f.label :vocabulary%><br>
+    <%= f.text_field :vocabulary, :value => @vocabulary.name %>
+    </p>
+   <% else %>
+    <p>
+    <%= f.label :vocabulary%><br>
+    <%= f.text_field :vocabulary %>
+    </p>    
+   <% end %>
+  <p>
+    <%= f.label :media%><br>
+    <%= f.text_field :media %>
+    </p>    
+	
+	    <p>
+    <%= f.label :choice_label_display_mode%><br>
+  <%= f.select :choice_label_display_mode, options_for_select([['text','text'],['image','image'],['audio','audio']], :selected => params[:choice_label_display_mode]) %>
+  </p>
+  <p>
+    <%= f.label :answer%><br>
+    <%= f.text_field :answer %>
+  </p>  
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+

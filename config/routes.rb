@@ -1,4 +1,8 @@
 NewEnglish::Application.routes.draw do
+  get 'quizpages/index'
+
+  get 'quizpages/new'
+
   get 'examquestions/index'
 
   get "scramblers/index"
@@ -79,12 +83,13 @@ NewEnglish::Application.routes.draw do
 				post 'select_questions'
 				post 'save_questions'
 			end
-			resources :quizquestions do
+			resources :quizpages do
 				member do
 					get 'take'
+					get 'add_clozequestion'
 				end
 				member do
-					post 'processquestion'
+					post 'processpage'
 					post 'remove_from_quiz'
 				end
 			end

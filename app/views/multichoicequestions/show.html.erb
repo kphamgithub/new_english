@@ -18,11 +18,7 @@
 	</p>
 	
     <p>
-	<%= @multichoicequestion.choice1 %>
-	</p>
-    <p>
-	<%= @multichoicequestion.choice2 %>
-	</p>
-    <p>
-	<%= @multichoicequestion.choice3 %>
+	<% @multichoicequestion.choices_multichoicequestions.each_with_index do |mychoice, index| %>
+		<p>choice<%= index %>=<%= mychoice.choice %></p>
+	<% end %>
 	</p>

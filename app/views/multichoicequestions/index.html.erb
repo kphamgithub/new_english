@@ -6,17 +6,8 @@
     <p>Name: 
 	<%= q.name %><%= q.question %>
 	</p>
-    <p>Choice1: 
-	<%= q.choice1 %>
-	</p>
-    <p>Choice2: 
-	<%= q.choice2 %>
-	</p>
-    <p>Choice3: 
-	<%= q.choice3 %>
-	</p>
-	
-      <td><%= link_to "Edit", edit_multichoicequestion_path(q.id) %></td>
+ 	
+      <p><%= link_to "Edit", edit_multichoicequestion_path(q.id) %></p>
 	
 	<%= button_to "Delete ", { controller: "multichoicequestions", action: "destroy", id: q.id }, method: :delete, data: { confirm: "Are you sure?" } %>
 	<% end %>

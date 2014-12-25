@@ -1,0 +1,75 @@
+login as: root
+root@tienganhtuyhoa.com's password:
+Last login: Tue Dec  2 17:06:04 2014 from 14.165.176.183
+[root@tienganhtuyhoa ~]# goapp
+[root@tienganhtuyhoa app]# rails console
+/usr/local/rvm/gems/ruby-2.1.0/gems/spring-1.1.3/lib/spring/application.rb:153:in `fork': Cannot allocate memory - fork(2) (Errno::ENOMEM)
+        from /usr/local/rvm/gems/ruby-2.1.0/gems/spring-1.1.3/lib/spring/application.rb:153:in `serve'
+        from /usr/local/rvm/gems/ruby-2.1.0/gems/spring-1.1.3/lib/spring/application.rb:128:in `block in run'
+        from /usr/local/rvm/gems/ruby-2.1.0/gems/spring-1.1.3/lib/spring/application.rb:122:in `loop'
+        from /usr/local/rvm/gems/ruby-2.1.0/gems/spring-1.1.3/lib/spring/application.rb:122:in `run'
+        from /usr/local/rvm/gems/ruby-2.1.0/gems/spring-1.1.3/lib/spring/application/boot.rb:18:in `<top (required)>'
+        from /usr/local/rvm/rubies/ruby-2.1.0/lib/ruby/site_ruby/2.1.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from /usr/local/rvm/rubies/ruby-2.1.0/lib/ruby/site_ruby/2.1.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+        from -e:1:in `<main>'
+[root@tienganhtuyhoa app]# pwd
+/var/www/my_app/app
+[root@tienganhtuyhoa app]# ls
+assets  controllers  helpers  mailers  models  views
+[root@tienganhtuyhoa app]# cd ..
+[root@tienganhtuyhoa my_app]# ls
+app  config     db       Gemfile.lock  log   public    README.md    test  unicorn_restart.sh
+bin  config.ru  Gemfile  lib           pids  Rakefile  README.rdoc  tmp   vendor
+[root@tienganhtuyhoa my_app]# /var/www/my_app/unicorn_restart.sh
+[root@tienganhtuyhoa my_app]# rails console
+Loading development environment (Rails 4.1.1)
+2.1.0 :001 > all = QuestionClozequestion.all
+  QuestionClozequestion Load (4.4ms)  SELECT "question_clozequestions".* FROM "question_clozequestions"
+ => #<ActiveRecord::Relation []>
+2.1.0 :002 > quit
+[root@tienganhtuyhoa my_app]# pwd
+/var/www/my_app
+[root@tienganhtuyhoa my_app]# rails g migration add_answer_to_question_clozequestion answer:string
+      invoke  active_record
+      create    db/migrate/20141203060721_add_answer_to_question_clozequestion.rb
+[root@tienganhtuyhoa my_app]# rake db:migrate
+== 20141203060721 AddAnswerToQuestionClozequestion: migrating =================
+-- add_column(:question_clozequestions, :answer, :string)
+   -> 0.0012s
+== 20141203060721 AddAnswerToQuestionClozequestion: migrated (0.0013s) ========
+
+[root@tienganhtuyhoa my_app]# gocontrl
+[root@tienganhtuyhoa controllers]# vi clozequ*
+    <h2> For Admin only</h2>
+        <p> Question
+        <%= @clozequestion.id %>
+        </p>
+
+    <p> Name:
+        <%= @clozequestion.name %>
+        </p>
+        <p> question:
+        <%= @clozequestion.question %>
+        </p>
+
+    <p>
+        <div>
+    <% @joined_array.each do |str| %>
+             <% if str.index('[') == 0 %>
+                    <% if str.index(',') != nil %>
+                                <%= select_tag "choice", options_for_select(string_to_hash_array(strip_brackets_from_string(str)).collect {|p| [ p['name'], p['id'] ] }) %>
+                        <% else %>
+                            <%= text_field_tag 'answer' %>
+                        <% end %>
+                 <% else %>
+                        <%= str %>
+                 <% end %>
+        <% end %>
+    </div>
+        </p>
+            <p>
+        media = <%= @clozequestion.media %>
+        </p>
+
+        <%= link_to "Edit", edit_clozequestion_path(@clozequestion.id) %>
+

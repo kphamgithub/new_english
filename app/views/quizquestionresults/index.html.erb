@@ -1,122 +1,25 @@
 <h3> Quiz results </h3>
-<% if @quizquestionresults.count == 0 %>
 <p><%= @user.name %> did not take this quiz yet</p>
-<% else %>
 <p> <%= @user.name %> </p>
 <p> Quiz: <%= @quiz.name %>, quiz id=<%= @quiz.id %> </p>
-<p> Number of questions: <%= @results_arr.count %> </p>
-<% @results_arr.each_with_index do |r, index| %>
-    <p>Question <%= index + 1 %>:<%= r["qtype"] %></p>
-	<% if r["qtype"] == "Multichoicequestion" %>
-	  <div>
-	   <p>
-	   <p>user answer: <%= r[:user_answer] %></p>
-	   <p>key: <%= r[:key] %></p>
-	   <p>status: <%= r[:status] %></p>
-	  </div>
-    <% elsif r["qtype"] == "Matchquestion" %>
-		<% if r["mode"] == "exercise" %>
-	   <div>
-		<table width = "450">	    
-	   <tr>
-	   	  <td>
-		  <table>
-		    <th>Match</th>
-		    <% r["matches"].each do |match| %>
-		    <tr>			 
-			  <td>
-			    <%= match %>
-			  </td>
-			</tr>
-			<% end %>
-		  </table>
-		  </td>	
-   
-	      <td>
-		  <table>
-		    <th>Correct answers</th>
-		    <% r["answer_keys"].each do |key| %>
-		    <tr>			 
-			  <td>
-			    <%= key %>
-			  </td>
-			</tr>
-			<% end %>
-		  </table>
-		  </td>	
+<p> Number of pages: <%= @quiz.quizpages.count %> </p>
 
-		  <td>
-		  <table>
-		  	<th>User answer</th>
-		    <% r["user_answers"].each do |user_answer| %>
-		    <tr>			 
-			  <td>
-			    <%= user_answer %>
-			  </td>
-			</tr>
-			<% end %>
-		  </table>
-		  </td>	
-
-		  
-		  <td>
-		  <table>
-		  	<th>Valuation</th>
-		    <% r["my_results"].each do |result| %>
-		    <tr>			 
-			  <td>
-			    <%= result %>
-			  </td>
-			</tr>
-			<% end %>
-		  </table>
-		  </td>	
-	   </tr>
-	</table>	
-	</div>
-	<% end %>
-		<% elsif r["qtype"] == "Clozequestion" %>
-	   <div>
-		<% user_answer_array = r[:user_answer] %>
-		<p><strong>You answered:</strong>
-		<% correct_answers_count = 0 %>
-		<% user_answer_array.each do |user_answer| %>
-		   <% if user_answer.include? '*' %>
-		   <span style="color:green;font-weight: bold;">
-		   <%= user_answer.chop %>
-		   </span>
-		   <% elsif user_answer.include? '@' %>
-		   <span style="color:red;font-weight: bold;">
-		   <%= user_answer.chop %>
-		   </span>
-		   <% else %>
-		   <%= user_answer %>
-		   <% end %>
-		<% end %>
-		</p>
-
-		<% correct_answer_array = r[:correct_answer] %>
-		<p><strong>Correct answer:</strong>
-		<% correct_answer_array.each do |correct_answer| %>
-		   <% if correct_answer.include? '*' %>
-		   <span style="color:green;font-weight: bold;">
-		   <%= correct_answer.chop %>
-		   </span>
-		   <% else %>
-		   <%= correct_answer %>
-		   <% end %>
-		<% end %>
-		</p>		
-		</div>
-	    <div>
-		  <p><strong>You got correct answers out of <%= @number_of_inputs %></strong></p>
-		</div>
-	<% elsif r["qtype"] == "Fillquestion" %>
-	   <div>
-		<p>user answer: <%= r[:user_answer] %></p>
-	   <p>key: <%= r[:key] %></p>
-	   <p>status: <%= r[:status] %></p>
-	   </div>
-	<% end %>
+<p> My results</p> 
+<% @my_results.each do |key, value| %></p>
+	<%= key %>=<%= value %>
 <% end %>
+
+<p><%= @answer_str %></p>
+<% @quiz.quizpages.each_with_index do |page, index| %>
+   </p>
+   <strong>Page <%= index+1 %></strong>
+   <% page.question_clozequestions.each do |cloze_question| %>
+       <% if @user.name == 'kpham' %> </p>
+	       <p><strong>Question ID: <%= cloze_question.id %></strong></p>
+	   <% end %>
+       <p>Question: <%= cloze_question.question %></p>
+	   <p>You answer: </p>
+	   <p>Correct Answer: </p>
+   <% end %>
+   </p>
 <% end %>

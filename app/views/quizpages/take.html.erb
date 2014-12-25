@@ -1,0 +1,56 @@
+<h3> Take_quiz (test page) </h3>
+<%= form_tag (processpage_lesson_quiz_quizpage_path) do %>
+	<div>
+	<% if @quizpage.question_type == 'clozequestion' %>
+	<% @hash_of_joined_arrays.each do |key, value| %>
+	<p>
+    <% value.each_with_index do |str, index| %>
+	     <% if str.index('[') == 0 %>
+		    <% composite_id = key.to_s + '_' + index.to_s %>
+		    <% if str.index(',') != nil %>
+				<%= select_tag "answer_"+composite_id, options_for_select(string_to_hash_array(strip_brackets_from_string(str)).shuffle.collect {|p| [ p['name'], p['name'] ] }) %>
+			<% else %>
+			    <%= text_field_tag 'answer_'+composite_id %>
+			<% end %>
+		 <% else %>
+			<%= str %>
+		 <% end %>
+	<% end %>
+	</p>
+	<% end %>
+	<% elsif @quizpage.question_type == 'matchquestion' %>
+  <table>
+  <% @quizpage.question_matchquestions.each_with_index do |my_match,index| %>
+  <tr>
+  <td>
+  <%= my_match.question%>
+  </td>
+  <td>
+   &nbsp; &nbsp; &nbsp; &nbsp;    
+  </td>
+  <td>
+  <%= collection_select :matches, "answer_"+my_match.id.to_s, QuestionMatchquestion.where("quizpage_id = ?", @quizpage.id ).shuffle, :answer, :answer %>
+  </td>
+  </tr>
+  <% end %>
+  </table>
+  <br>
+  <% elsif @quizpage.question_type == 'multichoicequestion' %>
+	 <% @quizpage.question_multichoicequestions.each_with_index do |my_question,index| %>
+	 <p>
+	  <%= radio_button_tag 'answer' + '_' + my_question.id.to_s , my_question.choice1 %><%= my_question.choice1 %>
+	  </p>
+	  	 <p>
+	  <%= radio_button_tag 'answer' + '_' + my_question.id.to_s, my_question.choice2 %><%= my_question.choice2 %>
+	  </p>
+	 <p>
+	  <%= radio_button_tag 'answer' + '_' + my_question.id.to_s, my_question.choice3 %><%= my_question.choice3 %>
+	  </p>
+
+	  <% end %>
+    <% end %>
+    </div>
+  <p>
+  <%= submit_tag "Submit"%>
+  </p>
+<% end %>   

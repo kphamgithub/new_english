@@ -1,5 +1,5 @@
 class Quizquestion < ActiveRecord::Base
-	belongs_to :quiz
+	#belongs_to :quiz
 	has_one :quizquestionresult, dependent: :destroy
 	#has_many :matchquestions
 	belongs_to :matchquestion
